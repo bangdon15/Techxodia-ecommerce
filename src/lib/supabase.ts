@@ -24,6 +24,18 @@ export const getStoredCredentials = () => {
   return { url, key, isConfigured };
 };
 
+export const getSupabaseConfig = () => {
+  const creds = getStoredCredentials();
+  return { url: creds.url, anonKey: creds.key, isConfigured: creds.isConfigured };
+};
+
+export const saveSupabaseConfig = (url: string, anonKey: string) => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('techxodia_supabase_url', url.trim());
+    localStorage.setItem('techxodia_supabase_key', anonKey.trim());
+  }
+};
+
 let clientInstance: SupabaseClient | null = null;
 let currentClientKey = '';
 
@@ -60,15 +72,27 @@ export interface FetchProductsResult {
   error?: string;
 }
 
+const getLocalCustomProducts = (): Product[] | null => {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = localStorage.getItem('techxodia_custom_products');
+    if (!raw) return null;
+    return JSON.parse(raw);
+  } catch {
+    return null;
+  }
+};
+
 /**
  * Fetch products from Supabase database or graceful fallback
  */
 export async function fetchProducts(): Promise<FetchProductsResult> {
   const supabase = getSupabaseClient();
+  const localProducts = getLocalCustomProducts() || INITIAL_PRODUCTS;
 
   if (!supabase) {
     return {
-      products: INITIAL_PRODUCTS,
+      products: localProducts,
       source: 'fallback',
       error: 'Supabase credentials not configured yet. Displaying live design catalog.'
     };
@@ -83,14 +107,13 @@ export async function fetchProducts(): Promise<FetchProductsResult> {
     if (error) {
       console.warn('Supabase query error, falling back to local products:', error.message);
       return {
-        products: INITIAL_PRODUCTS,
+        products: localProducts,
         source: 'fallback',
         error: error.message
       };
     }
 
     if (data && data.length > 0) {
-      // Map database row to Product type
       const mappedProducts: Product[] = data.map((item) => ({
         id: item.id || item.slug,
         slug: item.slug,
@@ -119,18 +142,131 @@ export async function fetchProducts(): Promise<FetchProductsResult> {
     }
 
     return {
-      products: INITIAL_PRODUCTS,
+      products: localProducts,
       source: 'fallback',
-      error: 'Connected to Supabase, but "products" table is empty. Run schema.sql or db:seed.'
+      error: 'Connected to Supabase, but "products" table is empty. Click "Seed Database" in Admin.'
     };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     console.error('Fetch products error:', message);
     return {
-      products: INITIAL_PRODUCTS,
+      products: localProducts,
       source: 'fallback',
       error: message
     };
+  }
+}
+
+/**
+ * Upsert product in Supabase or local storage
+ */
+export async function upsertProduct(product: Product): Promise<{ success: boolean; message: string }> {
+  // Save locally first
+  const currentLocal = getLocalCustomProducts() || [...INITIAL_PRODUCTS];
+  const existingIdx = currentLocal.findIndex((p) => p.id === product.id || p.slug === product.slug);
+  if (existingIdx > -1) {
+    currentLocal[existingIdx] = product;
+  } else {
+    currentLocal.unshift(product);
+  }
+  localStorage.setItem('techxodia_custom_products', JSON.stringify(currentLocal));
+
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    return { success: true, message: 'Saved to storefront catalog (Local mode).' };
+  }
+
+  try {
+    const { error } = await supabase
+      .from('products')
+      .upsert({
+        slug: product.slug,
+        name: product.name,
+        subtitle: product.subtitle,
+        category: product.category,
+        price: product.price,
+        original_price: product.original_price,
+        rating: product.rating,
+        reviews_count: product.reviews_count,
+        image: product.image,
+        gallery: product.gallery,
+        colors: product.colors,
+        capacity: product.capacity,
+        specs: product.specs,
+        badge: product.badge,
+        description: product.description,
+        stock: product.stock,
+        is_featured: product.is_featured,
+      }, { onConflict: 'slug' });
+
+    if (error) throw error;
+    return { success: true, message: 'Product synchronized directly with Supabase database!' };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { success: false, message: `Saved locally, but Supabase error: ${msg}` };
+  }
+}
+
+/**
+ * Delete product
+ */
+export async function deleteProduct(productId: string, slug?: string): Promise<{ success: boolean; message: string }> {
+  const currentLocal = getLocalCustomProducts() || [...INITIAL_PRODUCTS];
+  const filtered = currentLocal.filter((p) => p.id !== productId && p.slug !== slug);
+  localStorage.setItem('techxodia_custom_products', JSON.stringify(filtered));
+
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    return { success: true, message: 'Deleted from local storefront catalog.' };
+  }
+
+  try {
+    const query = slug ? supabase.from('products').delete().eq('slug', slug) : supabase.from('products').delete().eq('id', productId);
+    const { error } = await query;
+    if (error) throw error;
+    return { success: true, message: 'Deleted from Supabase database.' };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { success: false, message: `Removed locally, but Supabase error: ${msg}` };
+  }
+}
+
+/**
+ * Seed or restore default products
+ */
+export async function seedSupabaseDatabase(): Promise<{ success: boolean; message: string }> {
+  localStorage.removeItem('techxodia_custom_products');
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    return { success: true, message: 'Default Techxodia catalog restored (Local mode).' };
+  }
+
+  try {
+    for (const p of INITIAL_PRODUCTS) {
+      await supabase.from('products').upsert({
+        slug: p.slug,
+        name: p.name,
+        subtitle: p.subtitle,
+        category: p.category,
+        price: p.price,
+        original_price: p.original_price,
+        rating: p.rating,
+        reviews_count: p.reviews_count,
+        image: p.image,
+        gallery: p.gallery,
+        colors: p.colors,
+        capacity: p.capacity,
+        specs: p.specs,
+        badge: p.badge,
+        description: p.description,
+        stock: p.stock,
+        is_featured: p.is_featured,
+      }, { onConflict: 'slug' });
+    }
+    return { success: true, message: 'All 5 default products successfully seeded into Supabase!' };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { success: false, message: `Seeding error: ${msg}` };
   }
 }
 
@@ -141,7 +277,6 @@ export async function subscribeEmail(email: string): Promise<{ success: boolean;
   const supabase = getSupabaseClient();
 
   if (!supabase) {
-    // Save to local storage for testing
     const subs = JSON.parse(localStorage.getItem('techxodia_mock_subscribers') || '[]');
     subs.push({ email, date: new Date().toISOString() });
     localStorage.setItem('techxodia_mock_subscribers', JSON.stringify(subs));
@@ -220,7 +355,7 @@ export async function createOrder(order: OrderRecord): Promise<{ success: boolea
 export async function testSupabaseConnection(url: string, key: string): Promise<{ success: boolean; message: string; tableFound?: boolean }> {
   try {
     const testClient = createClient(url, key);
-    const { data, error } = await testClient.from('products').select('count', { count: 'exact', head: true });
+    const { error } = await testClient.from('products').select('count', { count: 'exact', head: true });
 
     if (error) {
       if (error.code === '42P01') {

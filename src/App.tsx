@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Product, ProductColor, CartItem, CurrencyCode } from './types';
+import { Product, ProductColor, CartItem, CurrencyCode, StoreSettings } from './types';
 import { fetchProducts } from './lib/supabase';
+import { getStoreSettings } from './lib/settings';
 import { AnnouncementBar } from './components/AnnouncementBar';
 import { Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
@@ -15,6 +16,8 @@ import { SupabaseConnectModal } from './components/SupabaseConnectModal';
 import { SearchModal } from './components/SearchModal';
 import { Newsletter } from './components/Newsletter';
 import { Footer } from './components/Footer';
+import { AdminPortal } from './components/AdminPortal';
+import { MobileBottomNav } from './components/MobileBottomNav';
 import confetti from 'canvas-confetti';
 
 export function App() {
@@ -22,6 +25,7 @@ export function App() {
   const [isLoadingProducts, setIsLoadingProducts] = useState(true);
   const [supabaseSource, setSupabaseSource] = useState<'supabase' | 'fallback'>('fallback');
   const [activeCurrency, setActiveCurrency] = useState<CurrencyCode>('USD');
+  const [storeSettings, setStoreSettings] = useState<StoreSettings>(getStoreSettings);
 
   // Cart State (Persisted in LocalStorage)
   const [cart, setCart] = useState<CartItem[]>(() => {
@@ -38,7 +42,9 @@ export function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [supabaseModalOpen, setSupabaseModalOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const [adminPortalOpen, setAdminPortalOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
+  const [quickViewColor, setQuickViewColor] = useState<ProductColor | null>(null);
 
   // Load products on mount
   const loadCatalog = async () => {
@@ -138,7 +144,7 @@ export function App() {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Top Announcement Bar */}
-      <AnnouncementBar />
+      <AnnouncementBar customAnnouncement={storeSettings.announcementText} />
 
       {/* Main Sticky Architectural Navbar */}
       <Navbar
@@ -146,9 +152,12 @@ export function App() {
         onOpenCart={() => setCartOpen(true)}
         onOpenSearch={() => setSearchOpen(true)}
         onOpenSupabaseModal={() => setSupabaseModalOpen(true)}
+        onOpenAdmin={() => setAdminPortalOpen(true)}
         supabaseSource={supabaseSource}
         activeCurrency={activeCurrency}
         onCurrencyChange={setActiveCurrency}
+        brandName={storeSettings.storeName}
+        brandTagline={storeSettings.storeTagline}
       />
 
       {/* Main Page Layout */}
@@ -157,6 +166,7 @@ export function App() {
         <HeroSection
           onExploreClick={scrollToCollection}
           onCraftClick={scrollToCraft}
+          storeSettings={storeSettings}
         />
 
         {/* Dynamic Product Grid connected with Supabase */}
@@ -164,7 +174,10 @@ export function App() {
           products={products}
           currency={activeCurrency}
           onAddToCart={(product, color) => handleAddToCart(product, color, 1)}
-          onQuickView={(product) => setQuickViewProduct(product)}
+          onQuickView={(product, color) => {
+            setQuickViewProduct(product);
+            setQuickViewColor(color || product.colors[0] || null);
+          }}
           onRefreshProducts={loadCatalog}
           isLoading={isLoadingProducts}
           supabaseSource={supabaseSource}
@@ -186,11 +199,34 @@ export function App() {
       {/* Luxury Footer */}
       <Footer />
 
+      {/* Mobile Bottom Dock for Webview & Smartphone Experience */}
+      <MobileBottomNav
+        cartCount={totalCartCount}
+        onOpenCart={() => setCartOpen(true)}
+        onOpenSearch={() => setSearchOpen(true)}
+        onOpenAdmin={() => setAdminPortalOpen(true)}
+        onScrollToCollection={scrollToCollection}
+      />
+
+      {/* Master Admin Portal Modal */}
+      <AdminPortal
+        isOpen={adminPortalOpen}
+        onClose={() => setAdminPortalOpen(false)}
+        products={products}
+        onRefreshCatalog={loadCatalog}
+        storeSettings={storeSettings}
+        onUpdateSettings={setStoreSettings}
+      />
+
       {/* Modals & Drawers */}
       <ProductDetailModal
         product={quickViewProduct}
+        initialColor={quickViewColor}
         currency={activeCurrency}
-        onClose={() => setQuickViewProduct(null)}
+        onClose={() => {
+          setQuickViewProduct(null);
+          setQuickViewColor(null);
+        }}
         onAddToCart={handleAddToCart}
       />
 
@@ -210,6 +246,8 @@ export function App() {
         items={cart}
         currency={activeCurrency}
         onOrderSuccess={handleOrderSuccess}
+        paymentSettings={storeSettings.payment}
+        freeShippingThreshold={storeSettings.freeShippingThreshold}
       />
 
       <SupabaseConnectModal

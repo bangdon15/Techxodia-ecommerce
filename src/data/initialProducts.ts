@@ -14,13 +14,15 @@ export const INITIAL_PRODUCTS: Product[] = [
     image: '/assets/product_jug_64oz.jpg',
     gallery: [
       '/assets/product_jug_64oz.jpg',
+      '/assets/product_jug_obsidian.jpg',
+      '/assets/product_jug_sandstone.jpg',
       '/assets/hero_collab.jpg',
       '/assets/editorial_craft_detail.jpg'
     ],
     colors: [
-      { name: 'Desert Terracotta', hex: '#C86237' },
-      { name: 'Volcanic Obsidian', hex: '#1F2124' },
-      { name: 'Dune Sandstone', hex: '#D8CEBC' }
+      { name: 'Desert Terracotta', hex: '#C86237', image: '/assets/product_jug_64oz.jpg' },
+      { name: 'Volcanic Obsidian', hex: '#1F2124', image: '/assets/product_jug_obsidian.jpg' },
+      { name: 'Dune Sandstone', hex: '#D8CEBC', image: '/assets/product_jug_sandstone.jpg' }
     ],
     capacity: '64 OZ / 1.9 L',
     specs: [
@@ -48,12 +50,13 @@ export const INITIAL_PRODUCTS: Product[] = [
     image: '/assets/product_bottle_28oz.jpg',
     gallery: [
       '/assets/product_bottle_28oz.jpg',
+      '/assets/product_bottle_obsidian.jpg',
       '/assets/editorial_craft_detail.jpg'
     ],
     colors: [
-      { name: 'Desert Terracotta', hex: '#C86237' },
-      { name: 'Volcanic Obsidian', hex: '#1F2124' },
-      { name: 'Warm Travertine', hex: '#EFECE4' }
+      { name: 'Desert Terracotta', hex: '#C86237', image: '/assets/product_bottle_28oz.jpg' },
+      { name: 'Volcanic Obsidian', hex: '#1F2124', image: '/assets/product_bottle_obsidian.jpg' },
+      { name: 'Warm Travertine', hex: '#EFECE4', image: '/assets/product_bottle_28oz.jpg' }
     ],
     capacity: '28 OZ / 0.82 L',
     specs: [
@@ -80,11 +83,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     image: '/assets/product_lunch_vault.jpg',
     gallery: [
       '/assets/product_lunch_vault.jpg',
+      '/assets/product_lunch_vault_obsidian.jpg',
       '/assets/hero_collab.jpg'
     ],
     colors: [
-      { name: 'Terracotta & Matte Onyx', hex: '#C86237' },
-      { name: 'Stealth Charcoal', hex: '#272A30' }
+      { name: 'Terracotta & Matte Onyx', hex: '#C86237', image: '/assets/product_lunch_vault.jpg' },
+      { name: 'Stealth Charcoal', hex: '#272A30', image: '/assets/product_lunch_vault_obsidian.jpg' }
     ],
     capacity: '10 QT / 9.5 L',
     specs: [
@@ -114,8 +118,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       '/assets/editorial_craft_detail.jpg'
     ],
     colors: [
-      { name: 'Desert Terracotta', hex: '#C86237' },
-      { name: 'Gunmetal Brushed', hex: '#4A4D52' }
+      { name: 'Desert Terracotta', hex: '#C86237', image: '/assets/product_flask_set.jpg' },
+      { name: 'Gunmetal Brushed', hex: '#4A4D52', image: '/assets/product_flask_set.jpg' }
     ],
     capacity: '8 OZ Flask + 4x 2 OZ Shots',
     specs: [
@@ -143,8 +147,8 @@ export const INITIAL_PRODUCTS: Product[] = [
       '/assets/product_pet_bowl.jpg'
     ],
     colors: [
-      { name: 'Desert Terracotta', hex: '#C86237' },
-      { name: 'Sand Dune', hex: '#D8CEBC' }
+      { name: 'Desert Terracotta', hex: '#C86237', image: '/assets/product_pet_bowl.jpg' },
+      { name: 'Sand Dune', hex: '#D8CEBC', image: '/assets/product_pet_bowl.jpg' }
     ],
     capacity: '24 OZ / 0.7 L',
     specs: [

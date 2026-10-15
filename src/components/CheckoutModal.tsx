@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { X, CheckCircle2, Lock, Shield, Sparkles, Loader2 } from 'lucide-react';
-import { CartItem, CurrencyCode, OrderRecord } from '../types';
+import { CartItem, CurrencyCode, OrderRecord, PaymentSettings } from '../types';
 import { formatPrice } from '../lib/currency';
 import { createOrder } from '../lib/supabase';
 import confetti from 'canvas-confetti';
@@ -11,6 +11,8 @@ interface CheckoutModalProps {
   items: CartItem[];
   currency: CurrencyCode;
   onOrderSuccess: () => void;
+  paymentSettings?: PaymentSettings;
+  freeShippingThreshold?: number;
 }
 
 export const CheckoutModal: React.FC<CheckoutModalProps> = ({
@@ -19,8 +21,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   items,
   currency,
   onOrderSuccess,
+  paymentSettings,
+  freeShippingThreshold = 75,
 }) => {
   if (!isOpen) return null;
+
+  const [selectedMethod, setSelectedMethod] = useState<'card' | 'cod' | 'paypal'>(
+    paymentSettings?.codEnabled && !paymentSettings?.stripeEnabled ? 'cod' : 'card'
+  );
 
   const [formData, setFormData] = useState({
     name: 'Devin Vance',
@@ -42,7 +50,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [statusMessage, setStatusMessage] = useState('');
 
   const subtotalUsd = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
-  const shippingUsd = subtotalUsd >= 75 ? 0 : 12;
+  const shippingUsd = subtotalUsd >= freeShippingThreshold ? 0 : 12;
   const totalUsd = subtotalUsd + shippingUsd;
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -335,6 +343,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 </div>
               </div>
 
+              {/* Payment Gateway Selector */}
               <div
                 style={{
                   backgroundColor: 'rgba(0,0,0,0.3)',
@@ -345,28 +354,106 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 }}
               >
                 <span style={{ ...labelStyle, marginBottom: '0.8rem', display: 'block' }}>
-                  Simulated Payment Method (Card on file)
+                  Payment Method
                 </span>
-                <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '0.8rem' }}>
-                  <input
-                    type="text"
-                    disabled
-                    value={formData.cardNumber}
-                    style={{ ...inputStyle, opacity: 0.8 }}
-                  />
-                  <input
-                    type="text"
-                    disabled
-                    value={formData.exp}
-                    style={{ ...inputStyle, opacity: 0.8 }}
-                  />
-                  <input
-                    type="text"
-                    disabled
-                    value={formData.cvv}
-                    style={{ ...inputStyle, opacity: 0.8 }}
-                  />
+
+                <div style={{ display: 'flex', gap: '0.6rem', marginBottom: '1rem', flexWrap: 'wrap' }}>
+                  {(paymentSettings?.stripeEnabled ?? true) && (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedMethod('card')}
+                      style={{
+                        padding: '0.5rem 0.9rem',
+                        backgroundColor: selectedMethod === 'card' ? 'rgba(200, 98, 55, 0.2)' : 'rgba(255,255,255,0.04)',
+                        border: selectedMethod === 'card' ? '1.5px solid var(--color-terracotta)' : '1px solid rgba(255,255,255,0.1)',
+                        color: selectedMethod === 'card' ? '#FFFFFF' : 'var(--color-text-secondary)',
+                        borderRadius: 'var(--radius-xs)',
+                        cursor: 'pointer',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        fontFamily: 'var(--font-display)',
+                      }}
+                    >
+                      Credit / Debit (Stripe)
+                    </button>
+                  )}
+
+                  {paymentSettings?.codEnabled && (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedMethod('cod')}
+                      style={{
+                        padding: '0.5rem 0.9rem',
+                        backgroundColor: selectedMethod === 'cod' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255,255,255,0.04)',
+                        border: selectedMethod === 'cod' ? '1.5px solid #10B981' : '1px solid rgba(255,255,255,0.1)',
+                        color: selectedMethod === 'cod' ? '#FFFFFF' : 'var(--color-text-secondary)',
+                        borderRadius: 'var(--radius-xs)',
+                        cursor: 'pointer',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        fontFamily: 'var(--font-display)',
+                      }}
+                    >
+                      Cash on Delivery / Direct Wire ($0 Fee)
+                    </button>
+                  )}
+
+                  {paymentSettings?.paypalEnabled && (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedMethod('paypal')}
+                      style={{
+                        padding: '0.5rem 0.9rem',
+                        backgroundColor: selectedMethod === 'paypal' ? 'rgba(59, 130, 246, 0.2)' : 'rgba(255,255,255,0.04)',
+                        border: selectedMethod === 'paypal' ? '1.5px solid #3B82F6' : '1px solid rgba(255,255,255,0.1)',
+                        color: selectedMethod === 'paypal' ? '#FFFFFF' : 'var(--color-text-secondary)',
+                        borderRadius: 'var(--radius-xs)',
+                        cursor: 'pointer',
+                        fontSize: '0.75rem',
+                        fontWeight: 700,
+                        fontFamily: 'var(--font-display)',
+                      }}
+                    >
+                      PayPal
+                    </button>
+                  )}
                 </div>
+
+                {selectedMethod === 'card' && (
+                  <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: '0.8rem' }}>
+                    <input
+                      type="text"
+                      disabled
+                      value={formData.cardNumber}
+                      style={{ ...inputStyle, opacity: 0.8 }}
+                    />
+                    <input
+                      type="text"
+                      disabled
+                      value={formData.exp}
+                      style={{ ...inputStyle, opacity: 0.8 }}
+                    />
+                    <input
+                      type="text"
+                      disabled
+                      value={formData.cvv}
+                      style={{ ...inputStyle, opacity: 0.8 }}
+                    />
+                  </div>
+                )}
+
+                {selectedMethod === 'cod' && (
+                  <div style={{ fontSize: '0.8rem', color: '#10B981', lineHeight: 1.5 }}>
+                    {paymentSettings?.codInstructions ||
+                      'Pay securely upon courier delivery or via direct manual bank transfer.'}
+                  </div>
+                )}
+
+                {selectedMethod === 'paypal' && (
+                  <div style={{ fontSize: '0.8rem', color: '#60A5FA', lineHeight: 1.5 }}>
+                    PayPal Express Checkout will prompt authorization upon order placement.
+                  </div>
+                )}
               </div>
 
               <div

@@ -7,7 +7,7 @@ interface ProductGridProps {
   products: Product[];
   currency: CurrencyCode;
   onAddToCart: (product: Product, color: ProductColor) => void;
-  onQuickView: (product: Product) => void;
+  onQuickView: (product: Product, selectedColor?: ProductColor) => void;
   onRefreshProducts: () => void;
   isLoading: boolean;
   supabaseSource: 'supabase' | 'fallback';
@@ -184,6 +184,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
 
         {/* Product Grid */}
         <div
+          className="product-grid-container"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',

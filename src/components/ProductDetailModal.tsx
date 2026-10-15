@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Star, ShoppingBag, ShieldCheck, Check, Sparkles } from 'lucide-react';
 import { Product, ProductColor, CurrencyCode } from '../types';
 import { formatPrice } from '../lib/currency';
@@ -6,6 +6,7 @@ import confetti from 'canvas-confetti';
 
 interface ProductDetailModalProps {
   product: Product | null;
+  initialColor?: ProductColor | null;
   currency: CurrencyCode;
   onClose: () => void;
   onAddToCart: (product: Product, color: ProductColor, quantity: number, customEngraving?: string) => void;
@@ -13,25 +14,44 @@ interface ProductDetailModalProps {
 
 export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   product,
+  initialColor,
   currency,
   onClose,
   onAddToCart,
 }) => {
   if (!product) return null;
 
-  const [activeImage, setActiveImage] = useState<string>(product.image);
   const [selectedColor, setSelectedColor] = useState<ProductColor>(
-    product.colors[0] || { name: 'Standard', hex: '#C86237' }
+    initialColor || product.colors[0] || { name: 'Standard', hex: '#C86237' }
+  );
+  const [activeImage, setActiveImage] = useState<string>(
+    initialColor?.image || product.colors[0]?.image || product.image
   );
   const [quantity, setQuantity] = useState<number>(1);
   const [engraving, setEngraving] = useState<string>('');
   const [showEngraveInput, setShowEngraveInput] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (product) {
+      const color = initialColor || product.colors[0] || { name: 'Standard', hex: '#C86237' };
+      setSelectedColor(color);
+      setActiveImage(color.image || product.image);
+      setQuantity(1);
+      setEngraving('');
+    }
+  }, [product, initialColor]);
+
+  const handleColorChange = (c: ProductColor) => {
+    setSelectedColor(c);
+    if (c.image) {
+      setActiveImage(c.image);
+    }
+  };
+
   const handleAdd = () => {
-    // Fire festive micro-confetti
     try {
       confetti({
-        particleCount: 45,
+        particleCount: 50,
         spread: 60,
         origin: { y: 0.7 },
         colors: ['#C86237', '#FFA578', '#FFFFFF', '#D8CEBC']
@@ -44,6 +64,19 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
     onClose();
   };
 
+  // Smart fallback tone shift if a custom hex was added without a dedicated photo
+  const getFilterStyle = (): React.CSSProperties => {
+    if (selectedColor.image && activeImage === selectedColor.image) return {};
+    const hex = selectedColor.hex.toLowerCase();
+    if (hex === '#1f2124' || hex === '#272a30' || hex === '#000000') {
+      return { filter: 'brightness(0.55) contrast(1.2) grayscale(0.85)' };
+    }
+    if (hex === '#d8cebc' || hex === '#efece4' || hex === '#ffffff') {
+      return { filter: 'sepia(0.25) brightness(1.25) contrast(0.95)' };
+    }
+    return {};
+  };
+
   return (
     <div
       onClick={onClose}
@@ -53,13 +86,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        backgroundColor: 'rgba(0, 0, 0, 0.88)',
         backdropFilter: 'blur(12px)',
         zIndex: 100,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '1.5rem',
+        padding: '1rem',
         animation: 'fadeIn 0.2s ease-out',
       }}
     >
@@ -69,15 +102,17 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           backgroundColor: '#14161A',
           border: '1px solid rgba(255, 255, 255, 0.12)',
           borderRadius: 'var(--radius-sm)',
-          maxWidth: '920px',
+          maxWidth: '940px',
           width: '100%',
-          maxHeight: '92vh',
+          maxHeight: '94vh',
           overflowY: 'auto',
           position: 'relative',
-          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.7)',
+          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.85)',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          WebkitOverflowScrolling: 'touch',
         }}
+        className="product-modal-dialog"
       >
         {/* Close Button */}
         <button
@@ -87,12 +122,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             top: '16px',
             right: '16px',
             zIndex: 10,
-            background: 'rgba(0, 0, 0, 0.6)',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
+            background: 'rgba(0, 0, 0, 0.75)',
+            border: '1px solid rgba(255, 255, 255, 0.18)',
             color: '#FFFFFF',
             cursor: 'pointer',
-            width: '36px',
-            height: '36px',
+            width: '38px',
+            height: '38px',
             borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
@@ -101,13 +136,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           }}
           aria-label="Close Modal"
         >
-          <X size={18} />
+          <X size={20} />
         </button>
 
         {/* Left Column: Gallery */}
         <div
           style={{
-            padding: '2rem',
+            padding: '1.8rem',
             backgroundColor: '#1A1D24',
             display: 'flex',
             flexDirection: 'column',
@@ -135,13 +170,23 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
+                transition: 'opacity 0.25s ease',
+                ...getFilterStyle(),
               }}
             />
           </div>
 
           {/* Thumbnails */}
           {product.gallery && product.gallery.length > 1 && (
-            <div style={{ display: 'flex', gap: '0.6rem', overflowX: 'auto' }}>
+            <div
+              style={{
+                display: 'flex',
+                gap: '0.6rem',
+                overflowX: 'auto',
+                paddingBottom: '0.4rem',
+                WebkitOverflowScrolling: 'touch',
+              }}
+            >
               {product.gallery.map((img, idx) => (
                 <button
                   key={idx}
@@ -170,10 +215,17 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         </div>
 
         {/* Right Column: Details & Purchasing */}
-        <div style={{ padding: '2.2rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+        <div
+          style={{
+            padding: '2rem',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+          }}
+        >
           <div>
             {/* Badge & Edition */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.6rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.6rem', flexWrap: 'wrap' }}>
               {product.badge && (
                 <span
                   style={{
@@ -192,14 +244,14 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   {product.badge}
                 </span>
               )}
-              <span style={{ fontSize: '0.72rem', color: 'var(--color-sand)', letterSpacing: '0.08em' }}>
+              <span style={{ fontSize: '0.74rem', color: 'var(--color-sand)', letterSpacing: '0.08em', fontWeight: 600 }}>
                 {product.capacity}
               </span>
             </div>
 
             <h2
               style={{
-                fontSize: '1.6rem',
+                fontSize: 'clamp(1.3rem, 2.5vw, 1.7rem)',
                 fontWeight: 900,
                 color: '#FFFFFF',
                 lineHeight: 1.2,
@@ -223,6 +275,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 marginBottom: '1.4rem',
                 paddingBottom: '1.2rem',
                 borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                flexWrap: 'wrap',
               }}
             >
               <span
@@ -250,57 +303,59 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             </div>
 
             {/* Description */}
-            <p style={{ fontSize: '0.9rem', color: 'var(--color-sand)', lineHeight: 1.6, marginBottom: '1.4rem' }}>
+            <p style={{ fontSize: '0.88rem', color: 'var(--color-sand)', lineHeight: 1.6, marginBottom: '1.4rem' }}>
               {product.description}
             </p>
 
-            {/* Color Swatches */}
+            {/* Color Swatches with Active Color Switch */}
             <div style={{ marginBottom: '1.5rem' }}>
               <span
                 style={{
                   display: 'block',
-                  fontSize: '0.72rem',
+                  fontSize: '0.74rem',
                   fontWeight: 700,
                   fontFamily: 'var(--font-display)',
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
                   color: 'var(--color-text-secondary)',
-                  marginBottom: '0.6rem',
+                  marginBottom: '0.7rem',
                 }}
               >
-                Selected Hue: <strong style={{ color: '#FFFFFF' }}>{selectedColor.name}</strong>
+                Select Colorway: <strong style={{ color: '#FFFFFF' }}>{selectedColor.name}</strong>
               </span>
 
-              <div style={{ display: 'flex', gap: '0.6rem' }}>
+              <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
                 {product.colors.map((c, idx) => {
                   const isSel = selectedColor.name === c.name;
                   return (
                     <button
                       key={idx}
-                      onClick={() => setSelectedColor(c)}
+                      onClick={() => handleColorChange(c)}
                       style={{
                         display: 'flex',
                         alignItems: 'center',
-                        gap: '0.45rem',
-                        backgroundColor: isSel ? 'rgba(200, 98, 55, 0.15)' : 'rgba(255, 255, 255, 0.04)',
-                        border: isSel ? '1px solid var(--color-terracotta)' : '1px solid rgba(255, 255, 255, 0.1)',
-                        padding: '0.4rem 0.75rem',
+                        gap: '0.5rem',
+                        backgroundColor: isSel ? 'rgba(200, 98, 55, 0.18)' : 'rgba(255, 255, 255, 0.04)',
+                        border: isSel ? '1.5px solid var(--color-terracotta)' : '1px solid rgba(255, 255, 255, 0.12)',
+                        padding: '0.5rem 0.85rem',
                         borderRadius: 'var(--radius-xs)',
                         cursor: 'pointer',
                         color: isSel ? '#FFFFFF' : 'var(--color-text-secondary)',
-                        fontSize: '0.75rem',
+                        fontSize: '0.78rem',
                         fontFamily: 'var(--font-display)',
-                        fontWeight: 600,
+                        fontWeight: 700,
+                        transition: 'all 0.15s ease',
+                        minHeight: '40px',
                       }}
                     >
                       <span
                         style={{
-                          width: '14px',
-                          height: '14px',
+                          width: '16px',
+                          height: '16px',
                           borderRadius: '50%',
                           backgroundColor: c.hex,
                           display: 'inline-block',
-                          border: '1px solid rgba(255, 255, 255, 0.2)',
+                          border: isSel ? '2px solid #FFFFFF' : '1px solid rgba(255, 255, 255, 0.2)',
                         }}
                       />
                       <span>{c.name}</span>
@@ -348,7 +403,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       width: '100%',
                       backgroundColor: 'rgba(0, 0, 0, 0.3)',
                       border: '1px solid rgba(200, 98, 55, 0.4)',
-                      padding: '0.65rem 0.85rem',
+                      padding: '0.75rem 0.85rem',
                       color: '#FFFFFF',
                       fontSize: '0.85rem',
                       fontFamily: 'var(--font-display)',
@@ -403,7 +458,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
           {/* Purchasing Controls */}
           <div>
-            <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'center', marginBottom: '0.8rem' }}>
+            <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'center', marginBottom: '0.8rem', flexWrap: 'wrap' }}>
               {/* Quantity */}
               <div
                 style={{
@@ -413,6 +468,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   border: '1px solid rgba(255, 255, 255, 0.12)',
                   borderRadius: 'var(--radius-xs)',
                   overflow: 'hidden',
+                  height: '48px',
                 }}
               >
                 <button
@@ -421,11 +477,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     background: 'none',
                     border: 'none',
                     color: '#FFFFFF',
-                    width: '38px',
-                    height: '46px',
+                    width: '42px',
+                    height: '100%',
                     cursor: 'pointer',
                     fontSize: '1.1rem',
                   }}
+                  aria-label="Decrease Quantity"
                 >
                   −
                 </button>
@@ -447,11 +504,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     background: 'none',
                     border: 'none',
                     color: '#FFFFFF',
-                    width: '38px',
-                    height: '46px',
+                    width: '42px',
+                    height: '100%',
                     cursor: 'pointer',
                     fontSize: '1.1rem',
                   }}
+                  aria-label="Increase Quantity"
                 >
                   +
                 </button>
@@ -461,14 +519,14 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               <button
                 onClick={handleAdd}
                 className="btn-primary"
-                style={{ flex: 1, padding: '0.9rem 1.4rem' }}
+                style={{ flex: '1 1 200px', height: '48px', fontSize: '0.82rem' }}
               >
                 <ShoppingBag size={16} />
                 <span>ADD TO BAG • {formatPrice(product.price * quantity, currency)}</span>
               </button>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.72rem', color: 'var(--color-text-muted)', flexWrap: 'wrap' }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
                 <Check size={12} color="#10B981" />
                 Allocated Stock Verified ({product.stock} units)

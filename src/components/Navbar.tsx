@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Search, Database, Globe, Menu, X } from 'lucide-react';
+import { ShoppingBag, Search, Database, Globe, Menu, X, Sliders } from 'lucide-react';
 import { CurrencyCode } from '../types';
 
 interface NavbarProps {
@@ -7,9 +7,12 @@ interface NavbarProps {
   onOpenCart: () => void;
   onOpenSearch: () => void;
   onOpenSupabaseModal: () => void;
+  onOpenAdmin: () => void;
   supabaseSource: 'supabase' | 'fallback';
   activeCurrency: CurrencyCode;
   onCurrencyChange: (currency: CurrencyCode) => void;
+  brandName?: string;
+  brandTagline?: string;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -17,9 +20,12 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenCart,
   onOpenSearch,
   onOpenSupabaseModal,
+  onOpenAdmin,
   supabaseSource,
   activeCurrency,
   onCurrencyChange,
+  brandName = 'TECHXODIA',
+  brandTagline = 'SERIES 01 // ARCHIVE',
 }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -162,7 +168,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 textTransform: 'uppercase',
               }}
             >
-              TECHXODIA
+              {brandName}
             </span>
           </div>
           <span
@@ -175,12 +181,37 @@ export const Navbar: React.FC<NavbarProps> = ({
               marginTop: '-2px',
             }}
           >
-            SERIES 01 // ARCHIVE
+            {brandTagline}
           </span>
         </div>
 
         {/* Right: Tools & Cart */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+          {/* Admin Control Portal Button */}
+          <button
+            onClick={onOpenAdmin}
+            title="Open Master Admin Control Portal"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.45rem',
+              background: 'rgba(200, 98, 55, 0.15)',
+              border: '1px solid rgba(200, 98, 55, 0.4)',
+              padding: '0.4rem 0.8rem',
+              borderRadius: 'var(--radius-xs)',
+              color: '#FFA578',
+              fontSize: '0.72rem',
+              fontWeight: 800,
+              fontFamily: 'var(--font-display)',
+              letterSpacing: '0.12em',
+              cursor: 'pointer',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            <Sliders size={13} />
+            <span style={{ marginTop: '1px' }}>ADMIN</span>
+          </button>
+
           {/* Supabase Status Pill */}
           <button
             onClick={onOpenSupabaseModal}
@@ -352,6 +383,22 @@ export const Navbar: React.FC<NavbarProps> = ({
             style={mobileNavLinkStyle}
           >
             LOOKBOOK
+          </button>
+          <button
+            onClick={() => {
+              setMobileMenuOpen(false);
+              onOpenAdmin();
+            }}
+            style={{
+              ...mobileNavLinkStyle,
+              color: '#FFA578',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+            }}
+          >
+            <Sliders size={16} />
+            <span>ADMIN CONTROL PORTAL (WALLPAPER, DB, PRODUCTS)</span>
           </button>
           <button
             onClick={() => {

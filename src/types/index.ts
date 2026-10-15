@@ -1,6 +1,7 @@
 export interface ProductColor {
   name: string;
   hex: string;
+  image?: string; // Designated high-res image for this color
 }
 
 export interface ProductSpec {
@@ -13,7 +14,7 @@ export interface Product {
   slug: string;
   name: string;
   subtitle: string;
-  category: 'Hydration Vessels' | 'Field Gear' | 'Bar & Social' | 'All';
+  category: 'Hydration Vessels' | 'Field Gear' | 'Bar & Social' | 'All' | string;
   price: number;
   original_price: number | null;
   rating: number;
@@ -42,18 +43,33 @@ export type CurrencyCode = 'USD' | 'EUR' | 'GBP' | 'JPY';
 export interface CurrencyConfig {
   code: CurrencyCode;
   symbol: string;
-  rate: number; // relative to USD
+  rate: number;
 }
 
-export interface OrderCustomerInfo {
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zip: string;
-  country: string;
+export interface PaymentSettings {
+  stripeEnabled: boolean;
+  stripePublishableKey: string;
+  stripeTestMode: boolean;
+  paypalEnabled: boolean;
+  paypalClientId: string;
+  codEnabled: boolean;
+  codInstructions: string;
+  activeGateway: 'stripe' | 'paypal' | 'cod' | 'card_demo';
+}
+
+export interface StoreSettings {
+  storeName: string;
+  storeTagline: string;
+  heroWallpaper: string;
+  heroWallpaperPreset: string;
+  heroHeadline: string;
+  heroSubtitle: string;
+  heroBadge: string;
+  accentColor: string;
+  announcementText: string;
+  freeShippingThreshold: number;
+  supportEmail: string;
+  payment: PaymentSettings;
 }
 
 export interface OrderRecord {
@@ -76,6 +92,7 @@ export interface OrderRecord {
   discount: number;
   total: number;
   currency: string;
+  payment_method?: string;
   status: string;
   created_at?: string;
 }

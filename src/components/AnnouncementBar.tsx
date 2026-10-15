@@ -1,36 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { Sparkles, ShieldCheck, Truck, Database } from 'lucide-react';
 
-const MESSAGES = [
-  {
-    icon: Sparkles,
-    text: 'TECHXODIA × SERIES 01 DROP // LIMITED RUN ARCHIVE',
-  },
-  {
-    icon: Truck,
-    text: 'COMPLIMENTARY EXPRESS GLOBAL SHIPPING OVER $75',
-  },
-  {
-    icon: ShieldCheck,
-    text: 'BUILT FOR ETERNITY // LIFETIME RECYCLED STEEL WARRANTY',
-  },
-  {
-    icon: Database,
-    text: 'LIVE SUPABASE SYNCED STOREFRONT // INSTANT PERSISTENCE',
-  },
-];
+interface AnnouncementBarProps {
+  customAnnouncement?: string;
+}
 
-export const AnnouncementBar: React.FC = () => {
+export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ customAnnouncement }) => {
+  const messages = [
+    ...(customAnnouncement
+      ? [{ icon: Sparkles, text: customAnnouncement }]
+      : [{ icon: Sparkles, text: 'TECHXODIA × SERIES 01 DROP // LIMITED RUN ARCHIVE' }]),
+    {
+      icon: Truck,
+      text: 'COMPLIMENTARY EXPRESS GLOBAL SHIPPING OVER $75',
+    },
+    {
+      icon: ShieldCheck,
+      text: 'BUILT FOR ETERNITY // LIFETIME RECYCLED STEEL WARRANTY',
+    },
+    {
+      icon: Database,
+      text: 'LIVE SUPABASE SYNCED STOREFRONT // INSTANT PERSISTENCE',
+    },
+  ];
+
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % MESSAGES.length);
+      setIndex((prev) => (prev + 1) % messages.length);
     }, 4200);
     return () => clearInterval(timer);
-  }, []);
+  }, [messages.length]);
 
-  const current = MESSAGES[index];
+  const current = messages[index] || messages[0];
   const Icon = current.icon;
 
   return (

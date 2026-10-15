@@ -7,7 +7,7 @@ interface ProductCardProps {
   product: Product;
   currency: CurrencyCode;
   onAddToCart: (product: Product, color: ProductColor) => void;
-  onQuickView: (product: Product) => void;
+  onQuickView: (product: Product, selectedColor?: ProductColor) => void;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({
@@ -20,6 +20,31 @@ export const ProductCard: React.FC<ProductCardProps> = ({
     product.colors[0] || { name: 'Standard', hex: '#C86237' }
   );
   const [isHovered, setIsHovered] = useState(false);
+  const [imageKey, setImageKey] = useState(0);
+
+  const handleColorSelect = (e: React.MouseEvent, color: ProductColor) => {
+    e.stopPropagation();
+    setSelectedColor(color);
+    setImageKey((prev) => prev + 1);
+  };
+
+  const currentDisplayImage = selectedColor.image || product.image;
+
+  // Smart fallback tone shift if a custom hex was added without a dedicated photo
+  const getFilterStyle = (): React.CSSProperties => {
+    if (selectedColor.image) return {};
+    const hex = selectedColor.hex.toLowerCase();
+    if (hex === '#1f2124' || hex === '#272a30' || hex === '#000000') {
+      return { filter: 'brightness(0.55) contrast(1.2) grayscale(0.85)' };
+    }
+    if (hex === '#d8cebc' || hex === '#efece4' || hex === '#ffffff') {
+      return { filter: 'sepia(0.25) brightness(1.25) contrast(0.95)' };
+    }
+    if (hex === '#334fb4' || hex === '#1e3a8a') {
+      return { filter: 'hue-rotate(180deg) saturate(1.2)' };
+    }
+    return {};
+  };
 
   return (
     <div
@@ -39,6 +64,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           ? '0 18px 36px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(200, 98, 55, 0.3)'
           : 'none',
       }}
+      className="product-card-container"
     >
       {/* Product Image Area */}
       <div
@@ -49,11 +75,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           overflow: 'hidden',
           cursor: 'pointer',
         }}
-        onClick={() => onQuickView(product)}
+        onClick={() => onQuickView(product, selectedColor)}
       >
         <img
-          src={product.image}
-          alt={product.name}
+          key={`${selectedColor.name}-${imageKey}`}
+          src={currentDisplayImage}
+          alt={`${product.name} - ${selectedColor.name}`}
           style={{
             position: 'absolute',
             top: 0,
@@ -61,8 +88,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            transition: 'transform 0.65s cubic-bezier(0.16, 1, 0.3, 1)',
+            transition: 'transform 0.65s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease',
             transform: isHovered ? 'scale(1.06)' : 'scale(1)',
+            animation: 'fadeIn 0.25s ease-out',
+            ...getFilterStyle(),
           }}
           loading="lazy"
         />
@@ -97,8 +126,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           </div>
         )}
 
-        {/* Quick View Button overlay on hover */}
+        {/* Quick View Button on Desktop Hover */}
         <div
+          className="quick-view-btn-wrap"
           style={{
             position: 'absolute',
             bottom: '12px',
@@ -112,7 +142,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <button
             onClick={(e) => {
               e.stopPropagation();
-              onQuickView(product);
+              onQuickView(product, selectedColor);
             }}
             style={{
               display: 'flex',
@@ -196,7 +226,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
           {/* Product Name */}
           <h3
-            onClick={() => onQuickView(product)}
+            onClick={() => onQuickView(product, selectedColor)}
             style={{
               fontSize: '1.05rem',
               fontWeight: 800,
@@ -223,12 +253,13 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             {product.subtitle}
           </p>
 
-          {/* Color Selection Swatches */}
+          {/* Color Selection Swatches with real live state */}
           <div
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '0.45rem',
+              flexWrap: 'wrap',
+              gap: '0.5rem',
               marginBottom: '1.4rem',
             }}
           >
@@ -237,31 +268,48 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               return (
                 <button
                   key={i}
-                  onClick={() => setSelectedColor(color)}
+                  onClick={(e) => handleColorSelect(e, color)}
                   title={color.name}
                   style={{
-                    width: '18px',
-                    height: '18px',
+                    width: '24px',
+                    height: '24px',
                     borderRadius: '50%',
                     backgroundColor: color.hex,
                     border: isSelected
                       ? '2px solid #FFFFFF'
-                      : '1px solid rgba(255, 255, 255, 0.2)',
+                      : '1px solid rgba(255, 255, 255, 0.25)',
                     cursor: 'pointer',
-                    outline: isSelected ? '1px solid var(--color-terracotta)' : 'none',
-                    outlineOffset: '2px',
-                    transition: 'all 0.15s ease',
+                    boxShadow: isSelected ? '0 0 0 2px var(--color-terracotta)' : 'none',
+                    transition: 'all 0.18s ease',
+                    position: 'relative',
+                    padding: 0,
                   }}
                   aria-label={`Select color ${color.name}`}
-                />
+                >
+                  {isSelected && (
+                    <span
+                      style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: '6px',
+                        height: '6px',
+                        borderRadius: '50%',
+                        backgroundColor: '#FFFFFF',
+                      }}
+                    />
+                  )}
+                </button>
               );
             })}
             <span
               style={{
-                fontSize: '0.7rem',
-                color: 'var(--color-text-muted)',
+                fontSize: '0.72rem',
+                color: 'var(--color-text-primary)',
                 marginLeft: '0.3rem',
                 fontFamily: 'var(--font-display)',
+                fontWeight: 600,
               }}
             >
               {selectedColor.name}
@@ -313,7 +361,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               backgroundColor: 'var(--color-terracotta)',
               color: '#FFFFFF',
               border: 'none',
-              padding: '0.65rem 1rem',
+              padding: '0.65rem 1.1rem',
               fontSize: '0.75rem',
               fontWeight: 800,
               fontFamily: 'var(--font-display)',
@@ -322,6 +370,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               borderRadius: 'var(--radius-xs)',
               cursor: 'pointer',
               transition: 'all 0.2s ease',
+              minHeight: '40px',
             }}
             className="add-to-cart-btn"
           >

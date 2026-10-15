@@ -1,15 +1,23 @@
-import React from 'react';
 import { ArrowDown, Flame, Shield, Clock } from 'lucide-react';
+import { StoreSettings } from '../types';
 
 interface HeroSectionProps {
   onExploreClick: () => void;
   onCraftClick: () => void;
+  storeSettings?: StoreSettings;
 }
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   onExploreClick,
   onCraftClick,
+  storeSettings,
 }) => {
+  const wallpaperUrl = storeSettings?.heroWallpaper || '/assets/hero_collab.jpg';
+  const badgeText = storeSettings?.heroBadge || 'TECHXODIA × SIGNATURE ARCHIVE // LIMITED RUN 001';
+  const headlineText = storeSettings?.heroHeadline || 'DESIGNED FOR CALM IN THE CLAMOR.';
+  const subtitleText = storeSettings?.heroSubtitle ||
+    'Crafted at the intersection of quiet luxury and relentless thermal utility. Wrapped in baked desert terracotta ceramic and dual-barrier recycled stainless steel—engineered for everyday rituals and high-stakes performance.';
+
   return (
     <section
       style={{
@@ -29,10 +37,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage: 'url(/assets/hero_collab.jpg)',
+          backgroundImage: `url(${wallpaperUrl})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center 35%',
           opacity: 0.85,
+          transition: 'background-image 0.5s ease',
         }}
       />
 
@@ -88,38 +97,29 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 textTransform: 'uppercase',
               }}
             >
-              TECHXODIA × SIGNATURE ARCHIVE // LIMITED RUN 001
+              {badgeText}
             </span>
           </div>
 
           {/* Main Title */}
           <h1
             style={{
-              fontSize: 'clamp(2.5rem, 5.8vw, 4.8rem)',
+              fontSize: 'clamp(2.2rem, 5.8vw, 4.8rem)',
               fontWeight: 900,
-              lineHeight: 1.02,
+              lineHeight: 1.05,
               letterSpacing: '-0.02em',
               textTransform: 'uppercase',
               color: '#FFFFFF',
               marginBottom: '1.4rem',
             }}
           >
-            DESIGNED FOR CALM <br />
-            <span
-              style={{
-                background: 'linear-gradient(90deg, #FFFFFF 0%, #D8CEBC 50%, #C86237 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              IN THE CLAMOR.
-            </span>
+            {headlineText}
           </h1>
 
           {/* Subtitle / Storytelling */}
           <p
             style={{
-              fontSize: 'clamp(1rem, 1.3vw, 1.2rem)',
+              fontSize: 'clamp(0.95rem, 1.3vw, 1.2rem)',
               color: 'var(--color-sand)',
               lineHeight: 1.6,
               marginBottom: '2.4rem',
@@ -128,9 +128,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               textShadow: '0 2px 10px rgba(0,0,0,0.6)',
             }}
           >
-            Crafted at the intersection of quiet luxury and relentless thermal utility.
-            Wrapped in baked desert terracotta ceramic and dual-barrier recycled stainless
-            steel—engineered for everyday rituals and high-stakes performance.
+            {subtitleText}
           </p>
 
           {/* Action CTAs */}
