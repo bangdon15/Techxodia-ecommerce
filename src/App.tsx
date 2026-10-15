@@ -285,6 +285,7 @@ export function App() {
         onOrderSuccess={handleOrderSuccess}
         paymentSettings={storeSettings.payment}
         freeShippingThreshold={storeSettings.freeShippingThreshold}
+        storeSettings={storeSettings}
       />
 
       <SearchModal

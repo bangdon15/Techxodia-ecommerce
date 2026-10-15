@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ArrowLeft,
   Database,
@@ -18,8 +18,13 @@ import {
   Layers,
   ExternalLink,
   Store,
+  Mail,
+  Send,
+  FileText,
+  ShoppingBag,
+  Printer,
 } from 'lucide-react';
-import { Product, StoreSettings } from '../types';
+import { Product, StoreSettings, OrderRecord } from '../types';
 import { WALLPAPER_PRESETS, saveStoreSettings } from '../lib/settings';
 import {
   getSupabaseClient,
@@ -28,7 +33,10 @@ import {
   seedSupabaseDatabase,
   upsertProduct,
   deleteProduct,
+  fetchOrders,
+  updateOrderStatus,
 } from '../lib/supabase';
+import { sendReceiptEmail, openPrintableReceipt } from '../lib/emailService';
 import confetti from 'canvas-confetti';
 
 interface AdminPageProps {
@@ -40,7 +48,7 @@ interface AdminPageProps {
   supabaseSource: 'supabase' | 'fallback';
 }
 
-type AdminTab = 'database' | 'products' | 'wallpaper' | 'details' | 'payment';
+type AdminTab = 'database' | 'products' | 'wallpaper' | 'details' | 'payment' | 'orders';
 
 export const AdminPage: React.FC<AdminPageProps> = ({
   onBackToStore,
@@ -74,6 +82,44 @@ export const AdminPage: React.FC<AdminPageProps> = ({
   const [productActionLoading, setProductActionLoading] = useState(false);
   const [productMessage, setProductMessage] = useState<string | null>(null);
   const [productSearch, setProductSearch] = useState('');
+
+  // Orders & Receipts State
+  const [ordersList, setOrdersList] = useState<OrderRecord[]>([]);
+  const [isLoadingOrders, setIsLoadingOrders] = useState(false);
+  const [orderSearch, setOrderSearch] = useState('');
+  const [resendingOrderNum, setResendingOrderNum] = useState<string | null>(null);
+  const [orderFeedback, setOrderFeedback] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+  const loadOrders = async () => {
+    setIsLoadingOrders(true);
+    const result = await fetchOrders();
+    setOrdersList(result.orders);
+    setIsLoadingOrders(false);
+  };
+
+  useEffect(() => {
+    loadOrders();
+  }, []);
+
+  const handleResendReceipt = async (order: OrderRecord) => {
+    setResendingOrderNum(order.order_number);
+    setOrderFeedback(null);
+    const res = await sendReceiptEmail(order, settingsForm);
+    setResendingOrderNum(null);
+    if (res.success) {
+      setOrderFeedback({ message: res.message, type: 'success' });
+      await loadOrders();
+      setTimeout(() => setOrderFeedback(null), 4500);
+    } else {
+      setOrderFeedback({ message: res.message, type: 'error' });
+    }
+  };
+
+  const handleTogglePaymentStatus = async (orderNumber: string, currentStatus: string) => {
+    const nextStatus = currentStatus === 'paid' ? 'pending' : 'paid';
+    await updateOrderStatus(orderNumber, { payment_status: nextStatus as any });
+    await loadOrders();
+  };
 
   // Test Supabase Connection
   const handleTestConnection = async () => {
@@ -216,6 +262,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({
     (p) =>
       p.name.toLowerCase().includes(productSearch.toLowerCase()) ||
       p.category.toLowerCase().includes(productSearch.toLowerCase())
+  );
+
+  const filteredOrders = ordersList.filter(
+    (o) =>
+      o.order_number.toLowerCase().includes(orderSearch.toLowerCase()) ||
+      o.customer_name.toLowerCase().includes(orderSearch.toLowerCase()) ||
+      o.customer_email.toLowerCase().includes(orderSearch.toLowerCase())
   );
 
   return (
@@ -428,6 +481,18 @@ export const AdminPage: React.FC<AdminPageProps> = ({
           >
             <CreditCard size={16} />
             <span>5. Payment Options</span>
+          </button>
+
+          <button
+            onClick={() => {
+              setActiveTab('orders');
+              setEditingProduct(null);
+              loadOrders();
+            }}
+            style={navBtnStyle(activeTab === 'orders')}
+          >
+            <ShoppingBag size={16} />
+            <span>6. Orders & Receipts ({ordersList.length})</span>
           </button>
 
           <div
@@ -1407,6 +1472,67 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                     />
                   </div>
                 </div>
+
+                {/* Email Receipt Dispatcher (Resend API) */}
+                <div style={paymentCardStyle}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.8rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                      <Mail size={16} color="#10B981" />
+                      <strong style={{ color: '#FFFFFF', fontSize: '0.92rem' }}>
+                        Customer Receipt Email Dispatcher (Resend API)
+                      </strong>
+                    </div>
+                    <span
+                      style={{
+                        fontSize: '0.72rem',
+                        padding: '0.2rem 0.6rem',
+                        borderRadius: 'var(--radius-pill)',
+                        backgroundColor: settingsForm.resendApiKey ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
+                        border: settingsForm.resendApiKey ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(245, 158, 11, 0.3)',
+                        color: settingsForm.resendApiKey ? '#10B981' : '#F59E0B',
+                        fontWeight: 700,
+                      }}
+                    >
+                      {settingsForm.resendApiKey ? 'LIVE SMTP ACTIVE' : 'SANDBOX SIMULATION MODE ($0)'}
+                    </span>
+                  </div>
+                  <p style={{ fontSize: '0.78rem', color: 'var(--color-sand)', lineHeight: 1.5, marginBottom: '1rem' }}>
+                    When online payment is verified, the system automatically emails an official branded luxury receipt to the customer's email.
+                    Resend provides <strong>3,000 free emails every month</strong> at zero cost ($0). If key is left blank, it generates receipts in simulation mode so tests never fail.
+                  </p>
+                  <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem' }}>
+                    <div>
+                      <label style={fieldLabelStyle}>Resend API Key (Optional)</label>
+                      <input
+                        type="password"
+                        placeholder="re_123456789..."
+                        value={settingsForm.resendApiKey || ''}
+                        onChange={(e) =>
+                          setSettingsForm({ ...settingsForm, resendApiKey: e.target.value })
+                        }
+                        style={fieldInputStyle}
+                      />
+                      <span style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', display: 'block', marginTop: '0.3rem' }}>
+                        Get a free key from <a href="https://resend.com" target="_blank" rel="noreferrer" style={{ color: '#FFA578', textDecoration: 'underline' }}>resend.com</a> (3,000 free emails/mo).
+                      </span>
+                    </div>
+                    <div>
+                      <label style={fieldLabelStyle}>Sender "From" Address</label>
+                      <input
+                        type="text"
+                        placeholder="concierge@techxodia.com"
+                        value={settingsForm.fromEmail || ''}
+                        onChange={(e) =>
+                          setSettingsForm({ ...settingsForm, fromEmail: e.target.value })
+                        }
+                        style={fieldInputStyle}
+                      />
+                      <span style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', display: 'block', marginTop: '0.3rem' }}>
+                        e.g. concierge@techxodia.com or onboarding@resend.dev
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
 
               {saveStatus && (
@@ -1419,6 +1545,276 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                 <Save size={16} />
                 <span>SAVE PAYMENT CONFIGURATION</span>
               </button>
+            </div>
+          )}
+
+          {/* TAB 6: ORDERS & INVOICES */}
+          {activeTab === 'orders' && (
+            <div style={{ maxWidth: '1100px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+                <div>
+                  <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                    Customer Orders, Payments & Receipts
+                  </h1>
+                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem' }}>
+                    Every order placed with online card, PayPal, or COD is automatically recorded in Supabase and reflected in real-time below.
+                  </p>
+                </div>
+                <div style={{ display: 'flex', gap: '0.6rem' }}>
+                  <button
+                    onClick={loadOrders}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                      border: '1px solid rgba(255, 255, 255, 0.12)',
+                      color: '#FFFFFF',
+                      padding: '0.55rem 1rem',
+                      borderRadius: 'var(--radius-xs)',
+                      fontSize: '0.75rem',
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                    }}
+                  >
+                    <RefreshCw size={14} className={isLoadingOrders ? 'spin' : ''} />
+                    <span>REFRESH ORDERS</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Real-time Order Metrics Cards */}
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem', marginBottom: '2rem' }}>
+                <div style={metricCardStyle}>
+                  <span style={metricLabelStyle}>TOTAL ORDERS</span>
+                  <div style={metricValueStyle}>{ordersList.length}</div>
+                  <span style={metricSubStyle}>Supabase Recorded</span>
+                </div>
+                <div style={metricCardStyle}>
+                  <span style={metricLabelStyle}>GROSS VOLUME</span>
+                  <div style={{ ...metricValueStyle, color: 'var(--color-terracotta-light)' }}>
+                    ${ordersList.reduce((acc, o) => acc + (Number(o.total) || 0), 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                  </div>
+                  <span style={metricSubStyle}>USD Value</span>
+                </div>
+                <div style={metricCardStyle}>
+                  <span style={metricLabelStyle}>VERIFIED PAYMENTS</span>
+                  <div style={{ ...metricValueStyle, color: '#10B981' }}>
+                    {ordersList.filter((o) => o.payment_status === 'paid').length}
+                  </div>
+                  <span style={metricSubStyle}>Settled Transactions</span>
+                </div>
+                <div style={metricCardStyle}>
+                  <span style={metricLabelStyle}>RECEIPTS DISPATCHED</span>
+                  <div style={{ ...metricValueStyle, color: '#60A5FA' }}>
+                    {ordersList.filter((o) => o.receipt_sent).length}
+                  </div>
+                  <span style={metricSubStyle}>Emails Delivered</span>
+                </div>
+              </div>
+
+              {/* Toast Feedback */}
+              {orderFeedback && (
+                <div
+                  style={{
+                    padding: '0.8rem 1rem',
+                    marginBottom: '1.5rem',
+                    borderRadius: 'var(--radius-xs)',
+                    backgroundColor: orderFeedback.type === 'success' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
+                    border: orderFeedback.type === 'success' ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(239, 68, 68, 0.3)',
+                    color: orderFeedback.type === 'success' ? '#10B981' : '#EF4444',
+                    fontSize: '0.84rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                  }}
+                >
+                  <CheckCircle2 size={16} />
+                  <span>{orderFeedback.message}</span>
+                </div>
+              )}
+
+              {/* Search Orders */}
+              <div style={{ marginBottom: '1.2rem' }}>
+                <input
+                  type="text"
+                  placeholder="Filter by Order #, Customer Name, or Email Address..."
+                  value={orderSearch}
+                  onChange={(e) => setOrderSearch(e.target.value)}
+                  style={{ ...fieldInputStyle, padding: '0.85rem 1.1rem' }}
+                />
+              </div>
+
+              {/* Orders Table */}
+              <div
+                style={{
+                  backgroundColor: '#121418',
+                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderRadius: 'var(--radius-xs)',
+                  overflowX: 'auto',
+                }}
+              >
+                {filteredOrders.length === 0 ? (
+                  <div style={{ padding: '3.5rem 1.5rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+                    <ShoppingBag size={38} style={{ opacity: 0.3, marginBottom: '0.8rem' }} />
+                    <p style={{ fontSize: '0.9rem', color: 'var(--color-sand)' }}>
+                      {ordersList.length === 0 ? 'No customer orders have been placed yet.' : 'No orders matched your search criteria.'}
+                    </p>
+                    <p style={{ fontSize: '0.78rem', marginTop: '0.4rem' }}>
+                      When a customer completes checkout on the storefront, their order and payment status will appear here immediately.
+                    </p>
+                  </div>
+                ) : (
+                  <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
+                    <thead>
+                      <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', backgroundColor: '#0F1014' }}>
+                        <th style={tableThStyle}>Order Reference</th>
+                        <th style={tableThStyle}>Customer</th>
+                        <th style={tableThStyle}>Items</th>
+                        <th style={tableThStyle}>Total</th>
+                        <th style={tableThStyle}>Payment Gateway</th>
+                        <th style={tableThStyle}>Payment Status</th>
+                        <th style={tableThStyle}>Receipt Email</th>
+                        <th style={{ ...tableThStyle, textAlign: 'right' }}>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredOrders.map((order) => {
+                        const isPaid = order.payment_status === 'paid';
+                        const isReceiptSent = Boolean(order.receipt_sent);
+                        const isResending = resendingOrderNum === order.order_number;
+
+                        return (
+                          <tr key={order.order_number} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
+                            <td style={tableTdStyle}>
+                              <strong style={{ color: '#FFFFFF', letterSpacing: '0.08em', display: 'block' }}>
+                                #{order.order_number}
+                              </strong>
+                              <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>
+                                {order.created_at ? new Date(order.created_at).toLocaleDateString() : 'Recent'}
+                              </span>
+                            </td>
+                            <td style={tableTdStyle}>
+                              <div style={{ fontWeight: 600, color: '#FFFFFF' }}>{order.customer_name}</div>
+                              <div style={{ fontSize: '0.72rem', color: 'var(--color-sand)' }}>{order.customer_email}</div>
+                              {order.customer_phone && (
+                                <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)' }}>{order.customer_phone}</div>
+                              )}
+                            </td>
+                            <td style={tableTdStyle}>
+                              <span style={{ color: 'var(--color-sand)', fontSize: '0.78rem' }}>
+                                {(order.items || []).length} item{(order.items || []).length === 1 ? '' : 's'}
+                              </span>
+                              <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                {(order.items || []).map((i) => `${i.name} (${i.color})`).join(', ')}
+                              </div>
+                            </td>
+                            <td style={tableTdStyle}>
+                              <strong style={{ color: 'var(--color-terracotta-light)' }}>
+                                ${(Number(order.total) || 0).toFixed(2)}
+                              </strong>
+                            </td>
+                            <td style={tableTdStyle}>
+                              <span style={{ fontSize: '0.75rem', color: '#D8CEBC' }}>
+                                {order.payment_method || 'Online Card (Stripe)'}
+                              </span>
+                            </td>
+                            <td style={tableTdStyle}>
+                              <button
+                                onClick={() => handleTogglePaymentStatus(order.order_number, order.payment_status || 'pending')}
+                                style={{
+                                  display: 'inline-flex',
+                                  alignItems: 'center',
+                                  gap: '0.35rem',
+                                  padding: '0.25rem 0.55rem',
+                                  borderRadius: 'var(--radius-pill)',
+                                  backgroundColor: isPaid ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
+                                  border: isPaid ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(245, 158, 11, 0.3)',
+                                  color: isPaid ? '#10B981' : '#F59E0B',
+                                  fontSize: '0.68rem',
+                                  fontWeight: 800,
+                                  cursor: 'pointer',
+                                }}
+                                title="Click to toggle status"
+                              >
+                                <span
+                                  style={{
+                                    width: '6px',
+                                    height: '6px',
+                                    borderRadius: '50%',
+                                    backgroundColor: isPaid ? '#10B981' : '#F59E0B',
+                                  }}
+                                />
+                                <span>{isPaid ? 'PAID / VERIFIED' : 'PENDING'}</span>
+                              </button>
+                            </td>
+                            <td style={tableTdStyle}>
+                              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                                {isReceiptSent ? (
+                                  <span style={{ color: '#10B981', display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.72rem' }}>
+                                    <CheckCircle2 size={13} color="#10B981" />
+                                    <span>Sent</span>
+                                  </span>
+                                ) : (
+                                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.72rem' }}>
+                                    Pending
+                                  </span>
+                                )}
+                              </div>
+                            </td>
+                            <td style={{ ...tableTdStyle, textAlign: 'right' }}>
+                              <div style={{ display: 'inline-flex', gap: '0.4rem', justifyContent: 'flex-end' }}>
+                                <button
+                                  onClick={() => openPrintableReceipt(order)}
+                                  style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.3rem',
+                                    padding: '0.35rem 0.65rem',
+                                    backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                                    color: '#FFFFFF',
+                                    borderRadius: 'var(--radius-xs)',
+                                    fontSize: '0.7rem',
+                                    cursor: 'pointer',
+                                    fontWeight: 600,
+                                  }}
+                                  title="View Printable Luxury Receipt"
+                                >
+                                  <FileText size={12} />
+                                  <span>View Receipt</span>
+                                </button>
+                                <button
+                                  onClick={() => handleResendReceipt(order)}
+                                  disabled={isResending}
+                                  style={{
+                                    display: 'inline-flex',
+                                    alignItems: 'center',
+                                    gap: '0.3rem',
+                                    padding: '0.35rem 0.65rem',
+                                    backgroundColor: 'rgba(200, 98, 55, 0.15)',
+                                    border: '1px solid rgba(200, 98, 55, 0.35)',
+                                    color: '#FFA578',
+                                    borderRadius: 'var(--radius-xs)',
+                                    fontSize: '0.7rem',
+                                    cursor: isResending ? 'not-allowed' : 'pointer',
+                                    fontWeight: 600,
+                                    opacity: isResending ? 0.6 : 1,
+                                  }}
+                                  title="Resend Branded Receipt via Email"
+                                >
+                                  <Send size={12} className={isResending ? 'spin' : ''} />
+                                  <span>{isResending ? 'Sending...' : 'Resend Email'}</span>
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                )}
+              </div>
             </div>
           )}
         </main>
@@ -1489,4 +1885,35 @@ const paymentCardStyle: React.CSSProperties = {
   border: '1px solid rgba(255, 255, 255, 0.08)',
   borderRadius: 'var(--radius-xs)',
   padding: '1.4rem',
+};
+
+const metricCardStyle: React.CSSProperties = {
+  backgroundColor: '#121418',
+  border: '1px solid rgba(255, 255, 255, 0.08)',
+  borderRadius: 'var(--radius-xs)',
+  padding: '1.2rem',
+};
+
+const metricLabelStyle: React.CSSProperties = {
+  fontSize: '0.68rem',
+  fontWeight: 800,
+  fontFamily: 'var(--font-display)',
+  letterSpacing: '0.12em',
+  color: 'var(--color-text-muted)',
+  display: 'block',
+  marginBottom: '0.4rem',
+};
+
+const metricValueStyle: React.CSSProperties = {
+  fontSize: '1.8rem',
+  fontWeight: 900,
+  fontFamily: 'var(--font-display)',
+  color: '#FFFFFF',
+  lineHeight: 1.1,
+  marginBottom: '0.2rem',
+};
+
+const metricSubStyle: React.CSSProperties = {
+  fontSize: '0.72rem',
+  color: 'var(--color-sand)',
 };

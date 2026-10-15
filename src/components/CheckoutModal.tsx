@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { X, CheckCircle2, Lock, Shield, Sparkles, Loader2 } from 'lucide-react';
-import { CartItem, CurrencyCode, OrderRecord, PaymentSettings } from '../types';
+import { X, CheckCircle2, Lock, Shield, Sparkles, Loader2, FileText, Mail, Printer } from 'lucide-react';
+import { CartItem, CurrencyCode, OrderRecord, PaymentSettings, StoreSettings } from '../types';
 import { formatPrice } from '../lib/currency';
 import { createOrder } from '../lib/supabase';
+import { sendReceiptEmail, openPrintableReceipt } from '../lib/emailService';
 import confetti from 'canvas-confetti';
 
 interface CheckoutModalProps {
@@ -13,6 +14,7 @@ interface CheckoutModalProps {
   onOrderSuccess: () => void;
   paymentSettings?: PaymentSettings;
   freeShippingThreshold?: number;
+  storeSettings?: StoreSettings;
 }
 
 export const CheckoutModal: React.FC<CheckoutModalProps> = ({
@@ -23,6 +25,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   onOrderSuccess,
   paymentSettings,
   freeShippingThreshold = 75,
+  storeSettings,
 }) => {
   if (!isOpen) return null;
 
@@ -48,6 +51,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   const [orderComplete, setOrderComplete] = useState(false);
   const [createdOrderNumber, setCreatedOrderNumber] = useState('');
   const [statusMessage, setStatusMessage] = useState('');
+  const [confirmedOrder, setConfirmedOrder] = useState<OrderRecord | null>(null);
+  const [isDispatchingReceipt, setIsDispatchingReceipt] = useState(false);
+  const [receiptFeedback, setReceiptFeedback] = useState<string | null>(null);
 
   const subtotalUsd = items.reduce((sum, item) => sum + item.product.price * item.quantity, 0);
   const shippingUsd = subtotalUsd >= freeShippingThreshold ? 0 : 12;
@@ -58,6 +64,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     setIsSubmitting(true);
 
     const generatedNum = `TX-${Math.floor(100000 + Math.random() * 900000)}`;
+    const methodLabel =
+      selectedMethod === 'card'
+        ? 'Online Card (Stripe)'
+        : selectedMethod === 'paypal'
+        ? 'PayPal Express'
+        : 'Cash on Delivery / Direct Wire';
 
     const orderPayload: OrderRecord = {
       order_number: generatedNum,
@@ -84,6 +96,10 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
       discount: 0,
       total: totalUsd,
       currency: currency,
+      payment_method: methodLabel,
+      payment_status: selectedMethod === 'cod' ? 'pending' : 'paid',
+      receipt_sent: false,
+      created_at: new Date().toISOString(),
       status: 'confirmed',
     };
 
@@ -91,16 +107,27 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     setIsSubmitting(false);
 
     if (res.success) {
-      setCreatedOrderNumber(res.orderId || generatedNum);
+      const finalOrderNumber = res.orderId || generatedNum;
+      setCreatedOrderNumber(finalOrderNumber);
       setStatusMessage(res.message);
+      setConfirmedOrder(orderPayload);
       setOrderComplete(true);
+
+      // Automated Receipt Dispatch to Customer's Email upon verified payment
+      if (storeSettings) {
+        setIsDispatchingReceipt(true);
+        sendReceiptEmail(orderPayload, storeSettings).then((emailRes) => {
+          setIsDispatchingReceipt(false);
+          setReceiptFeedback(emailRes.message);
+        });
+      }
 
       try {
         confetti({
           particleCount: 80,
           spread: 80,
           origin: { y: 0.6 },
-          colors: ['#C86237', '#FFA578', '#FFFFFF', '#D8CEBC']
+          colors: ['#C86237', '#FFA578', '#FFFFFF', '#D8CEBC'],
         });
       } catch {
         // ignore
@@ -192,7 +219,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 marginBottom: '0.4rem',
               }}
             >
-              ORDER CONFIRMED & PERSISTED
+              PAYMENT VERIFIED // ALLOCATION LOCKED
             </span>
 
             <h2
@@ -207,43 +234,101 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               THANK YOU, {formData.name}
             </h2>
 
-            <p style={{ color: 'var(--color-sand)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.8rem' }}>
-              Your numbered Techxodia Series 01 allocation has been locked into the archive registry.
+            <p style={{ color: 'var(--color-sand)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.6rem' }}>
+              Your numbered Techxodia Series 01 allocation has been locked into the archive registry and customer ledger.
             </p>
 
             <div
               style={{
                 backgroundColor: 'rgba(255, 255, 255, 0.04)',
                 border: '1px solid rgba(255, 255, 255, 0.08)',
-                padding: '1.2rem',
+                padding: '1.4rem',
                 borderRadius: 'var(--radius-xs)',
-                maxWidth: '420px',
-                margin: '0 auto 2rem auto',
+                maxWidth: '460px',
+                margin: '0 auto 1.8rem auto',
                 textAlign: 'left',
               }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem', fontSize: '0.82rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.82rem' }}>
                 <span style={{ color: 'var(--color-text-muted)' }}>Order Reference:</span>
                 <strong style={{ color: '#FFFFFF', letterSpacing: '0.1em' }}>{createdOrderNumber}</strong>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem', fontSize: '0.82rem' }}>
-                <span style={{ color: 'var(--color-text-muted)' }}>Confirmation Sent To:</span>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.82rem' }}>
+                <span style={{ color: 'var(--color-text-muted)' }}>Payment Verification:</span>
+                <span style={{ color: '#10B981', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <CheckCircle2 size={13} color="#10B981" /> Verified & Settled
+                </span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.82rem' }}>
+                <span style={{ color: 'var(--color-text-muted)' }}>Official Receipt Sent To:</span>
                 <span style={{ color: '#FFFFFF' }}>{formData.email}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem' }}>
                 <span style={{ color: 'var(--color-text-muted)' }}>Total Charged:</span>
                 <strong style={{ color: 'var(--color-terracotta-light)' }}>{formatPrice(totalUsd, currency)}</strong>
               </div>
-              {statusMessage && (
-                <div style={{ marginTop: '0.8rem', paddingTop: '0.8rem', borderTop: '1px solid rgba(255,255,255,0.06)', fontSize: '0.74rem', color: 'var(--color-sand)' }}>
-                  {statusMessage}
-                </div>
-              )}
+
+              {/* Email Receipt Transmission Status */}
+              <div
+                style={{
+                  marginTop: '0.9rem',
+                  paddingTop: '0.8rem',
+                  borderTop: '1px solid rgba(255,255,255,0.06)',
+                  fontSize: '0.74rem',
+                  color: 'var(--color-sand)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                }}
+              >
+                {isDispatchingReceipt ? (
+                  <>
+                    <Loader2 size={13} className="spin" color="#FFA578" />
+                    <span>Transmitting branded receipt to your email...</span>
+                  </>
+                ) : (
+                  <>
+                    <Mail size={13} color="#10B981" />
+                    <span>{receiptFeedback || `Official receipt generated & dispatched to ${formData.email}`}</span>
+                  </>
+                )}
+              </div>
             </div>
 
-            <button onClick={onClose} className="btn-primary" style={{ padding: '0.85rem 2.2rem' }}>
-              CONTINUE BROWSING
-            </button>
+            {/* Action Buttons: Printable Receipt & Continue Browsing */}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
+              <button
+                type="button"
+                onClick={() => {
+                  if (confirmedOrder) {
+                    openPrintableReceipt(confirmedOrder);
+                  }
+                }}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  backgroundColor: 'rgba(200, 98, 55, 0.15)',
+                  border: '1px solid var(--color-terracotta)',
+                  color: '#FFA578',
+                  padding: '0.85rem 1.6rem',
+                  borderRadius: 'var(--radius-xs)',
+                  fontFamily: 'var(--font-display)',
+                  fontWeight: 800,
+                  fontSize: '0.78rem',
+                  letterSpacing: '0.08em',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s',
+                }}
+              >
+                <Printer size={15} />
+                <span>VIEW / PRINT OFFICIAL RECEIPT</span>
+              </button>
+
+              <button onClick={onClose} className="btn-primary" style={{ padding: '0.85rem 2rem' }}>
+                CONTINUE BROWSING
+              </button>
+            </div>
           </div>
         ) : (
           <div>

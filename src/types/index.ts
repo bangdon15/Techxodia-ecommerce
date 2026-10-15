@@ -70,6 +70,8 @@ export interface StoreSettings {
   freeShippingThreshold: number;
   supportEmail: string;
   payment: PaymentSettings;
+  resendApiKey?: string;
+  fromEmail?: string;
 }
 
 export interface OrderRecord {
@@ -93,6 +95,9 @@ export interface OrderRecord {
   total: number;
   currency: string;
   payment_method?: string;
+  payment_status?: 'paid' | 'pending' | 'verified' | 'failed';
+  receipt_sent?: boolean;
+  receipt_sent_at?: string;
   status: string;
   created_at?: string;
 }

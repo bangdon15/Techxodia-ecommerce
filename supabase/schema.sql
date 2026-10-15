@@ -51,8 +51,18 @@ CREATE TABLE IF NOT EXISTS public.orders (
     total NUMERIC(10, 2) NOT NULL,
     currency TEXT DEFAULT 'USD',
     status TEXT DEFAULT 'confirmed',
+    payment_method TEXT DEFAULT 'Online Card (Stripe)',
+    payment_status TEXT DEFAULT 'paid',
+    receipt_sent BOOLEAN DEFAULT false,
+    receipt_sent_at TIMESTAMP WITH TIME ZONE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT TIMEZONE('utc'::text, NOW()) NOT NULL
 );
+
+-- Ensure migration compatibility for existing deployments
+ALTER TABLE public.orders ADD COLUMN IF NOT EXISTS payment_method TEXT DEFAULT 'Online Card (Stripe)';
+ALTER TABLE public.orders ADD COLUMN IF NOT EXISTS payment_status TEXT DEFAULT 'paid';
+ALTER TABLE public.orders ADD COLUMN IF NOT EXISTS receipt_sent BOOLEAN DEFAULT false;
+ALTER TABLE public.orders ADD COLUMN IF NOT EXISTS receipt_sent_at TIMESTAMP WITH TIME ZONE;
 
 -- 5. Row Level Security (RLS) Setup
 ALTER TABLE public.products ENABLE ROW LEVEL SECURITY;
@@ -71,9 +81,13 @@ ON public.subscribers FOR INSERT WITH CHECK (true);
 CREATE POLICY "Anyone can create orders" 
 ON public.orders FOR INSERT WITH CHECK (true);
 
--- Allow users to view their own created order by order_number or email
-CREATE POLICY "Customers can view their orders" 
+-- Allow users and admin to view orders
+CREATE POLICY "Customers and admin can view orders" 
 ON public.orders FOR SELECT USING (true);
+
+-- Allow updating order receipt and payment status
+CREATE POLICY "Allow updating order status"
+ON public.orders FOR UPDATE USING (true) WITH CHECK (true);
 
 -- 6. Insert Default Seed Data (Techxodia Drop 01)
 INSERT INTO public.products (slug, name, subtitle, category, price, original_price, rating, reviews_count, image, gallery, colors, capacity, specs, badge, description, stock, is_featured)

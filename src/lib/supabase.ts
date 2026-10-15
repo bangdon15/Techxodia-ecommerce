@@ -309,24 +309,31 @@ export async function subscribeEmail(email: string): Promise<{ success: boolean;
  * Create order in Supabase orders table
  */
 export async function createOrder(order: OrderRecord): Promise<{ success: boolean; orderId?: string; message: string }> {
+  const preparedOrder: OrderRecord = {
+    ...order,
+    payment_status: order.payment_status || 'paid',
+    receipt_sent: order.receipt_sent ?? false,
+    created_at: order.created_at || new Date().toISOString(),
+  };
+
   const supabase = getSupabaseClient();
 
   if (!supabase) {
     const orders = JSON.parse(localStorage.getItem('techxodia_mock_orders') || '[]');
-    const mockId = `TX-${Date.now().toString(36).toUpperCase()}`;
-    orders.push({ ...order, id: mockId });
+    const mockId = preparedOrder.order_number || `TX-${Date.now().toString(36).toUpperCase()}`;
+    orders.push({ ...preparedOrder, id: mockId });
     localStorage.setItem('techxodia_mock_orders', JSON.stringify(orders));
     return {
       success: true,
       orderId: mockId,
-      message: 'Order confirmed successfully (Demo Mock Mode). Connect Supabase to save to production database.'
+      message: 'Order placed & recorded locally! (Supabase in demo mode)',
     };
   }
 
   try {
     const { data, error } = await supabase
       .from('orders')
-      .insert([order])
+      .insert([preparedOrder])
       .select('id, order_number')
       .single();
 
@@ -338,14 +345,83 @@ export async function createOrder(order: OrderRecord): Promise<{ success: boolea
     return {
       success: true,
       orderId: data?.order_number || data?.id,
-      message: 'Order created and persisted directly in Supabase!'
+      message: 'Order created and reflected directly in Supabase database!',
     };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     return {
       success: false,
-      message: `Database error: ${message}`
+      message: `Database error: ${message}`,
     };
+  }
+}
+
+/**
+ * Fetch all orders from Supabase or local storage
+ */
+export async function fetchOrders(): Promise<{ orders: OrderRecord[]; source: 'supabase' | 'fallback' }> {
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    const raw = typeof window !== 'undefined' ? localStorage.getItem('techxodia_mock_orders') : null;
+    const orders: OrderRecord[] = raw ? JSON.parse(raw) : [];
+    return { orders: orders.reverse(), source: 'fallback' };
+  }
+
+  try {
+    const { data, error } = await supabase
+      .from('orders')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return { orders: (data as OrderRecord[]) || [], source: 'supabase' };
+  } catch (err) {
+    console.warn('Error fetching orders from Supabase:', err);
+    const raw = typeof window !== 'undefined' ? localStorage.getItem('techxodia_mock_orders') : null;
+    const orders: OrderRecord[] = raw ? JSON.parse(raw) : [];
+    return { orders: orders.reverse(), source: 'fallback' };
+  }
+}
+
+/**
+ * Update order status or receipt metadata
+ */
+export async function updateOrderStatus(
+  orderNumber: string,
+  updates: Partial<OrderRecord>
+): Promise<{ success: boolean; message: string }> {
+  if (typeof window !== 'undefined') {
+    try {
+      const raw = localStorage.getItem('techxodia_mock_orders');
+      if (raw) {
+        const orders: OrderRecord[] = JSON.parse(raw);
+        const idx = orders.findIndex((o) => o.order_number === orderNumber);
+        if (idx > -1) {
+          orders[idx] = { ...orders[idx], ...updates };
+          localStorage.setItem('techxodia_mock_orders', JSON.stringify(orders));
+        }
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  const supabase = getSupabaseClient();
+  if (!supabase) {
+    return { success: true, message: 'Order status updated locally.' };
+  }
+
+  try {
+    const { error } = await supabase
+      .from('orders')
+      .update(updates)
+      .eq('order_number', orderNumber);
+
+    if (error) throw error;
+    return { success: true, message: 'Order status synchronized to Supabase!' };
+  } catch (err: unknown) {
+    const msg = err instanceof Error ? err.message : String(err);
+    return { success: false, message: `Updated locally, but Supabase error: ${msg}` };
   }
 }
 
