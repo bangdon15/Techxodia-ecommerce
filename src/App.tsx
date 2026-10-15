@@ -12,13 +12,11 @@ import { LookbookSection } from './components/LookbookSection';
 import { ProductDetailModal } from './components/ProductDetailModal';
 import { CartDrawer } from './components/CartDrawer';
 import { CheckoutModal } from './components/CheckoutModal';
-import { SupabaseConnectModal } from './components/SupabaseConnectModal';
 import { SearchModal } from './components/SearchModal';
 import { Newsletter } from './components/Newsletter';
 import { Footer } from './components/Footer';
-import { AdminPortal } from './components/AdminPortal';
 import { MobileBottomNav } from './components/MobileBottomNav';
-import confetti from 'canvas-confetti';
+import { AdminPage } from './pages/AdminPage';
 
 export function App() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -26,6 +24,50 @@ export function App() {
   const [supabaseSource, setSupabaseSource] = useState<'supabase' | 'fallback'>('fallback');
   const [activeCurrency, setActiveCurrency] = useState<CurrencyCode>('USD');
   const [storeSettings, setStoreSettings] = useState<StoreSettings>(getStoreSettings);
+
+  // Route Handling (/ or /admin)
+  const getInitialRoute = () => {
+    if (typeof window === 'undefined') return '/';
+    const path = window.location.pathname.toLowerCase();
+    const hash = window.location.hash.toLowerCase();
+    if (path === '/admin' || hash === '#/admin' || hash === '#admin') return '/admin';
+    return '/';
+  };
+
+  const [currentRoute, setCurrentRoute] = useState<string>(getInitialRoute);
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const path = window.location.pathname.toLowerCase();
+      const hash = window.location.hash.toLowerCase();
+      if (path === '/admin' || hash === '#/admin' || hash === '#admin') {
+        setCurrentRoute('/admin');
+      } else {
+        setCurrentRoute('/');
+      }
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
+  }, []);
+
+  const navigateTo = (path: string) => {
+    if (path === '/admin') {
+      window.history.pushState({}, '', '/admin');
+      window.location.hash = '/admin';
+      setCurrentRoute('/admin');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      window.history.pushState({}, '', '/');
+      window.location.hash = '';
+      setCurrentRoute('/');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   // Cart State (Persisted in LocalStorage)
   const [cart, setCart] = useState<CartItem[]>(() => {
@@ -40,9 +82,7 @@ export function App() {
   // Modals & Drawers State
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [supabaseModalOpen, setSupabaseModalOpen] = useState(false);
   const [checkoutOpen, setCheckoutOpen] = useState(false);
-  const [adminPortalOpen, setAdminPortalOpen] = useState(false);
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
   const [quickViewColor, setQuickViewColor] = useState<ProductColor | null>(null);
 
@@ -100,7 +140,6 @@ export function App() {
       ];
     });
 
-    // Auto-open cart drawer for immediate user feedback
     setCartOpen(true);
   };
 
@@ -141,19 +180,31 @@ export function App() {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  // If on /admin, render the full dedicated Admin Page
+  if (currentRoute === '/admin') {
+    return (
+      <AdminPage
+        onBackToStore={() => navigateTo('/')}
+        products={products}
+        onRefreshCatalog={loadCatalog}
+        storeSettings={storeSettings}
+        onUpdateSettings={setStoreSettings}
+        supabaseSource={supabaseSource}
+      />
+    );
+  }
+
+  // Otherwise, render the Pure Luxury Storefront (100% clean, no admin buttons or setup pills)
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
       {/* Top Announcement Bar */}
       <AnnouncementBar customAnnouncement={storeSettings.announcementText} />
 
-      {/* Main Sticky Architectural Navbar */}
+      {/* Main Sticky Architectural Navbar (Cleaned for customer experience) */}
       <Navbar
         cartCount={totalCartCount}
         onOpenCart={() => setCartOpen(true)}
         onOpenSearch={() => setSearchOpen(true)}
-        onOpenSupabaseModal={() => setSupabaseModalOpen(true)}
-        onOpenAdmin={() => setAdminPortalOpen(true)}
-        supabaseSource={supabaseSource}
         activeCurrency={activeCurrency}
         onCurrencyChange={setActiveCurrency}
         brandName={storeSettings.storeName}
@@ -169,7 +220,7 @@ export function App() {
           storeSettings={storeSettings}
         />
 
-        {/* Dynamic Product Grid connected with Supabase */}
+        {/* Dynamic Product Grid */}
         <ProductGrid
           products={products}
           currency={activeCurrency}
@@ -178,9 +229,6 @@ export function App() {
             setQuickViewProduct(product);
             setQuickViewColor(color || product.colors[0] || null);
           }}
-          onRefreshProducts={loadCatalog}
-          isLoading={isLoadingProducts}
-          supabaseSource={supabaseSource}
         />
 
         {/* Editorial Craftsmanship & Material Story Split */}
@@ -192,30 +240,19 @@ export function App() {
         {/* Campaign Visual Lookbook */}
         <LookbookSection />
 
-        {/* VIP Drop Registry & Newsletter (Supabase synced) */}
+        {/* VIP Drop Registry & Newsletter */}
         <Newsletter />
       </main>
 
-      {/* Luxury Footer */}
-      <Footer />
+      {/* Luxury Footer with subtle Staff Console link */}
+      <Footer onNavigateAdmin={() => navigateTo('/admin')} />
 
       {/* Mobile Bottom Dock for Webview & Smartphone Experience */}
       <MobileBottomNav
         cartCount={totalCartCount}
         onOpenCart={() => setCartOpen(true)}
         onOpenSearch={() => setSearchOpen(true)}
-        onOpenAdmin={() => setAdminPortalOpen(true)}
         onScrollToCollection={scrollToCollection}
-      />
-
-      {/* Master Admin Portal Modal */}
-      <AdminPortal
-        isOpen={adminPortalOpen}
-        onClose={() => setAdminPortalOpen(false)}
-        products={products}
-        onRefreshCatalog={loadCatalog}
-        storeSettings={storeSettings}
-        onUpdateSettings={setStoreSettings}
       />
 
       {/* Modals & Drawers */}
@@ -248,12 +285,6 @@ export function App() {
         onOrderSuccess={handleOrderSuccess}
         paymentSettings={storeSettings.payment}
         freeShippingThreshold={storeSettings.freeShippingThreshold}
-      />
-
-      <SupabaseConnectModal
-        isOpen={supabaseModalOpen}
-        onClose={() => setSupabaseModalOpen(false)}
-        onRefreshApp={loadCatalog}
       />
 
       <SearchModal

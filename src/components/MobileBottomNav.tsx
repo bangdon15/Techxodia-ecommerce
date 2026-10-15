@@ -1,11 +1,10 @@
 import React from 'react';
-import { Home, Compass, Search, ShoppingBag, Sliders } from 'lucide-react';
+import { Home, Compass, Search, ShoppingBag, Sparkles } from 'lucide-react';
 
 interface MobileBottomNavProps {
   cartCount: number;
   onOpenCart: () => void;
   onOpenSearch: () => void;
-  onOpenAdmin: () => void;
   onScrollToCollection: () => void;
 }
 
@@ -13,7 +12,6 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
   cartCount,
   onOpenCart,
   onOpenSearch,
-  onOpenAdmin,
   onScrollToCollection,
 }) => {
   return (
@@ -104,14 +102,17 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         <span style={{ ...navTextStyle, color: '#FFA578' }}>Bag</span>
       </button>
 
-      {/* Admin Panel Quick Access */}
+      {/* Craftsmanship */}
       <button
-        onClick={onOpenAdmin}
+        onClick={() => {
+          const el = document.getElementById('craftsmanship');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }}
         style={navBtnStyle}
-        aria-label="Admin Control"
+        aria-label="Craftsmanship"
       >
-        <Sliders size={19} />
-        <span style={navTextStyle}>Admin</span>
+        <Sparkles size={19} />
+        <span style={navTextStyle}>Craft</span>
       </button>
     </nav>
   );

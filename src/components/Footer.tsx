@@ -1,7 +1,11 @@
 import React from 'react';
 import { ShieldCheck, Truck, RotateCcw, Heart } from 'lucide-react';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onNavigateAdmin?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
   return (
     <footer
       style={{
@@ -146,9 +150,28 @@ export const Footer: React.FC = () => {
           <span>
             © {new Date().getFullYear()} TECHXODIA LLC. ALL RIGHTS RESERVED. SIGNATURE SERIES 01.
           </span>
-          <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-            Powered by Supabase Cloud & Vercel
-          </span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
+            <span>Powered by Supabase Cloud & Vercel</span>
+            <span style={{ color: 'rgba(255,255,255,0.15)' }}>•</span>
+            <a
+              href="#/admin"
+              onClick={(e) => {
+                e.preventDefault();
+                if (onNavigateAdmin) onNavigateAdmin();
+                else window.location.hash = '/admin';
+              }}
+              style={{
+                color: 'var(--color-text-muted)',
+                textDecoration: 'none',
+                cursor: 'pointer',
+                fontSize: '0.72rem',
+                letterSpacing: '0.04em',
+              }}
+              title="Staff Management Portal"
+            >
+              Staff Console
+            </a>
+          </div>
         </div>
       </div>
     </footer>

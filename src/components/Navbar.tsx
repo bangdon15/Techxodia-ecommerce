@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBag, Search, Database, Globe, Menu, X, Sliders } from 'lucide-react';
+import { ShoppingBag, Search, Globe, Menu, X } from 'lucide-react';
 import { CurrencyCode } from '../types';
 
 interface NavbarProps {
   cartCount: number;
   onOpenCart: () => void;
   onOpenSearch: () => void;
-  onOpenSupabaseModal: () => void;
-  onOpenAdmin: () => void;
-  supabaseSource: 'supabase' | 'fallback';
   activeCurrency: CurrencyCode;
   onCurrencyChange: (currency: CurrencyCode) => void;
   brandName?: string;
@@ -19,9 +16,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   cartCount,
   onOpenCart,
   onOpenSearch,
-  onOpenSupabaseModal,
-  onOpenAdmin,
-  supabaseSource,
   activeCurrency,
   onCurrencyChange,
   brandName = 'TECHXODIA',
@@ -186,76 +180,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Right: Tools & Cart */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-          {/* Admin Control Portal Button */}
-          <button
-            onClick={onOpenAdmin}
-            title="Open Master Admin Control Portal"
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.45rem',
-              background: 'rgba(200, 98, 55, 0.15)',
-              border: '1px solid rgba(200, 98, 55, 0.4)',
-              padding: '0.4rem 0.8rem',
-              borderRadius: 'var(--radius-xs)',
-              color: '#FFA578',
-              fontSize: '0.72rem',
-              fontWeight: 800,
-              fontFamily: 'var(--font-display)',
-              letterSpacing: '0.12em',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            <Sliders size={13} />
-            <span style={{ marginTop: '1px' }}>ADMIN</span>
-          </button>
-
-          {/* Supabase Status Pill */}
-          <button
-            onClick={onOpenSupabaseModal}
-            title={
-              supabaseSource === 'supabase'
-                ? 'Connected directly to Supabase DB'
-                : 'Running in Demo Mode (Click to configure Supabase)'
-            }
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.45rem',
-              background: 'rgba(255, 255, 255, 0.04)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              padding: '0.35rem 0.65rem',
-              borderRadius: 'var(--radius-pill)',
-              color: 'var(--color-text-primary)',
-              fontSize: '0.68rem',
-              fontWeight: 600,
-              fontFamily: 'var(--font-display)',
-              letterSpacing: '0.08em',
-              cursor: 'pointer',
-              transition: 'all 0.2s ease',
-            }}
-          >
-            <span
-              style={{
-                width: '7px',
-                height: '7px',
-                borderRadius: '50%',
-                backgroundColor:
-                  supabaseSource === 'supabase' ? '#10B981' : '#F59E0B',
-                boxShadow:
-                  supabaseSource === 'supabase'
-                    ? '0 0 8px #10B981'
-                    : '0 0 8px #F59E0B',
-              }}
-            />
-            <Database size={12} style={{ color: 'var(--color-text-secondary)' }} />
-            <span style={{ display: 'inline' }}>
-              {supabaseSource === 'supabase' ? 'SUPABASE: LIVE' : 'SUPABASE SETUP'}
-            </span>
-          </button>
-
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem' }}>
           {/* Currency Switcher */}
           <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
             <Globe size={14} style={{ color: 'var(--color-text-muted)', marginRight: '4px' }} />
@@ -383,34 +308,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             style={mobileNavLinkStyle}
           >
             LOOKBOOK
-          </button>
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onOpenAdmin();
-            }}
-            style={{
-              ...mobileNavLinkStyle,
-              color: '#FFA578',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-            }}
-          >
-            <Sliders size={16} />
-            <span>ADMIN CONTROL PORTAL (WALLPAPER, DB, PRODUCTS)</span>
-          </button>
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              onOpenSupabaseModal();
-            }}
-            style={{
-              ...mobileNavLinkStyle,
-              color: 'var(--color-terracotta-light)',
-            }}
-          >
-            SUPABASE DATABASE SETTINGS
           </button>
         </div>
       )}

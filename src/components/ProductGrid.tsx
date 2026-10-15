@@ -8,9 +8,9 @@ interface ProductGridProps {
   currency: CurrencyCode;
   onAddToCart: (product: Product, color: ProductColor) => void;
   onQuickView: (product: Product, selectedColor?: ProductColor) => void;
-  onRefreshProducts: () => void;
-  isLoading: boolean;
-  supabaseSource: 'supabase' | 'fallback';
+  onRefreshProducts?: () => void;
+  isLoading?: boolean;
+  supabaseSource?: 'supabase' | 'fallback';
 }
 
 const CATEGORIES = ['All Objects', 'Hydration Vessels', 'Field Gear', 'Bar & Social'] as const;
@@ -20,9 +20,6 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
   currency,
   onAddToCart,
   onQuickView,
-  onRefreshProducts,
-  isLoading,
-  supabaseSource,
 }) => {
   const [activeCategory, setActiveCategory] = useState<string>('All Objects');
 
@@ -94,53 +91,6 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
             Inspired by quiet confidence and architectural discipline. Every item is
             vacuum-sealed, laser-inscribed, and finished in bespoke desert earth tones.
           </p>
-
-          {/* Database Live Source Pill & Refresh */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.8rem',
-              marginTop: '1.4rem',
-            }}
-          >
-            <span
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.4rem',
-                fontSize: '0.72rem',
-                color: 'var(--color-text-muted)',
-                fontFamily: 'var(--font-display)',
-                letterSpacing: '0.06em',
-              }}
-            >
-              <Database size={13} style={{ color: supabaseSource === 'supabase' ? '#10B981' : '#F59E0B' }} />
-              Source: {supabaseSource === 'supabase' ? 'Supabase Database (Live Products Table)' : 'Local High-Fidelity Catalog (Ready for Supabase)'}
-            </span>
-
-            <button
-              onClick={onRefreshProducts}
-              disabled={isLoading}
-              title="Refresh Products from Database"
-              style={{
-                background: 'none',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                color: 'var(--color-text-secondary)',
-                borderRadius: 'var(--radius-pill)',
-                padding: '0.25rem 0.6rem',
-                fontSize: '0.68rem',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                transition: 'all 0.2s',
-              }}
-            >
-              <RefreshCw size={11} className={isLoading ? 'spin-icon' : ''} />
-              <span>SYNC</span>
-            </button>
-          </div>
         </div>
 
         {/* Category Tabs */}
