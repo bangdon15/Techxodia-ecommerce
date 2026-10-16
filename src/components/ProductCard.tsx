@@ -51,18 +51,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       style={{
-        backgroundColor: '#14161A',
+        backgroundColor: '#FFFFFF',
         borderRadius: 'var(--radius-xs)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        border: '1px solid #E4E4E7',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
         overflow: 'hidden',
         transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-        transform: isHovered ? 'translateY(-6px)' : 'translateY(0)',
+        transform: isHovered ? 'translateY(-5px)' : 'translateY(0)',
         boxShadow: isHovered
-          ? '0 18px 36px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(200, 98, 55, 0.3)'
-          : 'none',
+          ? '0 16px 36px rgba(0, 0, 0, 0.08), 0 0 0 1px #000000'
+          : '0 2px 8px rgba(0, 0, 0, 0.02)',
       }}
       className="product-card-container"
     >
@@ -71,7 +71,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
         style={{
           position: 'relative',
           paddingTop: '100%', // 1:1 Aspect Ratio
-          backgroundColor: '#1E2127',
+          backgroundColor: '#F5F5F7',
           overflow: 'hidden',
           cursor: 'pointer',
         }}
@@ -114,11 +114,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
                 padding: '0.35rem 0.65rem',
-                backgroundColor: 'rgba(12, 13, 15, 0.9)',
-                color: '#FFA578',
-                border: '1px solid rgba(200, 98, 55, 0.4)',
+                backgroundColor: '#000000',
+                color: '#FFFFFF',
                 borderRadius: 'var(--radius-xs)',
-                backdropFilter: 'blur(6px)',
               }}
             >
               {product.badge}
@@ -148,9 +146,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               display: 'flex',
               alignItems: 'center',
               gap: '0.4rem',
-              backgroundColor: 'rgba(12, 13, 15, 0.92)',
+              backgroundColor: 'rgba(0, 0, 0, 0.85)',
               color: '#FFFFFF',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
               padding: '0.45rem 0.8rem',
               fontSize: '0.68rem',
               fontWeight: 700,
@@ -190,12 +188,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-              <Star size={13} fill="#FFA578" color="#FFA578" />
+              <Star size={13} fill="#000000" color="#000000" />
               <span
                 style={{
                   fontSize: '0.75rem',
-                  fontWeight: 700,
-                  color: '#FFFFFF',
+                  fontWeight: 800,
+                  color: '#000000',
                   fontFamily: 'var(--font-display)',
                 }}
               >
@@ -204,7 +202,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <span
                 style={{
                   fontSize: '0.72rem',
-                  color: 'var(--color-text-muted)',
+                  color: '#71717A',
                 }}
               >
                 ({product.reviews_count})
@@ -215,8 +213,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               style={{
                 fontSize: '0.68rem',
                 fontFamily: 'var(--font-display)',
-                fontWeight: 600,
-                color: 'var(--color-sand)',
+                fontWeight: 700,
+                color: '#71717A',
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
               }}
@@ -231,7 +229,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             style={{
               fontSize: '1.05rem',
               fontWeight: 800,
-              color: '#FFFFFF',
+              color: '#000000',
               lineHeight: 1.3,
               marginBottom: '0.4rem',
               letterSpacing: '-0.01em',
@@ -246,7 +244,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
           <p
             style={{
               fontSize: '0.75rem',
-              color: 'var(--color-text-secondary)',
+              color: '#52525B',
               letterSpacing: '0.04em',
               marginBottom: '1rem',
             }}
@@ -277,10 +275,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
                     borderRadius: '50%',
                     backgroundColor: color.hex,
                     border: isSelected
-                      ? '2px solid #FFFFFF'
-                      : '1px solid rgba(255, 255, 255, 0.25)',
+                      ? '2px solid #000000'
+                      : '1px solid #D4D4D8',
                     cursor: 'pointer',
-                    boxShadow: isSelected ? '0 0 0 2px var(--color-terracotta)' : 'none',
+                    boxShadow: isSelected ? '0 0 0 2px #000000' : 'none',
                     transition: 'all 0.18s ease',
                     position: 'relative',
                     padding: 0,
@@ -307,10 +305,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             <span
               style={{
                 fontSize: '0.72rem',
-                color: 'var(--color-text-primary)',
+                color: '#000000',
                 marginLeft: '0.3rem',
                 fontFamily: 'var(--font-display)',
-                fontWeight: 600,
+                fontWeight: 700,
               }}
             >
               {selectedColor.name}
@@ -325,7 +323,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            borderTop: '1px solid #E4E4E7',
             paddingTop: '1rem',
           }}
         >
@@ -335,8 +333,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.25rem',
-                fontWeight: 800,
-                color: '#FFFFFF',
+                fontWeight: 900,
+                color: '#000000',
                 letterSpacing: '0.02em',
               }}
             >
@@ -346,7 +344,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               <span
                 style={{
                   fontSize: '0.85rem',
-                  color: 'var(--color-text-muted)',
+                  color: '#A1A1AA',
                   textDecoration: 'line-through',
                 }}
               >
@@ -361,10 +359,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.45rem',
-              backgroundColor: 'var(--color-terracotta)',
+              backgroundColor: '#000000',
               color: '#FFFFFF',
-              border: 'none',
-              padding: '0.65rem 1.1rem',
+              border: '1px solid #000000',
+              padding: '0.65rem 1.15rem',
               fontSize: '0.75rem',
               fontWeight: 800,
               fontFamily: 'var(--font-display)',

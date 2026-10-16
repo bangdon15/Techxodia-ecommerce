@@ -36,7 +36,7 @@ export const DEFAULT_STORE_SETTINGS: StoreSettings = {
   heroHeadline: 'DESIGNED FOR CALM IN THE CLAMOR.',
   heroSubtitle: 'Crafted at the intersection of quiet luxury and relentless thermal utility. Wrapped in baked desert terracotta ceramic and dual-barrier recycled stainless steel.',
   heroBadge: 'TECHXODIA × SIGNATURE ARCHIVE // LIMITED RUN 001',
-  accentColor: '#C86237',
+  accentColor: '#000000',
   announcementText: 'COMPLIMENTARY EXPRESS GLOBAL SHIPPING OVER $75 • LIMITED DROP 001',
   freeShippingThreshold: 75,
   supportEmail: 'concierge@techxodia.com',

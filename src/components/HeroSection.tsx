@@ -81,22 +81,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               alignItems: 'center',
               gap: '0.6rem',
               marginBottom: '1.4rem',
-              backgroundColor: 'rgba(200, 98, 55, 0.18)',
-              border: '1px solid rgba(200, 98, 55, 0.4)',
-              padding: '0.45rem 0.9rem',
+              backgroundColor: '#FFFFFF',
+              border: '1px solid #FFFFFF',
+              padding: '0.45rem 0.95rem',
               borderRadius: 'var(--radius-xs)',
-              backdropFilter: 'blur(8px)',
+              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
               maxWidth: '100%',
             }}
           >
-            <Flame size={14} style={{ color: '#FFA578', flexShrink: 0 }} />
+            <Flame size={14} style={{ color: '#000000', flexShrink: 0 }} />
             <span
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: 'clamp(0.64rem, 2.8vw, 0.74rem)',
-                fontWeight: 800,
+                fontWeight: 900,
                 letterSpacing: '0.14em',
-                color: '#FFA578',
+                color: '#000000',
                 textTransform: 'uppercase',
                 wordBreak: 'break-word',
               }}
@@ -128,7 +128,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             className="hero-subtitle-text"
             style={{
               fontSize: 'clamp(0.9rem, 1.3vw, 1.2rem)',
-              color: 'var(--color-sand)',
+              color: '#E4E4E7',
               lineHeight: 1.6,
               marginBottom: '2.4rem',
               maxWidth: '640px',
@@ -154,7 +154,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <button
               onClick={onExploreClick}
               className="btn-primary hero-cta-btn"
-              style={{ minWidth: '200px' }}
+              style={{
+                minWidth: '200px',
+                backgroundColor: '#FFFFFF',
+                color: '#000000',
+                borderColor: '#FFFFFF',
+              }}
             >
               <span>SHOP THE DROP</span>
               <ArrowDown size={16} />
@@ -162,7 +167,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <button
               onClick={onCraftClick}
               className="btn-secondary hero-cta-btn"
-              style={{ minWidth: '180px' }}
+              style={{
+                minWidth: '180px',
+                backgroundColor: 'transparent',
+                color: '#FFFFFF',
+                borderColor: 'rgba(255, 255, 255, 0.7)',
+              }}
             >
               DISCOVER CRAFT
             </button>
@@ -176,7 +186,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               gridTemplateColumns: 'repeat(auto-fit, minmax(115px, 1fr))',
               gap: '1.2rem',
               maxWidth: '650px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.12)',
+              borderTop: '1px solid rgba(255, 255, 255, 0.2)',
               paddingTop: '1.5rem',
             }}
           >

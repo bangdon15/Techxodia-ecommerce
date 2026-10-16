@@ -41,8 +41,8 @@ export const SpecsSection: React.FC = () => {
       style={{
         paddingTop: '6rem',
         paddingBottom: '6rem',
-        backgroundColor: '#111215',
-        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: '#FFFFFF',
+        borderTop: '1px solid #E4E4E7',
       }}
     >
       <div className="container-luxury">
@@ -60,7 +60,7 @@ export const SpecsSection: React.FC = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              color: 'var(--color-terracotta)',
+              color: '#000000',
               fontFamily: 'var(--font-display)',
               fontSize: '0.74rem',
               fontWeight: 800,
@@ -69,7 +69,7 @@ export const SpecsSection: React.FC = () => {
               marginBottom: '0.8rem',
             }}
           >
-            <Shield size={14} />
+            <Shield size={14} color="#000000" />
             <span>AEROSPACE TOLERANCES</span>
           </div>
 
@@ -77,7 +77,7 @@ export const SpecsSection: React.FC = () => {
             style={{
               fontSize: 'clamp(2rem, 4vw, 3.2rem)',
               fontWeight: 900,
-              color: '#FFFFFF',
+              color: '#000000',
               letterSpacing: '-0.02em',
               textTransform: 'uppercase',
               marginBottom: '1rem',
@@ -89,7 +89,7 @@ export const SpecsSection: React.FC = () => {
           <p
             style={{
               fontSize: '1rem',
-              color: 'var(--color-text-secondary)',
+              color: '#52525B',
               maxWidth: '640px',
               lineHeight: 1.6,
             }}
@@ -102,20 +102,21 @@ export const SpecsSection: React.FC = () => {
         {/* Specs Table */}
         <div
           style={{
-            maxWidth: '920px',
+            maxWidth: '1000px',
             margin: '0 auto',
-            backgroundColor: '#16181D',
-            border: '1px solid rgba(255, 255, 255, 0.1)',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid #E4E4E7',
             borderRadius: 'var(--radius-xs)',
             overflow: 'hidden',
+            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.04)',
           }}
         >
           <div
             className="specs-header-bar"
             style={{
               padding: '1.2rem 1.8rem',
-              backgroundColor: '#1B1E24',
-              borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: '#000000',
+              borderBottom: '1px solid #000000',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
@@ -130,7 +131,7 @@ export const SpecsSection: React.FC = () => {
                 fontSize: '0.78rem',
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
-                color: '#FFA578',
+                color: '#FFFFFF',
               }}
             >
               SERIES 01 // METALLURGY & SPECIFICATION MATRIX
@@ -139,13 +140,13 @@ export const SpecsSection: React.FC = () => {
             <span
               style={{
                 fontSize: '0.72rem',
-                color: 'var(--color-text-muted)',
+                color: '#D4D4D8',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.35rem',
               }}
             >
-              <Award size={13} color="#FFA578" />
+              <Award size={13} color="#FFFFFF" />
               ISO 9001 Certified Foundry
             </span>
           </div>
@@ -162,9 +163,9 @@ export const SpecsSection: React.FC = () => {
                   padding: '1.2rem 1.8rem',
                   borderBottom:
                     index < SPEC_ROWS.length - 1
-                      ? '1px solid rgba(255, 255, 255, 0.05)'
+                      ? '1px solid #E4E4E7'
                       : 'none',
-                  backgroundColor: index % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.015)',
+                  backgroundColor: index % 2 === 0 ? '#FFFFFF' : '#FAFAFA',
                 }}
               >
                 <div>
@@ -173,25 +174,25 @@ export const SpecsSection: React.FC = () => {
                       fontFamily: 'var(--font-display)',
                       fontSize: '0.95rem',
                       fontWeight: 800,
-                      color: '#FFFFFF',
+                      color: '#000000',
                       marginBottom: '0.2rem',
                     }}
                   >
                     {row.feature}
                   </h4>
-                  <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', lineHeight: 1.4 }}>
+                  <p style={{ fontSize: '0.8rem', color: '#52525B', lineHeight: 1.4 }}>
                     {row.detail}
                   </p>
                 </div>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                  <CheckCircle size={15} color="#10B981" />
+                  <CheckCircle size={15} color="#000000" />
                   <span
                     style={{
                       fontFamily: 'var(--font-display)',
                       fontSize: '0.85rem',
-                      fontWeight: 700,
-                      color: 'var(--color-sand)',
+                      fontWeight: 800,
+                      color: '#000000',
                       letterSpacing: '0.04em',
                     }}
                   >

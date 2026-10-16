@@ -39,21 +39,21 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ customAnnounce
   return (
     <div
       style={{
-        background: '#C86237',
+        background: '#000000',
         color: '#FFFFFF',
         fontSize: '0.72rem',
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        letterSpacing: '0.1em',
+        letterSpacing: '0.12em',
         textTransform: 'uppercase',
-        padding: '0.45rem 0.75rem',
+        padding: '0.5rem 1rem',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
         zIndex: 60,
         overflow: 'hidden',
-        borderBottom: '1px solid rgba(0,0,0,0.15)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.15)',
         width: '100%',
         maxWidth: '100vw',
         boxSizing: 'border-box',
@@ -71,7 +71,7 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ customAnnounce
           maxWidth: '100%',
         }}
       >
-        <Icon size={14} style={{ color: '#FFE3D1', flexShrink: 0 }} />
+        <Icon size={14} style={{ color: '#FFFFFF', flexShrink: 0 }} />
         <span
           style={{
             fontSize: 'clamp(0.62rem, 2.6vw, 0.72rem)',

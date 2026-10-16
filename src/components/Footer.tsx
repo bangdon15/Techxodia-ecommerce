@@ -9,9 +9,9 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
   return (
     <footer
       style={{
-        backgroundColor: '#0A0B0D',
-        color: 'var(--color-text-secondary)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: '#000000',
+        color: '#A1A1AA',
+        borderTop: '1px solid #27272A',
         paddingTop: '4.5rem',
         paddingBottom: '3rem',
       }}
@@ -26,40 +26,40 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
             gap: '2rem',
             paddingBottom: '3.5rem',
             marginBottom: '3.5rem',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            borderBottom: '1px solid #27272A',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-            <ShieldCheck size={28} style={{ color: 'var(--color-terracotta)', flexShrink: 0 }} />
+            <ShieldCheck size={28} style={{ color: '#FFFFFF', flexShrink: 0 }} />
             <div>
               <h5 style={{ color: '#FFFFFF', fontSize: '0.88rem', textTransform: 'uppercase', marginBottom: '0.1rem' }}>
                 BUILT FOR ETERNITY
               </h5>
-              <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+              <p style={{ fontSize: '0.75rem', color: '#71717A' }}>
                 Lifetime performance guarantee on all steel vessels.
               </p>
             </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-            <Truck size={28} style={{ color: 'var(--color-terracotta)', flexShrink: 0 }} />
+            <Truck size={28} style={{ color: '#FFFFFF', flexShrink: 0 }} />
             <div>
               <h5 style={{ color: '#FFFFFF', fontSize: '0.88rem', textTransform: 'uppercase', marginBottom: '0.1rem' }}>
                 GLOBAL EXPRESS
               </h5>
-              <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+              <p style={{ fontSize: '0.75rem', color: '#71717A' }}>
                 Carbon-neutral courier dispatch on orders over $75.
               </p>
             </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-            <RotateCcw size={28} style={{ color: 'var(--color-terracotta)', flexShrink: 0 }} />
+            <RotateCcw size={28} style={{ color: '#FFFFFF', flexShrink: 0 }} />
             <div>
               <h5 style={{ color: '#FFFFFF', fontSize: '0.88rem', textTransform: 'uppercase', marginBottom: '0.1rem' }}>
                 HASSLE-FREE RETURNS
               </h5>
-              <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
+              <p style={{ fontSize: '0.75rem', color: '#71717A' }}>
                 30-day unconditioned return window for unused archive gear.
               </p>
             </div>
@@ -80,8 +80,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
           <div style={{ gridColumn: 'span 1' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.8rem' }}>
               <svg width="22" height="22" viewBox="0 0 100 100" fill="none">
-                <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" stroke="#C86237" strokeWidth="8" />
-                <polygon points="50,26 76,40 76,60 50,74 24,60 24,40" fill="#C86237" />
+                <polygon points="50,10 90,30 90,70 50,90 10,70 10,30" stroke="#FFFFFF" strokeWidth="8" />
+                <polygon points="50,26 76,40 76,60 50,74 24,60 24,40" fill="#FFFFFF" />
               </svg>
               <span
                 style={{
@@ -95,7 +95,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
                 TECHXODIA
               </span>
             </div>
-            <p style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', lineHeight: 1.6, maxWidth: '240px' }}>
+            <p style={{ fontSize: '0.82rem', color: '#71717A', lineHeight: 1.6, maxWidth: '240px' }}>
               Architectural drinkware & outdoor lifestyle objects built with aerospace-grade metallurgy and timeless aesthetic discipline.
             </p>
           </div>
@@ -138,7 +138,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
         {/* Bottom Copyright & Disclaimer */}
         <div
           style={{
-            borderTop: '1px solid rgba(255, 255, 255, 0.06)',
+            borderTop: '1px solid #27272A',
             paddingTop: '2rem',
             display: 'flex',
             flexWrap: 'wrap',
@@ -146,7 +146,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
             alignItems: 'center',
             gap: '1rem',
             fontSize: '0.74rem',
-            color: 'var(--color-text-muted)',
+            color: '#71717A',
           }}
         >
           <span>
@@ -163,7 +163,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
                 else window.location.hash = '/admin';
               }}
               style={{
-                color: 'var(--color-text-muted)',
+                color: '#A1A1AA',
                 textDecoration: 'none',
                 cursor: 'pointer',
                 fontSize: '0.72rem',

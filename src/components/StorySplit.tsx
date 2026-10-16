@@ -8,9 +8,9 @@ export const StorySplit: React.FC = () => {
       style={{
         paddingTop: '6rem',
         paddingBottom: '6rem',
-        backgroundColor: '#111215',
+        backgroundColor: '#F8F8FA',
         position: 'relative',
-        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+        borderTop: '1px solid #E4E4E7',
       }}
     >
       <div className="container-luxury">
@@ -29,9 +29,9 @@ export const StorySplit: React.FC = () => {
               style={{
                 borderRadius: 'var(--radius-xs)',
                 overflow: 'hidden',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
+                border: '1px solid #E4E4E7',
                 position: 'relative',
-                boxShadow: '0 20px 50px rgba(0, 0, 0, 0.6)',
+                boxShadow: '0 16px 40px rgba(0, 0, 0, 0.06)',
               }}
             >
               <img
@@ -53,11 +53,11 @@ export const StorySplit: React.FC = () => {
                   bottom: '20px',
                   left: '20px',
                   maxWidth: 'calc(100% - 40px)',
-                  backgroundColor: 'rgba(12, 13, 15, 0.92)',
-                  border: '1px solid rgba(200, 98, 55, 0.4)',
+                  backgroundColor: '#000000',
+                  border: 'none',
                   padding: '0.8rem 1.2rem',
                   borderRadius: 'var(--radius-xs)',
-                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
                 }}
               >
                 <span
@@ -65,9 +65,9 @@ export const StorySplit: React.FC = () => {
                     display: 'block',
                     fontFamily: 'var(--font-display)',
                     fontSize: '0.64rem',
-                    fontWeight: 700,
+                    fontWeight: 800,
                     letterSpacing: '0.2em',
-                    color: '#FFA578',
+                    color: '#A1A1AA',
                     textTransform: 'uppercase',
                   }}
                 >
@@ -76,7 +76,7 @@ export const StorySplit: React.FC = () => {
                 <span
                   style={{
                     fontSize: '0.85rem',
-                    fontWeight: 700,
+                    fontWeight: 800,
                     color: '#FFFFFF',
                     fontFamily: 'var(--font-display)',
                   }}
@@ -94,7 +94,7 @@ export const StorySplit: React.FC = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.4rem',
-                color: 'var(--color-terracotta)',
+                color: '#000000',
                 fontFamily: 'var(--font-display)',
                 fontSize: '0.74rem',
                 fontWeight: 800,
@@ -111,7 +111,7 @@ export const StorySplit: React.FC = () => {
               style={{
                 fontSize: 'clamp(2.2rem, 3.8vw, 3.4rem)',
                 fontWeight: 900,
-                color: '#FFFFFF',
+                color: '#000000',
                 letterSpacing: '-0.02em',
                 lineHeight: 1.1,
                 textTransform: 'uppercase',
@@ -119,7 +119,7 @@ export const StorySplit: React.FC = () => {
               }}
             >
               HIDDEN IN <br />
-              <span style={{ color: 'var(--color-terracotta)' }}>
+              <span style={{ color: '#000000' }}>
                 PLAIN SIGHT.
               </span>
             </h2>
@@ -127,14 +127,14 @@ export const StorySplit: React.FC = () => {
             <p
               style={{
                 fontSize: '1.05rem',
-                color: 'var(--color-sand)',
+                color: '#52525B',
                 lineHeight: 1.7,
                 marginBottom: '2.5rem',
               }}
             >
               This capsule is not about shouting for attention. It is designed for those
-              who value understated dominance—grounded in earthen terracotta hues,
-              textured powder coatings that warm to the touch, and aerospace tolerances
+              who value understated dominance—grounded in timeless monochrome aesthetics,
+              textured ceramic powder coatings that warm to the touch, and aerospace tolerances
               that guarantee silence under stress.
             </p>
 
@@ -149,76 +149,80 @@ export const StorySplit: React.FC = () => {
             >
               <div
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E4E4E7',
                   padding: '1.2rem',
                   borderRadius: 'var(--radius-xs)',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
-                  <Layers size={18} style={{ color: 'var(--color-terracotta)' }} />
-                  <h4 style={{ fontSize: '0.9rem', color: '#FFFFFF', textTransform: 'uppercase' }}>
+                  <Layers size={18} style={{ color: '#000000' }} />
+                  <h4 style={{ fontSize: '0.9rem', color: '#000000', textTransform: 'uppercase', fontWeight: 800 }}>
                     Dual Cryo-Barrier
                   </h4>
                 </div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
-                  Traps internal thermal kinetic energy without sweating on hot desert countertops.
+                <p style={{ fontSize: '0.8rem', color: '#52525B', lineHeight: 1.5 }}>
+                  Traps internal thermal kinetic energy without sweating on countertops.
                 </p>
               </div>
 
               <div
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E4E4E7',
                   padding: '1.2rem',
                   borderRadius: 'var(--radius-xs)',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
-                  <Droplets size={18} style={{ color: 'var(--color-terracotta)' }} />
-                  <h4 style={{ fontSize: '0.9rem', color: '#FFFFFF', textTransform: 'uppercase' }}>
+                  <Droplets size={18} style={{ color: '#000000' }} />
+                  <h4 style={{ fontSize: '0.9rem', color: '#000000', textTransform: 'uppercase', fontWeight: 800 }}>
                     100% Anti-Spill Seal
                   </h4>
                 </div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
+                <p style={{ fontSize: '0.8rem', color: '#52525B', lineHeight: 1.5 }}>
                   Zero droplet leakage, even when tossed inside heavy duffels or off-road gear cases.
                 </p>
               </div>
 
               <div
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E4E4E7',
                   padding: '1.2rem',
                   borderRadius: 'var(--radius-xs)',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
-                  <Shield size={18} style={{ color: 'var(--color-terracotta)' }} />
-                  <h4 style={{ fontSize: '0.9rem', color: '#FFFFFF', textTransform: 'uppercase' }}>
+                  <Shield size={18} style={{ color: '#000000' }} />
+                  <h4 style={{ fontSize: '0.9rem', color: '#000000', textTransform: 'uppercase', fontWeight: 800 }}>
                     90% Recycled Metal
                   </h4>
                 </div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
+                <p style={{ fontSize: '0.8rem', color: '#52525B', lineHeight: 1.5 }}>
                   Sustainable circular metallurgy meeting strict certified FDA and EU safety benchmarks.
                 </p>
               </div>
 
               <div
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E4E4E7',
                   padding: '1.2rem',
                   borderRadius: 'var(--radius-xs)',
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.03)',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.5rem' }}>
-                  <Compass size={18} style={{ color: 'var(--color-terracotta)' }} />
-                  <h4 style={{ fontSize: '0.9rem', color: '#FFFFFF', textTransform: 'uppercase' }}>
+                  <Compass size={18} style={{ color: '#000000' }} />
+                  <h4 style={{ fontSize: '0.9rem', color: '#000000', textTransform: 'uppercase', fontWeight: 800 }}>
                     Ergonomic Balance
                   </h4>
                 </div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', lineHeight: 1.5 }}>
+                <p style={{ fontSize: '0.8rem', color: '#52525B', lineHeight: 1.5 }}>
                   Weighted counter-balance makes 64oz feel lightweight and natural in a single stride.
                 </p>
               </div>

@@ -77,11 +77,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           width: '100%',
           maxWidth: '460px',
           height: '100%',
-          backgroundColor: '#121417',
-          borderLeft: '1px solid rgba(255, 255, 255, 0.12)',
+          backgroundColor: '#FFFFFF',
+          borderLeft: '1px solid #E4E4E7',
           display: 'flex',
           flexDirection: 'column',
-          boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.8)',
+          boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.25)',
           animation: 'slideInRight 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
       >
@@ -89,7 +89,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         <div
           style={{
             padding: '1.4rem 1.6rem',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            borderBottom: '1px solid #E4E4E7',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -103,7 +103,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 fontSize: '1.1rem',
                 letterSpacing: '0.12em',
                 textTransform: 'uppercase',
-                color: '#FFFFFF',
+                color: '#000000',
               }}
             >
               YOUR SHOPPING BAG
@@ -111,8 +111,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             <span
               style={{
                 fontSize: '0.75rem',
-                color: 'var(--color-terracotta)',
-                fontWeight: 700,
+                color: '#52525B',
+                fontWeight: 800,
               }}
             >
               ({items.reduce((acc, i) => acc + i.quantity, 0)})
@@ -124,7 +124,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             style={{
               background: 'none',
               border: 'none',
-              color: 'var(--color-text-secondary)',
+              color: '#000000',
               cursor: 'pointer',
               padding: '0.4rem',
               display: 'flex',
@@ -140,8 +140,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
         <div
           style={{
             padding: '1rem 1.6rem',
-            backgroundColor: 'rgba(200, 98, 55, 0.08)',
-            borderBottom: '1px solid rgba(200, 98, 55, 0.2)',
+            backgroundColor: '#F4F4F5',
+            borderBottom: '1px solid #E4E4E7',
           }}
         >
           <div
@@ -151,20 +151,20 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               justifyContent: 'space-between',
               fontSize: '0.74rem',
               fontFamily: 'var(--font-display)',
-              fontWeight: 700,
+              fontWeight: 800,
               letterSpacing: '0.08em',
               textTransform: 'uppercase',
-              color: '#FFFFFF',
+              color: '#000000',
               marginBottom: '0.4rem',
             }}
           >
             <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <Truck size={14} color="#FFA578" />
+              <Truck size={14} color="#000000" />
               {isFreeShipping && subtotalUsd > 0
                 ? 'FREE EXPRESS SHIPPING UNLOCKED!'
                 : `ADD ${formatPrice(diffToFreeShipping, currency)} FOR FREE SHIPPING`}
             </span>
-            <span style={{ color: 'var(--color-terracotta-light)' }}>
+            <span style={{ color: '#000000', fontWeight: 800 }}>
               {Math.round(progressPercent)}%
             </span>
           </div>
@@ -172,8 +172,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           <div
             style={{
               width: '100%',
-              height: '4px',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              height: '5px',
+              backgroundColor: '#E4E4E7',
               borderRadius: '2px',
               overflow: 'hidden',
             }}
@@ -182,7 +182,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
               style={{
                 height: '100%',
                 width: `${progressPercent}%`,
-                backgroundColor: 'var(--color-terracotta)',
+                backgroundColor: '#000000',
                 transition: 'width 0.4s ease',
               }}
             />
@@ -209,7 +209,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 justifyContent: 'center',
                 height: '100%',
                 textAlign: 'center',
-                color: 'var(--color-text-muted)',
+                color: '#71717A',
               }}
             >
               <span
@@ -219,13 +219,13 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   fontWeight: 800,
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
-                  color: 'var(--color-sand)',
+                  color: '#000000',
                   marginBottom: '0.5rem',
                 }}
               >
                 YOUR BAG IS EMPTY
               </span>
-              <p style={{ fontSize: '0.85rem', maxWidth: '240px', lineHeight: 1.5, marginBottom: '1.5rem' }}>
+              <p style={{ fontSize: '0.85rem', maxWidth: '240px', lineHeight: 1.5, marginBottom: '1.5rem', color: '#52525B' }}>
                 Explore the limited Techxodia Series 01 drop before the numbered allocation closes.
               </p>
               <button
@@ -244,7 +244,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                   display: 'flex',
                   gap: '1rem',
                   paddingBottom: '1.2rem',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.06)',
+                  borderBottom: '1px solid #E4E4E7',
                 }}
               >
                 {/* Thumbnail */}
@@ -253,9 +253,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     width: '84px',
                     height: '84px',
                     borderRadius: 'var(--radius-xs)',
-                    backgroundColor: '#1E2127',
+                    backgroundColor: '#F4F4F5',
                     overflow: 'hidden',
                     flexShrink: 0,
+                    border: '1px solid #E4E4E7',
                   }}
                 >
                   <img
@@ -272,7 +273,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       style={{
                         fontSize: '0.88rem',
                         fontWeight: 800,
-                        color: '#FFFFFF',
+                        color: '#000000',
                         lineHeight: 1.3,
                         marginBottom: '0.2rem',
                       }}
@@ -289,9 +290,10 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           borderRadius: '50%',
                           backgroundColor: item.selectedColor.hex,
                           display: 'inline-block',
+                          border: '1px solid rgba(0,0,0,0.15)',
                         }}
                       />
-                      <span style={{ fontSize: '0.72rem', color: 'var(--color-text-secondary)' }}>
+                      <span style={{ fontSize: '0.72rem', color: '#52525B' }}>
                         {item.selectedColor.name} • {item.product.capacity}
                       </span>
                     </div>
@@ -304,15 +306,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           alignItems: 'center',
                           gap: '0.3rem',
                           fontSize: '0.66rem',
-                          color: '#FFA578',
-                          backgroundColor: 'rgba(200, 98, 55, 0.15)',
+                          color: '#000000',
+                          backgroundColor: '#F4F4F5',
                           padding: '0.15rem 0.4rem',
                           borderRadius: '2px',
-                          border: '1px solid rgba(200, 98, 55, 0.3)',
+                          border: '1px solid #E4E4E7',
                           marginBottom: '0.3rem',
+                          fontWeight: 700,
                         }}
                       >
-                        <Sparkles size={10} />
+                        <Sparkles size={10} color="#000000" />
                         <span>ENGRAVED: "{item.customEngraving}"</span>
                       </div>
                     )}
@@ -324,8 +327,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                       style={{
                         display: 'flex',
                         alignItems: 'center',
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        backgroundColor: '#F4F4F5',
+                        border: '1px solid #E4E4E7',
                         borderRadius: 'var(--radius-xs)',
                       }}
                     >
@@ -334,15 +337,16 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         style={{
                           background: 'none',
                           border: 'none',
-                          color: '#FFFFFF',
+                          color: '#000000',
                           width: '24px',
                           height: '28px',
                           cursor: 'pointer',
+                          fontWeight: 700,
                         }}
                       >
                         −
                       </button>
-                      <span style={{ fontSize: '0.8rem', fontWeight: 700, padding: '0 4px', color: '#FFF' }}>
+                      <span style={{ fontSize: '0.8rem', fontWeight: 800, padding: '0 4px', color: '#000000' }}>
                         {item.quantity}
                       </span>
                       <button
@@ -350,10 +354,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         style={{
                           background: 'none',
                           border: 'none',
-                          color: '#FFFFFF',
+                          color: '#000000',
                           width: '24px',
                           height: '28px',
                           cursor: 'pointer',
+                          fontWeight: 700,
                         }}
                       >
                         +
@@ -366,7 +371,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                           fontFamily: 'var(--font-display)',
                           fontWeight: 800,
                           fontSize: '0.95rem',
-                          color: '#FFFFFF',
+                          color: '#000000',
                         }}
                       >
                         {formatPrice(item.product.price * item.quantity, currency)}
@@ -377,7 +382,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                         style={{
                           background: 'none',
                           border: 'none',
-                          color: 'var(--color-text-muted)',
+                          color: '#71717A',
                           cursor: 'pointer',
                           padding: '2px',
                         }}
@@ -399,8 +404,8 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           <div
             style={{
               padding: '1.4rem 1.6rem',
-              backgroundColor: '#0E1012',
-              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+              backgroundColor: '#F8F8FA',
+              borderTop: '1px solid #E4E4E7',
             }}
           >
             {/* Promo code form */}
@@ -412,27 +417,27 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 onChange={(e) => setPromoCode(e.target.value)}
                 style={{
                   flex: 1,
-                  backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #D4D4D8',
                   borderRadius: 'var(--radius-xs)',
                   padding: '0.55rem 0.8rem',
                   fontSize: '0.75rem',
                   fontFamily: 'var(--font-display)',
                   letterSpacing: '0.08em',
-                  color: '#FFFFFF',
+                  color: '#000000',
                   outline: 'none',
                 }}
               />
               <button
                 type="submit"
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  backgroundColor: '#000000',
+                  border: '1px solid #000000',
                   color: '#FFFFFF',
                   padding: '0.55rem 0.9rem',
                   fontSize: '0.72rem',
                   fontFamily: 'var(--font-display)',
-                  fontWeight: 700,
+                  fontWeight: 800,
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
                   borderRadius: 'var(--radius-xs)',
@@ -444,34 +449,34 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
             </form>
 
             {promoApplied && (
-              <span style={{ fontSize: '0.72rem', color: '#10B981', display: 'block', marginBottom: '0.6rem' }}>
+              <span style={{ fontSize: '0.72rem', color: '#10B981', display: 'block', marginBottom: '0.6rem', fontWeight: 600 }}>
                 ✓ Promo code TECH10 applied (10% discount).
               </span>
             )}
 
             {promoError && (
-              <span style={{ fontSize: '0.72rem', color: '#EF4444', display: 'block', marginBottom: '0.6rem' }}>
+              <span style={{ fontSize: '0.72rem', color: '#EF4444', display: 'block', marginBottom: '0.6rem', fontWeight: 600 }}>
                 {promoError}
               </span>
             )}
 
             {/* Price Calculations */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', marginBottom: '1.2rem', fontSize: '0.82rem' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#52525B' }}>
                 <span>Subtotal</span>
-                <span style={{ color: '#FFFFFF', fontWeight: 600 }}>{formatPrice(subtotalUsd, currency)}</span>
+                <span style={{ color: '#000000', fontWeight: 700 }}>{formatPrice(subtotalUsd, currency)}</span>
               </div>
 
               {promoApplied && (
-                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#10B981' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', color: '#10B981', fontWeight: 600 }}>
                   <span>VIP Collab Discount (10%)</span>
                   <span>-{formatPrice(discountUsd, currency)}</span>
                 </div>
               )}
 
-              <div style={{ display: 'flex', justifyContent: 'space-between', color: 'var(--color-text-secondary)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', color: '#52525B' }}>
                 <span>Express Courier Shipping</span>
-                <span style={{ color: isFreeShipping ? '#10B981' : '#FFFFFF', fontWeight: 600 }}>
+                <span style={{ color: isFreeShipping ? '#10B981' : '#000000', fontWeight: 700 }}>
                   {isFreeShipping ? 'FREE' : formatPrice(shippingUsd, currency)}
                 </span>
               </div>
@@ -480,17 +485,17 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 style={{
                   display: 'flex',
                   justifyContent: 'space-between',
-                  borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                  borderTop: '1px solid #E4E4E7',
                   paddingTop: '0.6rem',
                   marginTop: '0.3rem',
                   fontFamily: 'var(--font-display)',
                   fontWeight: 900,
                   fontSize: '1.15rem',
-                  color: '#FFFFFF',
+                  color: '#000000',
                 }}
               >
                 <span>ESTIMATED TOTAL</span>
-                <span style={{ color: 'var(--color-terracotta-light)' }}>{formatPrice(totalUsd, currency)}</span>
+                <span style={{ color: '#000000' }}>{formatPrice(totalUsd, currency)}</span>
               </div>
             </div>
 
@@ -511,11 +516,11 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 justifyContent: 'center',
                 gap: '0.4rem',
                 fontSize: '0.7rem',
-                color: 'var(--color-text-muted)',
+                color: '#71717A',
                 marginTop: '0.8rem',
               }}
             >
-              <ShieldCheck size={13} color="#10B981" />
+              <ShieldCheck size={13} color="#000000" />
               <span>Encrypted SSL • Instant Supabase Order Persistence</span>
             </div>
           </div>

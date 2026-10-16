@@ -54,7 +54,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         particleCount: 50,
         spread: 60,
         origin: { y: 0.7 },
-        colors: ['#C86237', '#FFA578', '#FFFFFF', '#D8CEBC']
+        colors: ['#000000', '#52525B', '#A1A1AA', '#FFFFFF']
       });
     } catch {
       // ignore
@@ -87,7 +87,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.88)',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
         backdropFilter: 'blur(12px)',
         zIndex: 100,
         display: 'flex',
@@ -100,15 +100,15 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          backgroundColor: '#14161A',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
+          backgroundColor: '#FFFFFF',
+          border: '1px solid #E4E4E7',
           borderRadius: 'var(--radius-sm)',
           maxWidth: '940px',
           width: '100%',
           maxHeight: '94vh',
           overflowY: 'auto',
           position: 'relative',
-          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.85)',
+          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.3)',
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
           WebkitOverflowScrolling: 'touch',
@@ -123,9 +123,9 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             top: '16px',
             right: '16px',
             zIndex: 10,
-            background: 'rgba(0, 0, 0, 0.75)',
-            border: '1px solid rgba(255, 255, 255, 0.18)',
-            color: '#FFFFFF',
+            background: '#FFFFFF',
+            border: '1px solid #E4E4E7',
+            color: '#000000',
             cursor: 'pointer',
             width: '38px',
             height: '38px',
@@ -133,6 +133,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
             transition: 'all 0.2s',
           }}
           aria-label="Close Modal"
@@ -144,10 +145,11 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         <div
           style={{
             padding: '1.8rem',
-            backgroundColor: '#1A1D24',
+            backgroundColor: '#F8F8FA',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
+            borderRight: '1px solid #E4E4E7',
           }}
         >
           <div
@@ -157,7 +159,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               position: 'relative',
               borderRadius: 'var(--radius-xs)',
               overflow: 'hidden',
-              backgroundColor: '#14161A',
+              backgroundColor: '#F4F4F5',
               marginBottom: '1rem',
             }}
           >
@@ -197,10 +199,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     height: '64px',
                     borderRadius: 'var(--radius-xs)',
                     overflow: 'hidden',
-                    border: activeImage === img ? '2px solid var(--color-terracotta)' : '1px solid rgba(255, 255, 255, 0.1)',
+                    border: activeImage === img ? '2px solid #000000' : '1px solid #E4E4E7',
                     padding: 0,
                     cursor: 'pointer',
-                    background: 'none',
+                    background: '#FFFFFF',
                     flexShrink: 0,
                   }}
                 >
@@ -235,17 +237,16 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     fontWeight: 800,
                     letterSpacing: '0.14em',
                     textTransform: 'uppercase',
-                    color: '#FFA578',
-                    backgroundColor: 'rgba(200, 98, 55, 0.15)',
+                    color: '#FFFFFF',
+                    backgroundColor: '#000000',
                     padding: '0.25rem 0.6rem',
-                    border: '1px solid rgba(200, 98, 55, 0.3)',
                     borderRadius: 'var(--radius-xs)',
                   }}
                 >
                   {product.badge}
                 </span>
               )}
-              <span style={{ fontSize: '0.74rem', color: 'var(--color-sand)', letterSpacing: '0.08em', fontWeight: 600 }}>
+              <span style={{ fontSize: '0.74rem', color: '#52525B', letterSpacing: '0.08em', fontWeight: 700 }}>
                 {product.capacity}
               </span>
             </div>
@@ -254,7 +255,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               style={{
                 fontSize: 'clamp(1.3rem, 2.5vw, 1.7rem)',
                 fontWeight: 900,
-                color: '#FFFFFF',
+                color: '#000000',
                 lineHeight: 1.2,
                 marginBottom: '0.3rem',
                 textTransform: 'uppercase',
@@ -263,7 +264,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               {product.name}
             </h2>
 
-            <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '1.2rem' }}>
+            <p style={{ fontSize: '0.85rem', color: '#52525B', marginBottom: '1.2rem' }}>
               {product.subtitle}
             </p>
 
@@ -275,7 +276,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 gap: '1rem',
                 marginBottom: '1.4rem',
                 paddingBottom: '1.2rem',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                borderBottom: '1px solid #E4E4E7',
                 flexWrap: 'wrap',
               }}
             >
@@ -284,27 +285,27 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.8rem',
                   fontWeight: 900,
-                  color: '#FFFFFF',
+                  color: '#000000',
                 }}
               >
                 {formatPrice(product.price, currency)}
               </span>
 
               {product.original_price && (
-                <span style={{ fontSize: '1.1rem', color: 'var(--color-text-muted)', textDecoration: 'line-through' }}>
+                <span style={{ fontSize: '1.1rem', color: '#71717A', textDecoration: 'line-through' }}>
                   {formatPrice(product.original_price, currency)}
                 </span>
               )}
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', marginLeft: 'auto' }}>
-                <Star size={14} fill="#FFA578" color="#FFA578" />
-                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#FFFFFF' }}>{product.rating}</span>
-                <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>({product.reviews_count} reviews)</span>
+                <Star size={14} fill="#000000" color="#000000" />
+                <span style={{ fontSize: '0.85rem', fontWeight: 800, color: '#000000' }}>{product.rating}</span>
+                <span style={{ fontSize: '0.75rem', color: '#71717A' }}>({product.reviews_count} reviews)</span>
               </div>
             </div>
 
             {/* Description */}
-            <p style={{ fontSize: '0.88rem', color: 'var(--color-sand)', lineHeight: 1.6, marginBottom: '1.4rem' }}>
+            <p style={{ fontSize: '0.88rem', color: '#52525B', lineHeight: 1.6, marginBottom: '1.4rem' }}>
               {product.description}
             </p>
 
@@ -314,15 +315,15 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 style={{
                   display: 'block',
                   fontSize: '0.74rem',
-                  fontWeight: 700,
+                  fontWeight: 800,
                   fontFamily: 'var(--font-display)',
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
-                  color: 'var(--color-text-secondary)',
+                  color: '#000000',
                   marginBottom: '0.7rem',
                 }}
               >
-                Select Colorway: <strong style={{ color: '#FFFFFF' }}>{selectedColor.name}</strong>
+                Select Colorway: <strong style={{ color: '#000000' }}>{selectedColor.name}</strong>
               </span>
 
               <div style={{ display: 'flex', gap: '0.6rem', flexWrap: 'wrap' }}>
@@ -336,15 +337,15 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.5rem',
-                        backgroundColor: isSel ? 'rgba(200, 98, 55, 0.18)' : 'rgba(255, 255, 255, 0.04)',
-                        border: isSel ? '1.5px solid var(--color-terracotta)' : '1px solid rgba(255, 255, 255, 0.12)',
+                        backgroundColor: isSel ? '#000000' : '#FFFFFF',
+                        border: isSel ? '1.5px solid #000000' : '1px solid #D4D4D8',
                         padding: '0.5rem 0.85rem',
                         borderRadius: 'var(--radius-xs)',
                         cursor: 'pointer',
-                        color: isSel ? '#FFFFFF' : 'var(--color-text-secondary)',
+                        color: isSel ? '#FFFFFF' : '#000000',
                         fontSize: '0.78rem',
                         fontFamily: 'var(--font-display)',
-                        fontWeight: 700,
+                        fontWeight: 800,
                         transition: 'all 0.15s ease',
                         minHeight: '40px',
                       }}
@@ -356,7 +357,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                           borderRadius: '50%',
                           backgroundColor: c.hex,
                           display: 'inline-block',
-                          border: isSel ? '2px solid #FFFFFF' : '1px solid rgba(255, 255, 255, 0.2)',
+                          border: isSel ? '2px solid #FFFFFF' : '1px solid rgba(0, 0, 0, 0.2)',
                         }}
                       />
                       <span>{c.name}</span>
@@ -374,10 +375,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: 'var(--color-terracotta-light)',
+                  color: '#000000',
                   fontFamily: 'var(--font-display)',
                   fontSize: '0.75rem',
-                  fontWeight: 700,
+                  fontWeight: 800,
                   letterSpacing: '0.1em',
                   textTransform: 'uppercase',
                   cursor: 'pointer',
@@ -388,7 +389,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   marginBottom: showEngraveInput ? '0.6rem' : 0,
                 }}
               >
-                <Sparkles size={13} />
+                <Sparkles size={13} color="#000000" />
                 <span>{showEngraveInput ? '− Remove Custom Laser Engraving' : '+ Add Custom Laser Engraving (Complimentary)'}</span>
               </button>
 
@@ -402,10 +403,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     onChange={(e) => setEngraving(e.target.value.toUpperCase())}
                     style={{
                       width: '100%',
-                      backgroundColor: 'rgba(0, 0, 0, 0.3)',
-                      border: '1px solid rgba(200, 98, 55, 0.4)',
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #000000',
                       padding: '0.75rem 0.85rem',
-                      color: '#FFFFFF',
+                      color: '#000000',
                       fontSize: '0.85rem',
                       fontFamily: 'var(--font-display)',
                       letterSpacing: '0.14em',
@@ -413,7 +414,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                       borderRadius: 'var(--radius-xs)',
                     }}
                   />
-                  <span style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', display: 'block', marginTop: '0.3rem' }}>
+                  <span style={{ fontSize: '0.68rem', color: '#71717A', display: 'block', marginTop: '0.3rem' }}>
                     Precision laser-etched on stainless steel reverse side. Max 14 characters.
                   </span>
                 </div>
@@ -424,8 +425,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             {product.specs && product.specs.length > 0 && (
               <div
                 style={{
-                  backgroundColor: 'rgba(0, 0, 0, 0.25)',
-                  border: '1px solid rgba(255, 255, 255, 0.06)',
+                  backgroundColor: '#F8F8FA',
+                  border: '1px solid #E4E4E7',
                   borderRadius: 'var(--radius-xs)',
                   padding: '1rem',
                   marginBottom: '1.8rem',
@@ -439,7 +440,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     fontFamily: 'var(--font-display)',
                     letterSpacing: '0.14em',
                     textTransform: 'uppercase',
-                    color: 'var(--color-sand)',
+                    color: '#000000',
                     marginBottom: '0.5rem',
                   }}
                 >
@@ -448,8 +449,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
                   {product.specs.map((s, idx) => (
                     <div key={idx} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.78rem' }}>
-                      <span style={{ color: 'var(--color-text-muted)' }}>{s.label}</span>
-                      <span style={{ color: 'var(--color-text-primary)', fontWeight: 600 }}>{s.value}</span>
+                      <span style={{ color: '#71717A' }}>{s.label}</span>
+                      <span style={{ color: '#000000', fontWeight: 700 }}>{s.value}</span>
                     </div>
                   ))}
                 </div>
@@ -465,8 +466,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                  border: '1px solid rgba(255, 255, 255, 0.12)',
+                  backgroundColor: '#F4F4F5',
+                  border: '1px solid #E4E4E7',
                   borderRadius: 'var(--radius-xs)',
                   overflow: 'hidden',
                   height: '48px',
@@ -477,11 +478,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: '#FFFFFF',
+                    color: '#000000',
                     width: '42px',
                     height: '100%',
                     cursor: 'pointer',
                     fontSize: '1.1rem',
+                    fontWeight: 700,
                   }}
                   aria-label="Decrease Quantity"
                 >
@@ -492,8 +494,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                     width: '32px',
                     textAlign: 'center',
                     fontFamily: 'var(--font-display)',
-                    fontWeight: 700,
-                    color: '#FFFFFF',
+                    fontWeight: 800,
+                    color: '#000000',
                     fontSize: '0.95rem',
                   }}
                 >
@@ -504,11 +506,12 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: '#FFFFFF',
+                    color: '#000000',
                     width: '42px',
                     height: '100%',
                     cursor: 'pointer',
                     fontSize: '1.1rem',
+                    fontWeight: 700,
                   }}
                   aria-label="Increase Quantity"
                 >
@@ -527,13 +530,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               </button>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.72rem', color: 'var(--color-text-muted)', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.72rem', color: '#71717A', flexWrap: 'wrap' }}>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
-                <Check size={12} color="#10B981" />
+                <Check size={12} color="#000000" />
                 Allocated Stock Verified ({product.stock} units)
               </span>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
-                <ShieldCheck size={12} color="#FFA578" />
+                <ShieldCheck size={12} color="#000000" />
                 Lifetime Performance Guarantee
               </span>
             </div>

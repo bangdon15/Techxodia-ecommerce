@@ -132,7 +132,7 @@ export function generateReceiptHtml(order: OrderRecord): string {
         <td style="padding: 12px 0; border-bottom: 1px solid #23272F;">
           <strong style="color: #FFFFFF; font-size: 14px;">${item.name}</strong><br/>
           <span style="color: #A39B8B; font-size: 12px;">Colorway: ${item.color}</span>
-          ${item.customEngraving ? `<br/><span style="color: #C86237; font-size: 11px;">Laser Engraving: "${item.customEngraving}"</span>` : ''}
+          ${item.customEngraving ? `<br/><span style="color: #000000; font-weight: 700; font-size: 11px;">Laser Engraving: "${item.customEngraving}"</span>` : ''}
         </td>
         <td style="padding: 12px 0; border-bottom: 1px solid #23272F; text-align: center; color: #FFFFFF; font-size: 13px;">
           ${item.quantity}
@@ -154,9 +154,9 @@ export function generateReceiptHtml(order: OrderRecord): string {
       <style>
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0A0B0D; margin: 0; padding: 24px; color: #E8E5DF; }
         .receipt-card { max-width: 600px; margin: 0 auto; background-color: #121418; border: 1px solid #262930; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
-        .header { background-color: #191B21; padding: 28px; border-bottom: 2px solid #C86237; text-align: center; }
+        .header { background-color: #191B21; padding: 28px; border-bottom: 2px solid #000000; text-align: center; }
         .brand-title { font-size: 20px; font-weight: 900; letter-spacing: 4px; color: #FFFFFF; margin: 0; text-transform: uppercase; }
-        .brand-tag { font-size: 10px; letter-spacing: 2px; color: #C86237; margin-top: 4px; text-transform: uppercase; font-weight: 700; }
+        .brand-tag { font-size: 10px; letter-spacing: 2px; color: #FFFFFF; margin-top: 4px; text-transform: uppercase; font-weight: 700; }
         .body { padding: 32px 28px; }
         .order-badge { display: inline-block; background-color: rgba(16, 185, 129, 0.15); border: 1px solid #10B981; color: #10B981; padding: 4px 10px; border-radius: 2px; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
         .table { width: 100%; border-collapse: collapse; margin-top: 24px; }

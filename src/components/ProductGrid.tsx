@@ -33,8 +33,8 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
       style={{
         paddingTop: '6rem',
         paddingBottom: '6rem',
-        backgroundColor: '#0C0D0F',
-        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: '#FFFFFF',
+        borderTop: '1px solid #E4E4E7',
       }}
     >
       <div className="container-luxury">
@@ -53,7 +53,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.45rem',
-              color: 'var(--color-terracotta)',
+              color: '#000000',
               fontFamily: 'var(--font-display)',
               fontSize: '0.74rem',
               fontWeight: 800,
@@ -71,7 +71,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
             style={{
               fontSize: 'clamp(2rem, 4vw, 3.2rem)',
               fontWeight: 900,
-              color: '#FFFFFF',
+              color: '#000000',
               letterSpacing: '-0.02em',
               textTransform: 'uppercase',
               marginBottom: '1rem',
@@ -83,13 +83,13 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
           <p
             style={{
               fontSize: '1rem',
-              color: 'var(--color-text-secondary)',
+              color: '#52525B',
               maxWidth: '620px',
               lineHeight: 1.6,
             }}
           >
             Inspired by quiet confidence and architectural discipline. Every item is
-            vacuum-sealed, laser-inscribed, and finished in bespoke desert earth tones.
+            vacuum-sealed, laser-inscribed, and finished in bespoke monochrome & desert earth tones.
           </p>
         </div>
 
@@ -112,14 +112,14 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                 onClick={() => setActiveCategory(cat)}
                 className="category-tab-btn"
                 style={{
-                  background: isActive ? 'var(--color-terracotta)' : 'rgba(255, 255, 255, 0.04)',
-                  color: isActive ? '#FFFFFF' : 'var(--color-text-secondary)',
+                  background: isActive ? '#000000' : '#F4F4F5',
+                  color: isActive ? '#FFFFFF' : '#18181B',
                   border: isActive
-                    ? '1px solid var(--color-terracotta)'
-                    : '1px solid rgba(255, 255, 255, 0.08)',
-                  padding: '0.6rem 1.4rem',
+                    ? '1px solid #000000'
+                    : '1px solid #E4E4E7',
+                  padding: '0.65rem 1.4rem',
                   fontSize: '0.74rem',
-                  fontWeight: 700,
+                  fontWeight: 800,
                   fontFamily: 'var(--font-display)',
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
@@ -135,13 +135,14 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
           })}
         </div>
 
-        {/* Product Grid */}
+        {/* Product Grid - Wide and Generous */}
         <div
           className="product-grid-container"
           style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-            gap: '1.8rem',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(285px, 1fr))',
+            gap: '1.6rem',
+            width: '100%',
           }}
         >
           {filteredProducts.map((product) => (

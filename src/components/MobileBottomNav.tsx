@@ -23,10 +23,10 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         left: 0,
         right: 0,
         zIndex: 90,
-        backgroundColor: 'rgba(12, 13, 15, 0.92)',
+        backgroundColor: 'rgba(255, 255, 255, 0.96)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+        borderTop: '1px solid #E4E4E7',
         paddingTop: '0.55rem',
         paddingBottom: 'max(0.6rem, env(safe-area-inset-bottom))',
         paddingLeft: '1rem',
@@ -34,7 +34,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         display: 'none', // Shown via media query in index.css
         justifyContent: 'space-around',
         alignItems: 'center',
-        boxShadow: '0 -10px 25px rgba(0, 0, 0, 0.7)',
+        boxShadow: '0 -4px 20px rgba(0, 0, 0, 0.08)',
       }}
       aria-label="Mobile Navigation Dock"
     >
@@ -44,7 +44,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         style={navBtnStyle}
         aria-label="Home"
       >
-        <Home size={19} />
+        <Home size={19} color="#000000" />
         <span style={navTextStyle}>Home</span>
       </button>
 
@@ -54,7 +54,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         style={navBtnStyle}
         aria-label="Collection"
       >
-        <Compass size={19} />
+        <Compass size={19} color="#000000" />
         <span style={navTextStyle}>Archive</span>
       </button>
 
@@ -64,7 +64,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         style={navBtnStyle}
         aria-label="Search"
       >
-        <Search size={19} />
+        <Search size={19} color="#000000" />
         <span style={navTextStyle}>Search</span>
       </button>
 
@@ -75,14 +75,14 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         aria-label="Cart"
       >
         <div style={{ position: 'relative' }}>
-          <ShoppingBag size={19} color="#FFA578" />
+          <ShoppingBag size={19} color="#000000" />
           {cartCount > 0 && (
             <span
               style={{
                 position: 'absolute',
                 top: '-6px',
                 right: '-9px',
-                backgroundColor: 'var(--color-terracotta)',
+                backgroundColor: '#000000',
                 color: '#FFFFFF',
                 borderRadius: '50%',
                 fontSize: '0.62rem',
@@ -92,14 +92,14 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 0 6px rgba(200, 98, 55, 0.8)',
+                boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3)',
               }}
             >
               {cartCount}
             </span>
           )}
         </div>
-        <span style={{ ...navTextStyle, color: '#FFA578' }}>Bag</span>
+        <span style={{ ...navTextStyle, color: '#000000' }}>Bag</span>
       </button>
 
       {/* Craftsmanship */}
@@ -111,7 +111,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
         style={navBtnStyle}
         aria-label="Craftsmanship"
       >
-        <Sparkles size={19} />
+        <Sparkles size={19} color="#000000" />
         <span style={navTextStyle}>Craft</span>
       </button>
     </nav>
@@ -121,7 +121,7 @@ export const MobileBottomNav: React.FC<MobileBottomNavProps> = ({
 const navBtnStyle: React.CSSProperties = {
   background: 'none',
   border: 'none',
-  color: 'var(--color-text-secondary)',
+  color: '#000000',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
@@ -136,7 +136,8 @@ const navBtnStyle: React.CSSProperties = {
 const navTextStyle: React.CSSProperties = {
   fontSize: '0.62rem',
   fontFamily: 'var(--font-display)',
-  fontWeight: 700,
+  fontWeight: 800,
   letterSpacing: '0.06em',
   textTransform: 'uppercase',
+  color: '#000000',
 };

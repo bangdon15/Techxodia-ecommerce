@@ -41,7 +41,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: 'rgba(0, 0, 0, 0.85)',
+        backgroundColor: 'rgba(0, 0, 0, 0.75)',
         backdropFilter: 'blur(10px)',
         zIndex: 110,
         display: 'flex',
@@ -54,13 +54,13 @@ export const SearchModal: React.FC<SearchModalProps> = ({
       <div
         onClick={(e) => e.stopPropagation()}
         style={{
-          backgroundColor: '#14161A',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
+          backgroundColor: '#FFFFFF',
+          border: '1px solid #E4E4E7',
           borderRadius: 'var(--radius-sm)',
           maxWidth: '600px',
           width: '100%',
           overflow: 'hidden',
-          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.9)',
+          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.25)',
         }}
       >
         <div
@@ -69,10 +69,10 @@ export const SearchModal: React.FC<SearchModalProps> = ({
             alignItems: 'center',
             gap: '0.8rem',
             padding: '1.2rem 1.5rem',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+            borderBottom: '1px solid #E4E4E7',
           }}
         >
-          <Search size={20} style={{ color: 'var(--color-terracotta)' }} />
+          <Search size={20} color="#000000" />
           <input
             type="text"
             autoFocus
@@ -83,7 +83,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
               flex: 1,
               background: 'none',
               border: 'none',
-              color: '#FFFFFF',
+              color: '#000000',
               fontSize: '0.95rem',
               fontFamily: 'var(--font-display)',
               letterSpacing: '0.08em',
@@ -92,7 +92,7 @@ export const SearchModal: React.FC<SearchModalProps> = ({
           />
           <button
             onClick={onClose}
-            style={{ background: 'none', border: 'none', color: 'var(--color-text-secondary)', cursor: 'pointer' }}
+            style={{ background: 'none', border: 'none', color: '#000000', cursor: 'pointer' }}
           >
             <X size={20} />
           </button>
@@ -101,11 +101,11 @@ export const SearchModal: React.FC<SearchModalProps> = ({
         {/* Results */}
         <div style={{ maxHeight: '350px', overflowY: 'auto', padding: '1rem' }}>
           {query.trim() === '' ? (
-            <div style={{ textAlign: 'center', padding: '2rem 1rem', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
+            <div style={{ textAlign: 'center', padding: '2rem 1rem', color: '#71717A', fontSize: '0.85rem' }}>
               Type product name, capacity, or material to search the archive.
             </div>
           ) : filtered.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '2rem 1rem', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
+            <div style={{ textAlign: 'center', padding: '2rem 1rem', color: '#71717A', fontSize: '0.85rem' }}>
               No objects matched "{query}".
             </div>
           ) : (
@@ -121,25 +121,26 @@ export const SearchModal: React.FC<SearchModalProps> = ({
                     display: 'flex',
                     alignItems: 'center',
                     gap: '1rem',
-                    padding: '0.6rem 0.8rem',
+                    padding: '0.7rem 0.9rem',
                     borderRadius: 'var(--radius-xs)',
                     cursor: 'pointer',
-                    backgroundColor: 'rgba(255, 255, 255, 0.03)',
-                    transition: 'background 0.2s',
+                    backgroundColor: '#F8F8FA',
+                    border: '1px solid #E4E4E7',
+                    transition: 'all 0.2s',
                   }}
                 >
                   <img
                     src={item.image}
                     alt={item.name}
-                    style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '2px' }}
+                    style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '2px', backgroundColor: '#F4F4F5' }}
                   />
                   <div style={{ flex: 1 }}>
-                    <h5 style={{ fontSize: '0.85rem', color: '#FFFFFF', fontWeight: 800 }}>{item.name}</h5>
-                    <span style={{ fontSize: '0.72rem', color: 'var(--color-sand)' }}>
+                    <h5 style={{ fontSize: '0.85rem', color: '#000000', fontWeight: 800 }}>{item.name}</h5>
+                    <span style={{ fontSize: '0.72rem', color: '#52525B' }}>
                       {item.capacity} • {formatPrice(item.price, currency)}
                     </span>
                   </div>
-                  <ArrowRight size={14} color="var(--color-terracotta)" />
+                  <ArrowRight size={14} color="#000000" />
                 </div>
               ))}
             </div>

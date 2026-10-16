@@ -127,7 +127,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           particleCount: 80,
           spread: 80,
           origin: { y: 0.6 },
-          colors: ['#C86237', '#FFA578', '#FFFFFF', '#D8CEBC'],
+          colors: ['#000000', '#52525B', '#A1A1AA', '#FFFFFF'],
         });
       } catch {
         // ignore
@@ -163,8 +163,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         onClick={(e) => e.stopPropagation()}
         className="checkout-modal-dialog"
         style={{
-          backgroundColor: '#121417',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
+          backgroundColor: '#FFFFFF',
+          border: '1px solid #E4E4E7',
           borderRadius: 'var(--radius-sm)',
           maxWidth: '680px',
           width: '100%',
@@ -172,7 +172,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
           overflowY: 'auto',
           padding: '2.5rem',
           position: 'relative',
-          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.8)',
+          boxShadow: '0 25px 60px rgba(0, 0, 0, 0.3)',
         }}
       >
         <button
@@ -183,7 +183,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
             right: '18px',
             background: 'none',
             border: 'none',
-            color: 'var(--color-text-secondary)',
+            color: '#000000',
             cursor: 'pointer',
           }}
           aria-label="Close Checkout"
@@ -198,15 +198,15 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 width: '68px',
                 height: '68px',
                 borderRadius: '50%',
-                backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                border: '2px solid #10B981',
+                backgroundColor: '#000000',
+                border: '2px solid #000000',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 margin: '0 auto 1.5rem auto',
               }}
             >
-              <CheckCircle2 size={36} color="#10B981" />
+              <CheckCircle2 size={36} color="#FFFFFF" />
             </div>
 
             <span
@@ -215,7 +215,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 fontSize: '0.74rem',
                 fontWeight: 800,
                 letterSpacing: '0.2em',
-                color: '#10B981',
+                color: '#000000',
                 textTransform: 'uppercase',
                 display: 'block',
                 marginBottom: '0.4rem',
@@ -228,7 +228,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               style={{
                 fontSize: '2rem',
                 fontWeight: 900,
-                color: '#FFFFFF',
+                color: '#000000',
                 textTransform: 'uppercase',
                 marginBottom: '0.8rem',
               }}
@@ -236,14 +236,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               THANK YOU, {formData.name}
             </h2>
 
-            <p style={{ color: 'var(--color-sand)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.6rem' }}>
+            <p style={{ color: '#52525B', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.6rem' }}>
               Your numbered Techxodia Series 01 allocation has been locked into the archive registry and customer ledger.
             </p>
 
             <div
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.04)',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
+                backgroundColor: '#F8F8FA',
+                border: '1px solid #E4E4E7',
                 padding: '1.4rem',
                 borderRadius: 'var(--radius-xs)',
                 maxWidth: '460px',
@@ -252,22 +252,22 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               }}
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.82rem' }}>
-                <span style={{ color: 'var(--color-text-muted)' }}>Order Reference:</span>
-                <strong style={{ color: '#FFFFFF', letterSpacing: '0.1em' }}>{createdOrderNumber}</strong>
+                <span style={{ color: '#71717A' }}>Order Reference:</span>
+                <strong style={{ color: '#000000', letterSpacing: '0.1em' }}>{createdOrderNumber}</strong>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.82rem' }}>
-                <span style={{ color: 'var(--color-text-muted)' }}>Payment Verification:</span>
+                <span style={{ color: '#71717A' }}>Payment Verification:</span>
                 <span style={{ color: '#10B981', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
                   <CheckCircle2 size={13} color="#10B981" /> Verified & Settled
                 </span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', fontSize: '0.82rem' }}>
-                <span style={{ color: 'var(--color-text-muted)' }}>Official Receipt Sent To:</span>
-                <span style={{ color: '#FFFFFF' }}>{formData.email}</span>
+                <span style={{ color: '#71717A' }}>Official Receipt Sent To:</span>
+                <span style={{ color: '#000000', fontWeight: 600 }}>{formData.email}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem' }}>
-                <span style={{ color: 'var(--color-text-muted)' }}>Total Charged:</span>
-                <strong style={{ color: 'var(--color-terracotta-light)' }}>{formatPrice(totalUsd, currency)}</strong>
+                <span style={{ color: '#71717A' }}>Total Charged:</span>
+                <strong style={{ color: '#000000' }}>{formatPrice(totalUsd, currency)}</strong>
               </div>
 
               {/* Email Receipt Transmission Status */}
@@ -275,9 +275,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                 style={{
                   marginTop: '0.9rem',
                   paddingTop: '0.8rem',
-                  borderTop: '1px solid rgba(255,255,255,0.06)',
+                  borderTop: '1px solid #E4E4E7',
                   fontSize: '0.74rem',
-                  color: 'var(--color-sand)',
+                  color: '#52525B',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '0.5rem',
@@ -285,12 +285,12 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               >
                 {isDispatchingReceipt ? (
                   <>
-                    <Loader2 size={13} className="spin" color="#FFA578" />
+                    <Loader2 size={13} className="spin" color="#000000" />
                     <span>Transmitting branded receipt to your email...</span>
                   </>
                 ) : (
                   <>
-                    <Mail size={13} color="#10B981" />
+                    <Mail size={13} color="#000000" />
                     <span>{receiptFeedback || `Official receipt generated & dispatched to ${formData.email}`}</span>
                   </>
                 )}
@@ -310,9 +310,9 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  backgroundColor: 'rgba(200, 98, 55, 0.15)',
-                  border: '1px solid var(--color-terracotta)',
-                  color: '#FFA578',
+                  backgroundColor: '#000000',
+                  border: '1px solid #000000',
+                  color: '#FFFFFF',
                   padding: '0.85rem 1.6rem',
                   borderRadius: 'var(--radius-xs)',
                   fontFamily: 'var(--font-display)',
@@ -335,14 +335,14 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
         ) : (
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.6rem' }}>
-              <Lock size={16} color="#FFA578" />
+              <Lock size={16} color="#000000" />
               <span
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: '0.74rem',
                   fontWeight: 800,
                   letterSpacing: '0.14em',
-                  color: '#FFA578',
+                  color: '#000000',
                   textTransform: 'uppercase',
                 }}
               >
@@ -354,7 +354,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               style={{
                 fontSize: '1.7rem',
                 fontWeight: 900,
-                color: '#FFFFFF',
+                color: '#000000',
                 textTransform: 'uppercase',
                 marginBottom: '1.5rem',
               }}
@@ -433,8 +433,8 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
               {/* Payment Gateway Selector */}
               <div
                 style={{
-                  backgroundColor: 'rgba(0,0,0,0.3)',
-                  border: '1px solid rgba(255,255,255,0.08)',
+                  backgroundColor: '#F8F8FA',
+                  border: '1px solid #E4E4E7',
                   padding: '1.2rem',
                   borderRadius: 'var(--radius-xs)',
                   marginTop: '0.5rem',
@@ -451,13 +451,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       onClick={() => setSelectedMethod('card')}
                       style={{
                         padding: '0.5rem 0.9rem',
-                        backgroundColor: selectedMethod === 'card' ? 'rgba(200, 98, 55, 0.2)' : 'rgba(255,255,255,0.04)',
-                        border: selectedMethod === 'card' ? '1.5px solid var(--color-terracotta)' : '1px solid rgba(255,255,255,0.1)',
-                        color: selectedMethod === 'card' ? '#FFFFFF' : 'var(--color-text-secondary)',
+                        backgroundColor: selectedMethod === 'card' ? '#000000' : '#FFFFFF',
+                        border: selectedMethod === 'card' ? '1.5px solid #000000' : '1px solid #D4D4D8',
+                        color: selectedMethod === 'card' ? '#FFFFFF' : '#52525B',
                         borderRadius: 'var(--radius-xs)',
                         cursor: 'pointer',
                         fontSize: '0.75rem',
-                        fontWeight: 700,
+                        fontWeight: 800,
                         fontFamily: 'var(--font-display)',
                       }}
                     >
@@ -471,13 +471,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       onClick={() => setSelectedMethod('cod')}
                       style={{
                         padding: '0.5rem 0.9rem',
-                        backgroundColor: selectedMethod === 'cod' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255,255,255,0.04)',
-                        border: selectedMethod === 'cod' ? '1.5px solid #10B981' : '1px solid rgba(255,255,255,0.1)',
-                        color: selectedMethod === 'cod' ? '#FFFFFF' : 'var(--color-text-secondary)',
+                        backgroundColor: selectedMethod === 'cod' ? '#000000' : '#FFFFFF',
+                        border: selectedMethod === 'cod' ? '1.5px solid #000000' : '1px solid #D4D4D8',
+                        color: selectedMethod === 'cod' ? '#FFFFFF' : '#52525B',
                         borderRadius: 'var(--radius-xs)',
                         cursor: 'pointer',
                         fontSize: '0.75rem',
-                        fontWeight: 700,
+                        fontWeight: 800,
                         fontFamily: 'var(--font-display)',
                       }}
                     >
@@ -491,13 +491,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       onClick={() => setSelectedMethod('paypal')}
                       style={{
                         padding: '0.5rem 0.9rem',
-                        backgroundColor: selectedMethod === 'paypal' ? 'rgba(59, 130, 246, 0.2)' : 'rgba(255,255,255,0.04)',
-                        border: selectedMethod === 'paypal' ? '1.5px solid #3B82F6' : '1px solid rgba(255,255,255,0.1)',
-                        color: selectedMethod === 'paypal' ? '#FFFFFF' : 'var(--color-text-secondary)',
+                        backgroundColor: selectedMethod === 'paypal' ? '#000000' : '#FFFFFF',
+                        border: selectedMethod === 'paypal' ? '1.5px solid #000000' : '1px solid #D4D4D8',
+                        color: selectedMethod === 'paypal' ? '#FFFFFF' : '#52525B',
                         borderRadius: 'var(--radius-xs)',
                         cursor: 'pointer',
                         fontSize: '0.75rem',
-                        fontWeight: 700,
+                        fontWeight: 800,
                         fontFamily: 'var(--font-display)',
                       }}
                     >
@@ -512,32 +512,32 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                       type="text"
                       disabled
                       value={formData.cardNumber}
-                      style={{ ...inputStyle, opacity: 0.8 }}
+                      style={{ ...inputStyle, opacity: 0.9, backgroundColor: '#F4F4F5' }}
                     />
                     <input
                       type="text"
                       disabled
                       value={formData.exp}
-                      style={{ ...inputStyle, opacity: 0.8 }}
+                      style={{ ...inputStyle, opacity: 0.9, backgroundColor: '#F4F4F5' }}
                     />
                     <input
                       type="text"
                       disabled
                       value={formData.cvv}
-                      style={{ ...inputStyle, opacity: 0.8 }}
+                      style={{ ...inputStyle, opacity: 0.9, backgroundColor: '#F4F4F5' }}
                     />
                   </div>
                 )}
 
                 {selectedMethod === 'cod' && (
-                  <div style={{ fontSize: '0.8rem', color: '#10B981', lineHeight: 1.5 }}>
+                  <div style={{ fontSize: '0.8rem', color: '#10B981', lineHeight: 1.5, fontWeight: 600 }}>
                     {paymentSettings?.codInstructions ||
                       'Pay securely upon courier delivery or via direct manual bank transfer.'}
                   </div>
                 )}
 
                 {selectedMethod === 'paypal' && (
-                  <div style={{ fontSize: '0.8rem', color: '#60A5FA', lineHeight: 1.5 }}>
+                  <div style={{ fontSize: '0.8rem', color: '#2563EB', lineHeight: 1.5, fontWeight: 600 }}>
                     PayPal Express Checkout will prompt authorization upon order placement.
                   </div>
                 )}
@@ -549,13 +549,13 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
                   justifyContent: 'space-between',
                   alignItems: 'center',
                   padding: '1rem 0',
-                  borderTop: '1px solid rgba(255,255,255,0.1)',
+                  borderTop: '1px solid #E4E4E7',
                   marginTop: '0.5rem',
                 }}
               >
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>Total Amount</span>
-                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', fontWeight: 900, color: 'var(--color-terracotta-light)' }}>
+                  <span style={{ fontSize: '0.75rem', color: '#71717A' }}>Total Amount</span>
+                  <span style={{ fontFamily: 'var(--font-display)', fontSize: '1.4rem', fontWeight: 900, color: '#000000' }}>
                     {formatPrice(totalUsd, currency)}
                   </span>
                 </div>
@@ -590,21 +590,21 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
 const labelStyle: React.CSSProperties = {
   display: 'block',
   fontSize: '0.7rem',
-  fontWeight: 700,
+  fontWeight: 800,
   fontFamily: 'var(--font-display)',
   letterSpacing: '0.1em',
   textTransform: 'uppercase',
-  color: 'var(--color-text-secondary)',
+  color: '#000000',
   marginBottom: '0.4rem',
 };
 
 const inputStyle: React.CSSProperties = {
   width: '100%',
-  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-  border: '1px solid rgba(255, 255, 255, 0.12)',
+  backgroundColor: '#FFFFFF',
+  border: '1px solid #D4D4D8',
   borderRadius: 'var(--radius-xs)',
   padding: '0.75rem 0.9rem',
-  color: '#FFFFFF',
+  color: '#000000',
   fontSize: '0.88rem',
   outline: 'none',
   fontFamily: 'var(--font-sans)',

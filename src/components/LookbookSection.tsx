@@ -35,8 +35,8 @@ export const LookbookSection: React.FC = () => {
       style={{
         paddingTop: '6rem',
         paddingBottom: '6rem',
-        backgroundColor: '#0C0D0F',
-        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+        backgroundColor: '#F8F8FA',
+        borderTop: '1px solid #E4E4E7',
       }}
     >
       <div className="container-luxury">
@@ -54,7 +54,7 @@ export const LookbookSection: React.FC = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              color: 'var(--color-terracotta)',
+              color: '#000000',
               fontFamily: 'var(--font-display)',
               fontSize: '0.74rem',
               fontWeight: 800,
@@ -63,7 +63,7 @@ export const LookbookSection: React.FC = () => {
               marginBottom: '0.8rem',
             }}
           >
-            <Camera size={14} />
+            <Camera size={14} color="#000000" />
             <span>VISUAL CAMPAIGN // ARCHIVE LOOKBOOK</span>
           </div>
 
@@ -71,7 +71,7 @@ export const LookbookSection: React.FC = () => {
             style={{
               fontSize: 'clamp(2rem, 4vw, 3.2rem)',
               fontWeight: 900,
-              color: '#FFFFFF',
+              color: '#000000',
               letterSpacing: '-0.02em',
               textTransform: 'uppercase',
               marginBottom: '1rem',
@@ -83,7 +83,7 @@ export const LookbookSection: React.FC = () => {
           <p
             style={{
               fontSize: '1rem',
-              color: 'var(--color-text-secondary)',
+              color: '#52525B',
               maxWidth: '600px',
               lineHeight: 1.6,
             }}
@@ -99,6 +99,7 @@ export const LookbookSection: React.FC = () => {
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
             gap: '1.5rem',
+            width: '100%',
           }}
         >
           {LOOKBOOK_ITEMS.map((item, idx) => (
@@ -109,13 +110,14 @@ export const LookbookSection: React.FC = () => {
                 position: 'relative',
                 borderRadius: 'var(--radius-xs)',
                 overflow: 'hidden',
-                backgroundColor: '#16181D',
-                border: '1px solid rgba(255, 255, 255, 0.08)',
-                minHeight: '360px',
+                backgroundColor: '#000000',
+                border: '1px solid #E4E4E7',
+                minHeight: '380px',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
                 padding: '1.8rem',
+                boxShadow: '0 4px 15px rgba(0, 0, 0, 0.06)',
               }}
             >
               <img
@@ -129,7 +131,7 @@ export const LookbookSection: React.FC = () => {
                   width: '100%',
                   height: '100%',
                   objectFit: 'cover',
-                  opacity: 0.8,
+                  opacity: 0.88,
                 }}
               />
 
@@ -141,7 +143,7 @@ export const LookbookSection: React.FC = () => {
                   left: 0,
                   right: 0,
                   bottom: 0,
-                  background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 40%, rgba(12,13,15,0.95) 100%)',
+                  background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.92) 100%)',
                 }}
               />
 
@@ -153,10 +155,13 @@ export const LookbookSection: React.FC = () => {
                     fontSize: '0.64rem',
                     fontWeight: 800,
                     letterSpacing: '0.18em',
-                    color: '#FFA578',
+                    color: '#000000',
+                    backgroundColor: '#FFFFFF',
+                    padding: '0.2rem 0.5rem',
+                    borderRadius: '2px',
                     textTransform: 'uppercase',
-                    display: 'block',
-                    marginBottom: '0.3rem',
+                    display: 'inline-block',
+                    marginBottom: '0.5rem',
                   }}
                 >
                   {item.tag}
@@ -175,7 +180,7 @@ export const LookbookSection: React.FC = () => {
                   {item.title}
                 </h3>
 
-                <p style={{ fontSize: '0.8rem', color: 'var(--color-sand)', lineHeight: 1.5 }}>
+                <p style={{ fontSize: '0.82rem', color: '#E4E4E7', lineHeight: 1.5 }}>
                   {item.description}
                 </p>
               </div>

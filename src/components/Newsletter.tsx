@@ -26,10 +26,10 @@ export const Newsletter: React.FC = () => {
   return (
     <section
       style={{
-        paddingTop: '5rem',
-        paddingBottom: '5rem',
-        backgroundColor: '#14161A',
-        borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+        paddingTop: '5.5rem',
+        paddingBottom: '5.5rem',
+        backgroundColor: '#000000',
+        borderTop: '1px solid #27272A',
         position: 'relative',
         overflow: 'hidden',
       }}
@@ -43,7 +43,7 @@ export const Newsletter: React.FC = () => {
           transform: 'translate(-50%, -50%)',
           width: '500px',
           height: '250px',
-          background: 'radial-gradient(circle, rgba(200, 98, 55, 0.1) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.06) 0%, transparent 70%)',
           pointerEvents: 'none',
         }}
       />
@@ -61,7 +61,7 @@ export const Newsletter: React.FC = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              color: 'var(--color-terracotta)',
+              color: '#FFFFFF',
               fontFamily: 'var(--font-display)',
               fontSize: '0.74rem',
               fontWeight: 800,
@@ -70,7 +70,7 @@ export const Newsletter: React.FC = () => {
               marginBottom: '0.8rem',
             }}
           >
-            <Sparkles size={14} />
+            <Sparkles size={14} color="#FFFFFF" />
             <span>VIP ARCHIVE REGISTRY</span>
           </div>
 
@@ -90,7 +90,7 @@ export const Newsletter: React.FC = () => {
           <p
             style={{
               fontSize: '0.95rem',
-              color: 'var(--color-sand)',
+              color: '#A1A1AA',
               lineHeight: 1.6,
               marginBottom: '2rem',
             }}
@@ -121,7 +121,7 @@ export const Newsletter: React.FC = () => {
                   top: '50%',
                   left: '14px',
                   transform: 'translateY(-50%)',
-                  color: 'var(--color-text-muted)',
+                  color: '#71717A',
                 }}
               />
               <input
@@ -132,8 +132,8 @@ export const Newsletter: React.FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 style={{
                   width: '100%',
-                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
-                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  backgroundColor: '#18181B',
+                  border: '1px solid #3F3F46',
                   borderRadius: 'var(--radius-xs)',
                   padding: '0.9rem 1rem 0.9rem 2.8rem',
                   color: '#FFFFFF',
@@ -149,8 +149,23 @@ export const Newsletter: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="btn-primary newsletter-btn"
-              style={{ padding: '0.9rem 1.6rem' }}
+              className="newsletter-btn"
+              style={{
+                padding: '0.9rem 1.6rem',
+                backgroundColor: '#FFFFFF',
+                color: '#000000',
+                border: 'none',
+                borderRadius: 'var(--radius-xs)',
+                fontFamily: 'var(--font-display)',
+                fontWeight: 800,
+                fontSize: '0.82rem',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                cursor: 'pointer',
+              }}
             >
               {isSubmitting ? (
                 <>
@@ -186,7 +201,7 @@ export const Newsletter: React.FC = () => {
             style={{
               display: 'block',
               fontSize: '0.72rem',
-              color: 'var(--color-text-muted)',
+              color: '#71717A',
               marginTop: '1.2rem',
             }}
           >
