@@ -82,18 +82,25 @@ export const sanitizeProduct = (p: Product): Product => {
 
   // Sanitize gallery
   const gallery = (p.gallery && p.gallery.length > 0 ? p.gallery : [image]).map((img) => {
-    if (img.includes('hero_collab.jpg')) return '/assets/hero_white_luxury.jpg';
-    if (img.includes('editorial_craft_detail.jpg')) return '/assets/editorial_white_craft.jpg';
+    if (img.includes('hero_collab.jpg') || img.includes('hero_white_luxury.jpg')) return '/assets/hero_nature_scenery.jpg';
+    if (img.includes('editorial_craft_detail.jpg') || img.includes('editorial_white_craft.jpg')) return '/assets/editorial_black_craft.jpg';
     return img;
   });
 
-  // Convert any legacy Desert Terracotta or #C86237 to Polar White
+  // Convert any legacy Desert Terracotta or #C86237 to Polar White, and Sand Dune to Obsidian Black
   const colors = (p.colors || []).map((c) => {
     if (c.name.toLowerCase().includes('terracotta') || c.hex.toLowerCase() === '#c86237') {
       return {
         name: 'Polar White',
         hex: '#FFFFFF',
         image: image || '/assets/product_jug_white.jpg',
+      };
+    }
+    if (c.name.toLowerCase().includes('sand dune') || c.name.toLowerCase().includes('sandstone') || c.hex.toLowerCase() === '#d8cebc') {
+      return {
+        name: 'Obsidian Black',
+        hex: '#000000',
+        image: image || '/assets/product_pet_bowl_white.jpg',
       };
     }
     return c;

@@ -12,7 +12,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onCraftClick,
   storeSettings,
 }) => {
-  const wallpaperUrl = storeSettings?.heroWallpaper || '/assets/hero_white_luxury.jpg';
+  const wallpaperUrl = storeSettings?.heroWallpaper || '/assets/hero_nature_scenery.jpg';
   const badgeText = storeSettings?.heroBadge || 'TECHXODIA × SIGNATURE ARCHIVE // LIMITED RUN 001';
   const headlineText = storeSettings?.heroHeadline || 'DESIGNED FOR CALM IN THE CLAMOR.';
   const subtitleText = storeSettings?.heroSubtitle ||
@@ -30,7 +30,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         backgroundColor: '#FFFFFF',
       }}
     >
-      {/* Background Hero Image with Natural Daylight */}
+      {/* Background Hero Image with Serene Architectural Nature Scenery */}
       <div
         style={{
           position: 'absolute',
@@ -40,13 +40,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           bottom: 0,
           backgroundImage: `url(${wallpaperUrl})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'right center',
+          backgroundPosition: 'center',
           opacity: 1,
           transition: 'background-image 0.5s ease',
         }}
       />
 
-      {/* Luxury Minimalist Architectural Vignette & Light Diffusion */}
+      {/* Luxury Minimalist Soft Ambient Diffusion */}
       <div
         style={{
           position: 'absolute',
@@ -55,8 +55,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           right: 0,
           bottom: 0,
           background: `
-            linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.88) 38%, rgba(255, 255, 255, 0.15) 68%, rgba(255, 255, 255, 0) 100%),
-            linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 40%, rgba(255, 255, 255, 0.6) 100%)
+            linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 42%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0) 100%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 45%, rgba(255, 255, 255, 0.8) 100%)
           `,
         }}
       />

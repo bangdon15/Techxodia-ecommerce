@@ -215,7 +215,7 @@ VALUES
     ARRAY['/assets/product_pet_bowl_white.jpg'],
     '[
         {"name": "Polar White", "hex": "#FFFFFF", "image": "/assets/product_pet_bowl_white.jpg"},
-        {"name": "Sand Dune", "hex": "#D8CEBC", "image": "/assets/product_pet_bowl_white.jpg"}
+        {"name": "Obsidian Black", "hex": "#000000", "image": "/assets/product_pet_bowl_white.jpg"}
     ]'::jsonb,
     '24 OZ / 0.7 L',
     '[

@@ -3,16 +3,16 @@ import { Camera } from 'lucide-react';
 
 const LOOKBOOK_ITEMS = [
   {
-    image: '/assets/hero_white_luxury.jpg',
+    image: '/assets/hero_nature_scenery.jpg',
     tag: 'CAMPAIGN 01',
-    title: 'THE ARCHITECTURAL STILLNESS',
-    description: 'Polar white ceramic meets natural morning daylight and travertine.',
+    title: 'THE ALPINE STILLNESS',
+    description: 'Minimalist ceramic vessel resting over misty pine peaks and morning light.',
   },
   {
-    image: '/assets/editorial_white_craft.jpg',
+    image: '/assets/editorial_black_craft.jpg',
     tag: 'CRAFTSMANSHIP',
     title: 'TEXTURE IN HARMONY',
-    description: 'Laser-etched Techxodia typography on pristine white ceramic coat.',
+    description: 'Chilled water droplets on matte obsidian black and surgical steel.',
   },
   {
     image: '/assets/product_lunch_vault_white.jpg',
@@ -21,10 +21,10 @@ const LOOKBOOK_ITEMS = [
     description: '10 QT Heritage Vault in polar white powder coat and chrome latches.',
   },
   {
-    image: '/assets/product_bottle_white.jpg',
+    image: '/assets/product_commuter_mug.jpg',
     tag: 'EVERYDAY COMMUTE',
     title: 'PURITY IN TRANSIT',
-    description: 'Matte chalk white commuter flask with stainless loop cap.',
+    description: 'Matte chalk white commuter tumbler on warm travertine stone.',
   },
 ];
 

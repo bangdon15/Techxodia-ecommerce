@@ -3,9 +3,9 @@ import { getSupabaseClient } from './supabase';
 
 export const WALLPAPER_PRESETS = [
   {
-    id: 'white_luxury',
-    name: 'Architectural Polar White (Default)',
-    url: '/assets/hero_white_luxury.jpg',
+    id: 'nature_scenery',
+    name: 'Misty Alpine Architecture (Default)',
+    url: '/assets/hero_nature_scenery.jpg',
     accent: '#000000',
   },
   {
@@ -25,8 +25,8 @@ export const WALLPAPER_PRESETS = [
 export const DEFAULT_STORE_SETTINGS: StoreSettings = {
   storeName: 'TECHXODIA',
   storeTagline: 'SERIES 01 // ARCHIVE',
-  heroWallpaper: '/assets/hero_white_luxury.jpg',
-  heroWallpaperPreset: 'white_luxury',
+  heroWallpaper: '/assets/hero_nature_scenery.jpg',
+  heroWallpaperPreset: 'nature_scenery',
   heroHeadline: 'DESIGNED FOR CALM IN THE CLAMOR.',
   heroSubtitle: 'Crafted at the intersection of quiet luxury and relentless thermal utility. Wrapped in baked polar white ceramic and dual-barrier recycled stainless steel.',
   heroBadge: 'TECHXODIA × SIGNATURE ARCHIVE // POLAR WHITE DROP 001',
@@ -52,11 +52,17 @@ export const getStoreSettings = (): StoreSettings => {
     const raw = localStorage.getItem('techxodia_store_settings');
     if (!raw) return DEFAULT_STORE_SETTINGS;
     const parsed = JSON.parse(raw);
-    if (parsed.heroSubtitle?.toLowerCase().includes('desert terracotta') || parsed.heroWallpaper === '/assets/hero_collab.jpg') {
+    if (
+      parsed.heroSubtitle?.toLowerCase().includes('desert terracotta') ||
+      parsed.heroWallpaper === '/assets/hero_collab.jpg' ||
+      parsed.heroWallpaper === '/assets/hero_white_luxury.jpg' ||
+      !parsed.heroWallpaper
+    ) {
       const upgraded = {
         ...DEFAULT_STORE_SETTINGS,
         ...parsed,
-        heroWallpaper: '/assets/hero_white_luxury.jpg',
+        heroWallpaper: '/assets/hero_nature_scenery.jpg',
+        heroWallpaperPreset: 'nature_scenery',
         heroSubtitle: DEFAULT_STORE_SETTINGS.heroSubtitle,
         heroBadge: DEFAULT_STORE_SETTINGS.heroBadge,
       };

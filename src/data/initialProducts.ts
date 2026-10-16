@@ -15,14 +15,13 @@ export const INITIAL_PRODUCTS: Product[] = [
     gallery: [
       '/assets/product_jug_white.jpg',
       '/assets/product_jug_obsidian.jpg',
-      '/assets/product_jug_sandstone.jpg',
-      '/assets/hero_white_luxury.jpg',
-      '/assets/editorial_craft_detail.jpg'
+      '/assets/hero_nature_scenery.jpg',
+      '/assets/editorial_black_craft.jpg'
     ],
     colors: [
       { name: 'Polar White', hex: '#FFFFFF', image: '/assets/product_jug_white.jpg' },
       { name: 'Volcanic Obsidian', hex: '#1F2124', image: '/assets/product_jug_obsidian.jpg' },
-      { name: 'Dune Sandstone', hex: '#D8CEBC', image: '/assets/product_jug_sandstone.jpg' }
+      { name: 'Brushed Titanium', hex: '#71717A', image: '/assets/product_jug_white.jpg' }
     ],
     capacity: '64 OZ / 1.9 L',
     specs: [
@@ -33,7 +32,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { label: 'Safety', value: 'BPA-Free & Commercial Dishwasher Safe' }
     ],
     badge: 'LIMITED ARCHIVE DROP',
-    description: 'Engineered for long sessions in desert heat or demanding arena sidelines. The 64oz Horizon Jug balances heavyweight thermal barrier technology with fluid, single-handed ergonomics and custom baked polar white matte finish.',
+    description: 'Engineered for long sessions in demanding arena sidelines or serene architectural environments. The 64oz Horizon Jug balances heavyweight thermal barrier technology with fluid, single-handed ergonomics and custom baked polar white matte finish.',
     stock: 28,
     is_featured: true
   },
@@ -51,12 +50,12 @@ export const INITIAL_PRODUCTS: Product[] = [
     gallery: [
       '/assets/product_bottle_white.jpg',
       '/assets/product_bottle_obsidian.jpg',
-      '/assets/editorial_craft_detail.jpg'
+      '/assets/editorial_black_craft.jpg'
     ],
     colors: [
       { name: 'Matte Chalk White', hex: '#FFFFFF', image: '/assets/product_bottle_white.jpg' },
       { name: 'Volcanic Obsidian', hex: '#1F2124', image: '/assets/product_bottle_obsidian.jpg' },
-      { name: 'Warm Travertine', hex: '#EFECE4', image: '/assets/product_bottle_white.jpg' }
+      { name: 'Glacier Silver', hex: '#E4E4E7', image: '/assets/product_bottle_white.jpg' }
     ],
     capacity: '28 OZ / 0.82 L',
     specs: [
@@ -84,7 +83,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     gallery: [
       '/assets/product_lunch_vault_white.jpg',
       '/assets/product_lunch_vault_obsidian.jpg',
-      '/assets/hero_white_luxury.jpg'
+      '/assets/hero_nature_scenery.jpg'
     ],
     colors: [
       { name: 'Polar White & Chrome', hex: '#FFFFFF', image: '/assets/product_lunch_vault_white.jpg' },
@@ -115,7 +114,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     image: '/assets/product_flask_white.jpg',
     gallery: [
       '/assets/product_flask_white.jpg',
-      '/assets/editorial_craft_detail.jpg'
+      '/assets/editorial_black_craft.jpg'
     ],
     colors: [
       { name: 'Satin Glacier White', hex: '#FFFFFF', image: '/assets/product_flask_white.jpg' },
@@ -148,7 +147,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     ],
     colors: [
       { name: 'Polar White', hex: '#FFFFFF', image: '/assets/product_pet_bowl_white.jpg' },
-      { name: 'Sand Dune', hex: '#D8CEBC', image: '/assets/product_pet_bowl_white.jpg' }
+      { name: 'Obsidian Black', hex: '#000000', image: '/assets/product_pet_bowl_white.jpg' }
     ],
     capacity: '24 OZ / 0.7 L',
     specs: [

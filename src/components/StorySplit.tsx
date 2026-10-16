@@ -35,7 +35,7 @@ export const StorySplit: React.FC = () => {
               }}
             >
               <img
-                src="/assets/editorial_craft_detail.jpg"
+                src="/assets/editorial_black_craft.jpg"
                 alt="Techxodia Thermal Craftsmanship Detail"
                 style={{
                   width: '100%',
@@ -81,7 +81,7 @@ export const StorySplit: React.FC = () => {
                     fontFamily: 'var(--font-display)',
                   }}
                 >
-                  Laser-Inscribed Monolith Insignia
+                  Matte Obsidian & Surgical Stainless Steel
                 </span>
               </div>
             </div>
