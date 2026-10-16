@@ -22,7 +22,6 @@ import {
   Send,
   FileText,
   ShoppingBag,
-  Printer,
 } from 'lucide-react';
 import { Product, StoreSettings, OrderRecord } from '../types';
 import { WALLPAPER_PRESETS, saveStoreSettings } from '../lib/settings';
@@ -231,8 +230,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
     setEditingProduct({
       id: newId,
       slug: `tx-${Date.now().toString().slice(-4)}`,
-      name: 'NEW VESSEL DROP',
-      subtitle: 'LIMITED ARCHIVAL RUN',
+      name: 'NEW ARCHIVAL VESSEL',
+      subtitle: 'POLAR WHITE SERIES',
       category: 'Hydration Vessels',
       price: 65,
       original_price: 75,
@@ -242,8 +241,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
       gallery: ['/assets/product_jug_white.jpg'],
       colors: [
         { name: 'Polar White', hex: '#FFFFFF', image: '/assets/product_jug_white.jpg' },
-        { name: 'Volcanic Obsidian', hex: '#1F2124', image: '/assets/product_jug_obsidian.jpg' },
-        { name: 'Dune Sandstone', hex: '#D8CEBC', image: '/assets/product_jug_sandstone.jpg' },
+        { name: 'Obsidian Black', hex: '#111111', image: '/assets/product_bottle_white.jpg' },
       ],
       capacity: '32 OZ / 950 ML',
       specs: [
@@ -275,8 +273,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
     <div
       style={{
         minHeight: '100vh',
-        backgroundColor: '#0A0B0D',
-        color: '#F8F7F4',
+        backgroundColor: '#F9F9FB',
+        color: '#09090B',
         display: 'flex',
         flexDirection: 'column',
         fontFamily: 'var(--font-sans)',
@@ -285,8 +283,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
       {/* Top Admin Navigation Bar */}
       <header
         style={{
-          backgroundColor: '#121418',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          backgroundColor: '#FFFFFF',
+          borderBottom: '1px solid #E4E4E7',
           padding: '0.9rem 2rem',
           display: 'flex',
           alignItems: 'center',
@@ -294,6 +292,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
           position: 'sticky',
           top: 0,
           zIndex: 50,
+          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.02)',
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem' }}>
@@ -303,10 +302,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              backgroundColor: 'rgba(255, 255, 255, 0.06)',
-              border: '1px solid rgba(255, 255, 255, 0.12)',
+              backgroundColor: '#000000',
+              border: '1px solid #000000',
               color: '#FFFFFF',
-              padding: '0.5rem 1rem',
+              padding: '0.55rem 1.1rem',
               borderRadius: 'var(--radius-xs)',
               fontSize: '0.75rem',
               fontWeight: 700,
@@ -320,20 +319,19 @@ export const AdminPage: React.FC<AdminPageProps> = ({
             <span>RETURN TO STOREFRONT</span>
           </button>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem' }}>
             <div
               style={{
-                width: '28px',
-                height: '28px',
-                backgroundColor: 'rgba(200, 98, 55, 0.2)',
-                border: '1px solid var(--color-terracotta)',
+                width: '32px',
+                height: '32px',
+                backgroundColor: '#000000',
                 borderRadius: 'var(--radius-xs)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}
             >
-              <Sliders size={16} color="#FFA578" />
+              <Sliders size={16} color="#FFFFFF" />
             </div>
             <div>
               <span
@@ -342,7 +340,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                   fontWeight: 900,
                   fontSize: '1rem',
                   letterSpacing: '0.12em',
-                  color: '#FFFFFF',
+                  color: '#09090B',
                   textTransform: 'uppercase',
                 }}
               >
@@ -361,12 +359,12 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               gap: '0.45rem',
               padding: '0.35rem 0.75rem',
               borderRadius: 'var(--radius-pill)',
-              backgroundColor: supabaseSource === 'supabase' ? 'rgba(16, 185, 129, 0.12)' : 'rgba(245, 158, 11, 0.12)',
-              border: supabaseSource === 'supabase' ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(245, 158, 11, 0.3)',
+              backgroundColor: supabaseSource === 'supabase' ? '#ECFDF5' : '#FFFBEB',
+              border: supabaseSource === 'supabase' ? '1px solid #A7F3D0' : '1px solid #FDE68A',
               fontSize: '0.72rem',
               fontFamily: 'var(--font-display)',
               fontWeight: 700,
-              color: supabaseSource === 'supabase' ? '#10B981' : '#F59E0B',
+              color: supabaseSource === 'supabase' ? '#059669' : '#D97706',
             }}
           >
             <span
@@ -374,7 +372,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                 width: '7px',
                 height: '7px',
                 borderRadius: '50%',
-                backgroundColor: supabaseSource === 'supabase' ? '#10B981' : '#F59E0B',
+                backgroundColor: supabaseSource === 'supabase' ? '#059669' : '#D97706',
               }}
             />
             <span>{supabaseSource === 'supabase' ? 'SUPABASE CONNECTED' : 'OFFLINE / DEMO MODE'}</span>
@@ -385,12 +383,13 @@ export const AdminPage: React.FC<AdminPageProps> = ({
             style={{
               background: 'none',
               border: 'none',
-              color: 'var(--color-text-muted)',
+              color: '#71717A',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               gap: '0.3rem',
               fontSize: '0.72rem',
+              transition: 'color 0.15s ease',
             }}
             title="Open Storefront in New Window"
           >
@@ -406,8 +405,8 @@ export const AdminPage: React.FC<AdminPageProps> = ({
         <aside
           style={{
             width: '260px',
-            backgroundColor: '#0F1014',
-            borderRight: '1px solid rgba(255, 255, 255, 0.08)',
+            backgroundColor: '#FFFFFF',
+            borderRight: '1px solid #E4E4E7',
             padding: '1.5rem 1rem',
             display: 'flex',
             flexDirection: 'column',
@@ -420,7 +419,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               fontFamily: 'var(--font-display)',
               fontWeight: 800,
               letterSpacing: '0.14em',
-              color: 'var(--color-text-muted)',
+              color: '#71717A',
               textTransform: 'uppercase',
               padding: '0 0.8rem 0.5rem 0.8rem',
             }}
@@ -499,15 +498,15 @@ export const AdminPage: React.FC<AdminPageProps> = ({
             style={{
               marginTop: 'auto',
               padding: '1rem',
-              backgroundColor: 'rgba(255, 255, 255, 0.03)',
+              backgroundColor: '#F4F4F5',
               borderRadius: 'var(--radius-xs)',
-              border: '1px solid rgba(255, 255, 255, 0.06)',
+              border: '1px solid #E4E4E7',
             }}
           >
-            <span style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', display: 'block', marginBottom: '0.4rem' }}>
+            <span style={{ fontSize: '0.68rem', color: '#18181B', fontWeight: 800, display: 'block', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
               Quick Hint:
             </span>
-            <p style={{ fontSize: '0.72rem', color: 'var(--color-sand)', lineHeight: 1.4 }}>
+            <p style={{ fontSize: '0.72rem', color: '#52525B', lineHeight: 1.45 }}>
               This page is private. Customers visiting the storefront will not see admin links or setup buttons.
             </p>
           </div>
@@ -519,21 +518,22 @@ export const AdminPage: React.FC<AdminPageProps> = ({
           {activeTab === 'database' && (
             <div>
               <div style={{ marginBottom: '2rem' }}>
-                <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem', color: '#09090B' }}>
                   Supabase Cloud Database Connection
                 </h1>
-                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem' }}>
+                <p style={{ color: '#52525B', fontSize: '0.88rem' }}>
                   Configure your free Supabase PostgreSQL instance. All storefront products, user orders, and drop subscribers synchronize automatically.
                 </p>
               </div>
 
               <div
                 style={{
-                  backgroundColor: '#14161A',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E4E4E7',
                   borderRadius: 'var(--radius-xs)',
                   padding: '1.8rem',
                   marginBottom: '2rem',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
                 }}
               >
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
@@ -546,7 +546,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       onChange={(e) => setSupabaseUrl(e.target.value)}
                       style={fieldInputStyle}
                     />
-                    <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', marginTop: '0.3rem', display: 'block' }}>
+                    <span style={{ fontSize: '0.72rem', color: '#71717A', marginTop: '0.3rem', display: 'block' }}>
                       Found under Settings &gt; API in your Supabase Dashboard.
                     </span>
                   </div>
@@ -560,7 +560,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       onChange={(e) => setSupabaseAnonKey(e.target.value)}
                       style={fieldInputStyle}
                     />
-                    <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', marginTop: '0.3rem', display: 'block' }}>
+                    <span style={{ fontSize: '0.72rem', color: '#71717A', marginTop: '0.3rem', display: 'block' }}>
                       The anonymous public API key for safe frontend client access.
                     </span>
                   </div>
@@ -570,13 +570,14 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                       style={{
                         padding: '1rem',
                         borderRadius: 'var(--radius-xs)',
-                        backgroundColor: dbTestStatus.success ? 'rgba(16, 185, 129, 0.12)' : 'rgba(239, 68, 68, 0.12)',
-                        border: dbTestStatus.success ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(239, 68, 68, 0.3)',
-                        color: dbTestStatus.success ? '#10B981' : '#EF4444',
+                        backgroundColor: dbTestStatus.success ? '#ECFDF5' : '#FEF2F2',
+                        border: dbTestStatus.success ? '1px solid #A7F3D0' : '1px solid #FECACA',
+                        color: dbTestStatus.success ? '#059669' : '#DC2626',
                         fontSize: '0.85rem',
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.6rem',
+                        fontWeight: 600,
                       }}
                     >
                       {dbTestStatus.success ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
@@ -609,10 +610,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
                     <div
                       style={{
                         padding: '0.9rem 1.2rem',
-                        backgroundColor: 'rgba(255, 255, 255, 0.05)',
-                        border: '1px solid rgba(255, 255, 255, 0.1)',
+                        backgroundColor: '#F4F4F5',
+                        border: '1px solid #E4E4E7',
                         fontSize: '0.82rem',
-                        color: 'var(--color-sand)',
+                        color: '#09090B',
                         borderRadius: 'var(--radius-xs)',
                       }}
                     >
@@ -625,28 +626,30 @@ export const AdminPage: React.FC<AdminPageProps> = ({
               {/* SQL Schema Reference */}
               <div
                 style={{
-                  backgroundColor: '#0F1014',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E4E4E7',
                   borderRadius: 'var(--radius-xs)',
                   padding: '1.5rem',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#FFFFFF', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#09090B', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
                     Supabase Schema SQL Reference
                   </span>
-                  <span style={{ fontSize: '0.72rem', color: 'var(--color-terracotta)' }}>schema.sql bundled</span>
+                  <span style={{ fontSize: '0.72rem', color: '#71717A', fontWeight: 600 }}>schema.sql bundled</span>
                 </div>
-                <p style={{ fontSize: '0.78rem', color: 'var(--color-text-secondary)', marginBottom: '1rem' }}>
+                <p style={{ fontSize: '0.78rem', color: '#52525B', marginBottom: '1rem' }}>
                   Copy and paste this into your Supabase Dashboard SQL Editor if tables are not created yet:
                 </p>
                 <pre
                   style={{
-                    backgroundColor: '#070809',
+                    backgroundColor: '#F4F4F5',
+                    border: '1px solid #E4E4E7',
                     padding: '1rem',
                     borderRadius: 'var(--radius-xs)',
                     fontSize: '0.72rem',
-                    color: '#A39B8B',
+                    color: '#09090B',
                     overflowX: 'auto',
                     fontFamily: 'monospace',
                     lineHeight: 1.45,
@@ -696,10 +699,10 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                     }}
                   >
                     <div>
-                      <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                      <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem', color: '#09090B' }}>
                         Storefront Product Catalog ({products.length})
                       </h1>
-                      <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem' }}>
+                      <p style={{ color: '#52525B', fontSize: '0.88rem' }}>
                         Modify prices, stock, descriptions, and colorway images. Changes take effect on the storefront instantly.
                       </p>
                     </div>
@@ -724,11 +727,12 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                       style={{
                         padding: '0.9rem 1.2rem',
                         marginBottom: '1.5rem',
-                        backgroundColor: 'rgba(16, 185, 129, 0.15)',
-                        border: '1px solid rgba(16, 185, 129, 0.3)',
-                        color: '#10B981',
+                        backgroundColor: '#ECFDF5',
+                        border: '1px solid #A7F3D0',
+                        color: '#059669',
                         fontSize: '0.85rem',
                         borderRadius: 'var(--radius-xs)',
+                        fontWeight: 600,
                       }}
                     >
                       {productMessage}
@@ -738,15 +742,16 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                   {/* Table */}
                   <div
                     style={{
-                      backgroundColor: '#121418',
-                      border: '1px solid rgba(255, 255, 255, 0.08)',
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #E4E4E7',
                       borderRadius: 'var(--radius-xs)',
                       overflowX: 'auto',
+                      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
                     }}
                   >
                     <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.85rem' }}>
                       <thead>
-                        <tr style={{ backgroundColor: '#0B0C0E', borderBottom: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                        <tr style={{ backgroundColor: '#F4F4F5', borderBottom: '1px solid #E4E4E7' }}>
                           <th style={tableThStyle}>Thumb</th>
                           <th style={tableThStyle}>Product Name & Subtitle</th>
                           <th style={tableThStyle}>Category</th>
@@ -758,25 +763,25 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                       </thead>
                       <tbody>
                         {filteredProducts.map((p) => (
-                          <tr key={p.id || p.slug} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
+                          <tr key={p.id || p.slug} style={{ borderBottom: '1px solid #E4E4E7' }}>
                             <td style={tableTdStyle}>
                               <img
                                 src={p.image}
                                 alt={p.name}
-                                style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: 'var(--radius-xs)', backgroundColor: '#1A1C22' }}
+                                style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: 'var(--radius-xs)', backgroundColor: '#F4F4F5', border: '1px solid #E4E4E7' }}
                               />
                             </td>
                             <td style={tableTdStyle}>
-                              <strong style={{ color: '#FFFFFF', display: 'block' }}>{p.name}</strong>
-                              <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)' }}>{p.subtitle}</span>
+                              <strong style={{ color: '#09090B', display: 'block' }}>{p.name}</strong>
+                              <span style={{ fontSize: '0.72rem', color: '#71717A' }}>{p.subtitle}</span>
                             </td>
                             <td style={tableTdStyle}>
-                              <span style={{ color: 'var(--color-sand)', fontSize: '0.78rem' }}>{p.category}</span>
+                              <span style={{ color: '#52525B', fontSize: '0.78rem' }}>{p.category}</span>
                             </td>
                             <td style={tableTdStyle}>
-                              <span style={{ fontWeight: 800, color: '#FFFFFF' }}>${p.price}</span>
+                              <span style={{ fontWeight: 800, color: '#09090B' }}>${p.price}</span>
                               {p.original_price && (
-                                <span style={{ fontSize: '0.72rem', color: 'var(--color-text-muted)', marginLeft: '4px', textDecoration: 'line-through' }}>
+                                <span style={{ fontSize: '0.72rem', color: '#71717A', marginLeft: '4px', textDecoration: 'line-through' }}>
                                   ${p.original_price}
                                 </span>
                               )}
@@ -788,8 +793,9 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                                   borderRadius: 'var(--radius-xs)',
                                   fontSize: '0.72rem',
                                   fontWeight: 700,
-                                  backgroundColor: p.stock > 10 ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                                  color: p.stock > 10 ? '#10B981' : '#EF4444',
+                                  backgroundColor: p.stock > 10 ? '#ECFDF5' : '#FEF2F2',
+                                  border: p.stock > 10 ? '1px solid #A7F3D0' : '1px solid #FECACA',
+                                  color: p.stock > 10 ? '#059669' : '#DC2626',
                                 }}
                               >
                                 {p.stock} units
@@ -806,12 +812,12 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                                       height: '14px',
                                       borderRadius: '50%',
                                       backgroundColor: c.hex,
-                                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                                      border: '1px solid #D4D4D8',
                                       display: 'inline-block',
                                     }}
                                   />
                                 ))}
-                                <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', marginLeft: '4px' }}>
+                                <span style={{ fontSize: '0.7rem', color: '#71717A', marginLeft: '4px' }}>
                                   ({p.colors.length})
                                 </span>
                               </div>
@@ -821,14 +827,15 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                                 <button
                                   onClick={() => setEditingProduct({ ...p })}
                                   style={{
-                                    backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                                    border: '1px solid rgba(255, 255, 255, 0.14)',
+                                    backgroundColor: '#000000',
+                                    border: '1px solid #000000',
                                     color: '#FFFFFF',
                                     padding: '0.4rem 0.85rem',
                                     borderRadius: 'var(--radius-xs)',
                                     fontSize: '0.74rem',
                                     fontWeight: 700,
                                     cursor: 'pointer',
+                                    transition: 'all 0.15s ease',
                                   }}
                                 >
                                   EDIT
@@ -836,9 +843,9 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                                 <button
                                   onClick={() => handleDeleteProduct(p.id, p.name)}
                                   style={{
-                                    backgroundColor: 'rgba(239, 68, 68, 0.12)',
-                                    border: '1px solid rgba(239, 68, 68, 0.25)',
-                                    color: '#EF4444',
+                                    backgroundColor: '#FEF2F2',
+                                    border: '1px solid #FECACA',
+                                    color: '#DC2626',
                                     padding: '0.4rem 0.65rem',
                                     borderRadius: 'var(--radius-xs)',
                                     cursor: 'pointer',
@@ -859,18 +866,19 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                 /* Edit Product Form */
                 <form onSubmit={handleSaveProduct} style={{ maxWidth: '850px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.8rem' }}>
-                    <h2 style={{ fontSize: '1.4rem', fontWeight: 900, textTransform: 'uppercase' }}>
+                    <h2 style={{ fontSize: '1.4rem', fontWeight: 900, textTransform: 'uppercase', color: '#09090B' }}>
                       {isCreatingProduct ? 'Create New Archival Product' : `Edit: ${editingProduct.name}`}
                     </h2>
                     <button
                       type="button"
                       onClick={() => setEditingProduct(null)}
                       style={{
-                        background: 'none',
-                        border: '1px solid rgba(255, 255, 255, 0.15)',
-                        color: 'var(--color-text-secondary)',
+                        background: '#FFFFFF',
+                        border: '1px solid #D4D4D8',
+                        color: '#09090B',
                         padding: '0.5rem 1rem',
                         fontSize: '0.78rem',
+                        fontWeight: 600,
                         cursor: 'pointer',
                         borderRadius: 'var(--radius-xs)',
                       }}
@@ -880,7 +888,7 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                   </div>
 
                   {productMessage && (
-                    <div style={{ padding: '0.8rem 1rem', marginBottom: '1.2rem', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#10B981', fontSize: '0.82rem', borderRadius: 'var(--radius-xs)' }}>
+                    <div style={{ padding: '0.8rem 1rem', marginBottom: '1.2rem', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#059669', fontSize: '0.82rem', borderRadius: 'var(--radius-xs)', fontWeight: 600 }}>
                       {productMessage}
                     </div>
                   )}
@@ -989,15 +997,16 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                   {/* Color Swatches Editor */}
                   <div
                     style={{
-                      backgroundColor: 'rgba(0,0,0,0.3)',
-                      border: '1px solid rgba(255,255,255,0.08)',
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #E4E4E7',
                       padding: '1.2rem',
                       borderRadius: 'var(--radius-xs)',
                       marginBottom: '1.5rem',
+                      boxShadow: '0 1px 3px rgba(0, 0, 0, 0.03)',
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.8rem' }}>
-                      <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#FFFFFF', textTransform: 'uppercase' }}>
+                      <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#09090B', textTransform: 'uppercase' }}>
                         Color Variations & Dedicated Photos
                       </span>
                       <button
@@ -1010,10 +1019,10 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                           setEditingProduct({ ...editingProduct, colors: next });
                         }}
                         style={{
-                          background: 'none',
-                          border: '1px solid var(--color-terracotta)',
-                          color: 'var(--color-terracotta-light)',
-                          padding: '0.3rem 0.7rem',
+                          background: '#000000',
+                          border: '1px solid #000000',
+                          color: '#FFFFFF',
+                          padding: '0.35rem 0.8rem',
                           borderRadius: 'var(--radius-xs)',
                           fontSize: '0.72rem',
                           cursor: 'pointer',
@@ -1046,7 +1055,7 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                             style={{
                               width: '36px',
                               height: '36px',
-                              border: 'none',
+                              border: '1px solid #D4D4D8',
                               padding: 0,
                               borderRadius: 'var(--radius-xs)',
                               cursor: 'pointer',
@@ -1092,7 +1101,8 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                               const updated = editingProduct.colors.filter((_, i) => i !== idx);
                               setEditingProduct({ ...editingProduct, colors: updated });
                             }}
-                            style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer' }}
+                            style={{ background: 'none', border: 'none', color: '#DC2626', cursor: 'pointer' }}
+                            title="Delete variation"
                           >
                             <Trash2 size={16} />
                           </button>
@@ -1114,10 +1124,10 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
           {activeTab === 'wallpaper' && (
             <div style={{ maxWidth: '850px' }}>
               <div style={{ marginBottom: '2rem' }}>
-                <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem', color: '#09090B' }}>
                   Wallpaper & Visual Aesthetic
                 </h1>
-                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem' }}>
+                <p style={{ color: '#52525B', fontSize: '0.88rem' }}>
                   Select a wallpaper preset or supply your own custom photograph to change the full-bleed campaign background.
                 </p>
               </div>
@@ -1140,18 +1150,18 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                           });
                         }}
                         style={{
-                          backgroundColor: '#16181D',
+                          backgroundColor: '#FFFFFF',
                           borderRadius: 'var(--radius-xs)',
-                          border: isSelected ? '2px solid var(--color-terracotta)' : '1px solid rgba(255, 255, 255, 0.1)',
+                          border: isSelected ? '2px solid #000000' : '1px solid #E4E4E7',
                           overflow: 'hidden',
                           cursor: 'pointer',
                           transition: 'all 0.2s',
-                          boxShadow: isSelected ? '0 0 16px rgba(200, 98, 55, 0.35)' : 'none',
+                          boxShadow: isSelected ? '0 4px 14px rgba(0, 0, 0, 0.12)' : '0 1px 3px rgba(0, 0, 0, 0.04)',
                         }}
                       >
                         <div style={{ height: '100px', backgroundImage: `url(${p.url})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
                         <div style={{ padding: '0.8rem' }}>
-                          <span style={{ fontSize: '0.78rem', fontWeight: 700, color: isSelected ? '#FFFFFF' : 'var(--color-text-secondary)', display: 'block' }}>
+                          <span style={{ fontSize: '0.78rem', fontWeight: 700, color: isSelected ? '#000000' : '#52525B', display: 'block' }}>
                             {p.name}
                           </span>
                         </div>
@@ -1205,7 +1215,7 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
               </div>
 
               {saveStatus && (
-                <div style={{ padding: '0.8rem 1rem', marginBottom: '1rem', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#10B981', fontSize: '0.82rem', borderRadius: 'var(--radius-xs)' }}>
+                <div style={{ padding: '0.8rem 1rem', marginBottom: '1rem', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#059669', fontSize: '0.82rem', borderRadius: 'var(--radius-xs)', fontWeight: 600 }}>
                   {saveStatus}
                 </div>
               )}
@@ -1221,10 +1231,10 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
           {activeTab === 'details' && (
             <div style={{ maxWidth: '850px' }}>
               <div style={{ marginBottom: '2rem' }}>
-                <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem', color: '#09090B' }}>
                   Store Branding & Details
                 </h1>
-                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem' }}>
+                <p style={{ color: '#52525B', fontSize: '0.88rem' }}>
                   Configure client brand names, announcement tickers, free shipping thresholds, and concierge contact emails.
                 </p>
               </div>
@@ -1284,7 +1294,7 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
               </div>
 
               {saveStatus && (
-                <div style={{ padding: '0.8rem 1rem', marginBottom: '1rem', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#10B981', fontSize: '0.82rem', borderRadius: 'var(--radius-xs)' }}>
+                <div style={{ padding: '0.8rem 1rem', marginBottom: '1rem', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#059669', fontSize: '0.82rem', borderRadius: 'var(--radius-xs)', fontWeight: 600 }}>
                   {saveStatus}
                 </div>
               )}
@@ -1300,10 +1310,10 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
           {activeTab === 'payment' && (
             <div style={{ maxWidth: '850px' }}>
               <div style={{ marginBottom: '2rem' }}>
-                <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem', color: '#09090B' }}>
                   Online Payment Gateways & Strategy
                 </h1>
-                <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem' }}>
+                <p style={{ color: '#52525B', fontSize: '0.88rem' }}>
                   Configure online payment checkout options for this e-commerce deployment.
                 </p>
               </div>
@@ -1311,20 +1321,21 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
               {/* Expert Advisory Guidance */}
               <div
                 style={{
-                  backgroundColor: 'rgba(16, 185, 129, 0.08)',
-                  border: '1px solid rgba(16, 185, 129, 0.3)',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E4E4E7',
                   borderRadius: 'var(--radius-xs)',
                   padding: '1.6rem',
                   marginBottom: '2rem',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.8rem' }}>
-                  <HelpCircle size={20} color="#10B981" />
-                  <h3 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#FFFFFF', textTransform: 'uppercase' }}>
+                  <HelpCircle size={20} color="#000000" />
+                  <h3 style={{ fontSize: '0.95rem', fontWeight: 800, color: '#09090B', textTransform: 'uppercase' }}>
                     Recommended Low-Cost, High-Utility Payment Solution
                   </h3>
                 </div>
-                <div style={{ color: 'var(--color-sand)', fontSize: '0.85rem', lineHeight: 1.6 }}>
+                <div style={{ color: '#3F3F46', fontSize: '0.85rem', lineHeight: 1.6 }}>
                   <p style={{ marginBottom: '0.8rem' }}>
                     <strong>1. Stripe (Pay-As-You-Go): Highly Recommended.</strong> Zero monthly fee ($0/mo) and zero setup fees.
                     You only pay the standard 2.9% + $0.30 fee per successful sale. Instantly activates Apple Pay, Google Pay, Visa, Mastercard, and Amex without needing a traditional merchant account.
@@ -1346,8 +1357,8 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                 <div style={paymentCardStyle}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                      <Lock size={16} color="#FFA578" />
-                      <strong style={{ color: '#FFFFFF', fontSize: '0.92rem' }}>Stripe Gateway</strong>
+                      <Lock size={16} color="#000000" />
+                      <strong style={{ color: '#09090B', fontSize: '0.92rem' }}>Stripe Gateway</strong>
                     </div>
                     <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                       <input
@@ -1360,7 +1371,7 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                           })
                         }
                       />
-                      <span style={{ fontSize: '0.8rem', color: 'var(--color-sand)' }}>Enabled</span>
+                      <span style={{ fontSize: '0.8rem', color: '#52525B', fontWeight: 600 }}>Enabled</span>
                     </label>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '1rem' }}>
@@ -1402,8 +1413,8 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                 <div style={paymentCardStyle}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                      <Package size={16} color="#10B981" />
-                      <strong style={{ color: '#FFFFFF', fontSize: '0.92rem' }}>Cash on Delivery / Direct Bank Transfer ($0 Cost)</strong>
+                      <Package size={16} color="#000000" />
+                      <strong style={{ color: '#09090B', fontSize: '0.92rem' }}>Cash on Delivery / Direct Bank Transfer ($0 Cost)</strong>
                     </div>
                     <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                       <input
@@ -1416,7 +1427,7 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                           })
                         }
                       />
-                      <span style={{ fontSize: '0.8rem', color: 'var(--color-sand)' }}>Enabled</span>
+                      <span style={{ fontSize: '0.8rem', color: '#52525B', fontWeight: 600 }}>Enabled</span>
                     </label>
                   </div>
                   <div>
@@ -1439,8 +1450,8 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                 <div style={paymentCardStyle}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.8rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                      <CreditCard size={16} color="#3B82F6" />
-                      <strong style={{ color: '#FFFFFF', fontSize: '0.92rem' }}>PayPal Express ($0 Monthly Fee)</strong>
+                      <CreditCard size={16} color="#000000" />
+                      <strong style={{ color: '#09090B', fontSize: '0.92rem' }}>PayPal Express ($0 Monthly Fee)</strong>
                     </div>
                     <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
                       <input
@@ -1453,7 +1464,7 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                           })
                         }
                       />
-                      <span style={{ fontSize: '0.8rem', color: 'var(--color-sand)' }}>Enabled</span>
+                      <span style={{ fontSize: '0.8rem', color: '#52525B', fontWeight: 600 }}>Enabled</span>
                     </label>
                   </div>
                   <div>
@@ -1477,8 +1488,8 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                 <div style={paymentCardStyle}>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.8rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                      <Mail size={16} color="#10B981" />
-                      <strong style={{ color: '#FFFFFF', fontSize: '0.92rem' }}>
+                      <Mail size={16} color="#000000" />
+                      <strong style={{ color: '#09090B', fontSize: '0.92rem' }}>
                         Customer Receipt Email Dispatcher (Resend API)
                       </strong>
                     </div>
@@ -1487,16 +1498,16 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                         fontSize: '0.72rem',
                         padding: '0.2rem 0.6rem',
                         borderRadius: 'var(--radius-pill)',
-                        backgroundColor: settingsForm.resendApiKey ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
-                        border: settingsForm.resendApiKey ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(245, 158, 11, 0.3)',
-                        color: settingsForm.resendApiKey ? '#10B981' : '#F59E0B',
+                        backgroundColor: settingsForm.resendApiKey ? '#ECFDF5' : '#FFFBEB',
+                        border: settingsForm.resendApiKey ? '1px solid #A7F3D0' : '1px solid #FDE68A',
+                        color: settingsForm.resendApiKey ? '#059669' : '#D97706',
                         fontWeight: 700,
                       }}
                     >
                       {settingsForm.resendApiKey ? 'LIVE SMTP ACTIVE' : 'SANDBOX SIMULATION MODE ($0)'}
                     </span>
                   </div>
-                  <p style={{ fontSize: '0.78rem', color: 'var(--color-sand)', lineHeight: 1.5, marginBottom: '1rem' }}>
+                  <p style={{ fontSize: '0.78rem', color: '#52525B', lineHeight: 1.5, marginBottom: '1rem' }}>
                     When online payment is verified, the system automatically emails an official branded luxury receipt to the customer's email.
                     Resend provides <strong>3,000 free emails every month</strong> at zero cost ($0). If key is left blank, it generates receipts in simulation mode so tests never fail.
                   </p>
@@ -1512,8 +1523,8 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                         }
                         style={fieldInputStyle}
                       />
-                      <span style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', display: 'block', marginTop: '0.3rem' }}>
-                        Get a free key from <a href="https://resend.com" target="_blank" rel="noreferrer" style={{ color: '#FFA578', textDecoration: 'underline' }}>resend.com</a> (3,000 free emails/mo).
+                      <span style={{ fontSize: '0.68rem', color: '#71717A', display: 'block', marginTop: '0.3rem' }}>
+                        Get a free key from <a href="https://resend.com" target="_blank" rel="noreferrer" style={{ color: '#000000', textDecoration: 'underline', fontWeight: 600 }}>resend.com</a> (3,000 free emails/mo).
                       </span>
                     </div>
                     <div>
@@ -1527,7 +1538,7 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                         }
                         style={fieldInputStyle}
                       />
-                      <span style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)', display: 'block', marginTop: '0.3rem' }}>
+                      <span style={{ fontSize: '0.68rem', color: '#71717A', display: 'block', marginTop: '0.3rem' }}>
                         e.g. concierge@techxodia.com or onboarding@resend.dev
                       </span>
                     </div>
@@ -1536,7 +1547,7 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
               </div>
 
               {saveStatus && (
-                <div style={{ padding: '0.8rem 1rem', marginBottom: '1rem', backgroundColor: 'rgba(16, 185, 129, 0.15)', color: '#10B981', fontSize: '0.82rem', borderRadius: 'var(--radius-xs)' }}>
+                <div style={{ padding: '0.8rem 1rem', marginBottom: '1rem', backgroundColor: '#ECFDF5', border: '1px solid #A7F3D0', color: '#059669', fontSize: '0.82rem', borderRadius: 'var(--radius-xs)', fontWeight: 600 }}>
                   {saveStatus}
                 </div>
               )}
@@ -1553,10 +1564,10 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
             <div style={{ maxWidth: '1100px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
                 <div>
-                  <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem' }}>
+                  <h1 style={{ fontSize: '1.6rem', fontWeight: 900, textTransform: 'uppercase', marginBottom: '0.4rem', color: '#09090B' }}>
                     Customer Orders, Payments & Receipts
                   </h1>
-                  <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.88rem' }}>
+                  <p style={{ color: '#52525B', fontSize: '0.88rem' }}>
                     Every order placed with online card, PayPal, or COD is automatically recorded in Supabase and reflected in real-time below.
                   </p>
                 </div>
@@ -1567,14 +1578,15 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.5rem',
-                      backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                      border: '1px solid rgba(255, 255, 255, 0.12)',
-                      color: '#FFFFFF',
+                      backgroundColor: '#FFFFFF',
+                      border: '1px solid #D4D4D8',
+                      color: '#09090B',
                       padding: '0.55rem 1rem',
                       borderRadius: 'var(--radius-xs)',
                       fontSize: '0.75rem',
                       fontWeight: 700,
                       cursor: 'pointer',
+                      transition: 'all 0.15s ease',
                     }}
                   >
                     <RefreshCw size={14} className={isLoadingOrders ? 'spin' : ''} />
@@ -1592,21 +1604,21 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                 </div>
                 <div style={metricCardStyle}>
                   <span style={metricLabelStyle}>GROSS VOLUME</span>
-                  <div style={{ ...metricValueStyle, color: 'var(--color-terracotta-light)' }}>
+                  <div style={{ ...metricValueStyle, color: '#09090B' }}>
                     ${ordersList.reduce((acc, o) => acc + (Number(o.total) || 0), 0).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                   </div>
                   <span style={metricSubStyle}>USD Value</span>
                 </div>
                 <div style={metricCardStyle}>
                   <span style={metricLabelStyle}>VERIFIED PAYMENTS</span>
-                  <div style={{ ...metricValueStyle, color: '#10B981' }}>
+                  <div style={{ ...metricValueStyle, color: '#059669' }}>
                     {ordersList.filter((o) => o.payment_status === 'paid').length}
                   </div>
                   <span style={metricSubStyle}>Settled Transactions</span>
                 </div>
                 <div style={metricCardStyle}>
                   <span style={metricLabelStyle}>RECEIPTS DISPATCHED</span>
-                  <div style={{ ...metricValueStyle, color: '#60A5FA' }}>
+                  <div style={{ ...metricValueStyle, color: '#0284C7' }}>
                     {ordersList.filter((o) => o.receipt_sent).length}
                   </div>
                   <span style={metricSubStyle}>Emails Delivered</span>
@@ -1620,13 +1632,14 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                     padding: '0.8rem 1rem',
                     marginBottom: '1.5rem',
                     borderRadius: 'var(--radius-xs)',
-                    backgroundColor: orderFeedback.type === 'success' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(239, 68, 68, 0.15)',
-                    border: orderFeedback.type === 'success' ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(239, 68, 68, 0.3)',
-                    color: orderFeedback.type === 'success' ? '#10B981' : '#EF4444',
+                    backgroundColor: orderFeedback.type === 'success' ? '#ECFDF5' : '#FEF2F2',
+                    border: orderFeedback.type === 'success' ? '1px solid #A7F3D0' : '1px solid #FECACA',
+                    color: orderFeedback.type === 'success' ? '#059669' : '#DC2626',
                     fontSize: '0.84rem',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.5rem',
+                    fontWeight: 600,
                   }}
                 >
                   <CheckCircle2 size={16} />
@@ -1648,26 +1661,27 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
               {/* Orders Table */}
               <div
                 style={{
-                  backgroundColor: '#121418',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
+                  backgroundColor: '#FFFFFF',
+                  border: '1px solid #E4E4E7',
                   borderRadius: 'var(--radius-xs)',
                   overflowX: 'auto',
+                  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.04)',
                 }}
               >
                 {filteredOrders.length === 0 ? (
-                  <div style={{ padding: '3.5rem 1.5rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
+                  <div style={{ padding: '3.5rem 1.5rem', textAlign: 'center', color: '#71717A' }}>
                     <ShoppingBag size={38} style={{ opacity: 0.3, marginBottom: '0.8rem' }} />
-                    <p style={{ fontSize: '0.9rem', color: 'var(--color-sand)' }}>
+                    <p style={{ fontSize: '0.9rem', color: '#52525B' }}>
                       {ordersList.length === 0 ? 'No customer orders have been placed yet.' : 'No orders matched your search criteria.'}
                     </p>
-                    <p style={{ fontSize: '0.78rem', marginTop: '0.4rem' }}>
+                    <p style={{ fontSize: '0.78rem', marginTop: '0.4rem', color: '#71717A' }}>
                       When a customer completes checkout on the storefront, their order and payment status will appear here immediately.
                     </p>
                   </div>
                 ) : (
                   <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', fontSize: '0.82rem' }}>
                     <thead>
-                      <tr style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.08)', backgroundColor: '#0F1014' }}>
+                      <tr style={{ borderBottom: '1px solid #E4E4E7', backgroundColor: '#F4F4F5' }}>
                         <th style={tableThStyle}>Order Reference</th>
                         <th style={tableThStyle}>Customer</th>
                         <th style={tableThStyle}>Items</th>
@@ -1685,37 +1699,37 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                         const isResending = resendingOrderNum === order.order_number;
 
                         return (
-                          <tr key={order.order_number} style={{ borderBottom: '1px solid rgba(255, 255, 255, 0.04)' }}>
+                          <tr key={order.order_number} style={{ borderBottom: '1px solid #E4E4E7' }}>
                             <td style={tableTdStyle}>
-                              <strong style={{ color: '#FFFFFF', letterSpacing: '0.08em', display: 'block' }}>
+                              <strong style={{ color: '#09090B', letterSpacing: '0.08em', display: 'block' }}>
                                 #{order.order_number}
                               </strong>
-                              <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)' }}>
+                              <span style={{ fontSize: '0.7rem', color: '#71717A' }}>
                                 {order.created_at ? new Date(order.created_at).toLocaleDateString() : 'Recent'}
                               </span>
                             </td>
                             <td style={tableTdStyle}>
-                              <div style={{ fontWeight: 600, color: '#FFFFFF' }}>{order.customer_name}</div>
-                              <div style={{ fontSize: '0.72rem', color: 'var(--color-sand)' }}>{order.customer_email}</div>
+                              <div style={{ fontWeight: 600, color: '#09090B' }}>{order.customer_name}</div>
+                              <div style={{ fontSize: '0.72rem', color: '#52525B' }}>{order.customer_email}</div>
                               {order.customer_phone && (
-                                <div style={{ fontSize: '0.68rem', color: 'var(--color-text-muted)' }}>{order.customer_phone}</div>
+                                <div style={{ fontSize: '0.68rem', color: '#71717A' }}>{order.customer_phone}</div>
                               )}
                             </td>
                             <td style={tableTdStyle}>
-                              <span style={{ color: 'var(--color-sand)', fontSize: '0.78rem' }}>
+                              <span style={{ color: '#52525B', fontSize: '0.78rem' }}>
                                 {(order.items || []).length} item{(order.items || []).length === 1 ? '' : 's'}
                               </span>
-                              <div style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                              <div style={{ fontSize: '0.7rem', color: '#71717A', maxWidth: '200px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                                 {(order.items || []).map((i) => `${i.name} (${i.color})`).join(', ')}
                               </div>
                             </td>
                             <td style={tableTdStyle}>
-                              <strong style={{ color: 'var(--color-terracotta-light)' }}>
+                              <strong style={{ color: '#09090B' }}>
                                 ${(Number(order.total) || 0).toFixed(2)}
                               </strong>
                             </td>
                             <td style={tableTdStyle}>
-                              <span style={{ fontSize: '0.75rem', color: '#D8CEBC' }}>
+                              <span style={{ fontSize: '0.75rem', color: '#52525B' }}>
                                 {order.payment_method || 'Online Card (Stripe)'}
                               </span>
                             </td>
@@ -1728,9 +1742,9 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                                   gap: '0.35rem',
                                   padding: '0.25rem 0.55rem',
                                   borderRadius: 'var(--radius-pill)',
-                                  backgroundColor: isPaid ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
-                                  border: isPaid ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid rgba(245, 158, 11, 0.3)',
-                                  color: isPaid ? '#10B981' : '#F59E0B',
+                                  backgroundColor: isPaid ? '#ECFDF5' : '#FFFBEB',
+                                  border: isPaid ? '1px solid #A7F3D0' : '1px solid #FDE68A',
+                                  color: isPaid ? '#059669' : '#D97706',
                                   fontSize: '0.68rem',
                                   fontWeight: 800,
                                   cursor: 'pointer',
@@ -1742,7 +1756,7 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                                     width: '6px',
                                     height: '6px',
                                     borderRadius: '50%',
-                                    backgroundColor: isPaid ? '#10B981' : '#F59E0B',
+                                    backgroundColor: isPaid ? '#059669' : '#D97706',
                                   }}
                                 />
                                 <span>{isPaid ? 'PAID / VERIFIED' : 'PENDING'}</span>
@@ -1751,12 +1765,12 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                             <td style={tableTdStyle}>
                               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
                                 {isReceiptSent ? (
-                                  <span style={{ color: '#10B981', display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.72rem' }}>
-                                    <CheckCircle2 size={13} color="#10B981" />
+                                  <span style={{ color: '#059669', display: 'inline-flex', alignItems: 'center', gap: '0.3rem', fontSize: '0.72rem', fontWeight: 600 }}>
+                                    <CheckCircle2 size={13} color="#059669" />
                                     <span>Sent</span>
                                   </span>
                                 ) : (
-                                  <span style={{ color: 'var(--color-text-muted)', fontSize: '0.72rem' }}>
+                                  <span style={{ color: '#71717A', fontSize: '0.72rem' }}>
                                     Pending
                                   </span>
                                 )}
@@ -1771,13 +1785,14 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                                     alignItems: 'center',
                                     gap: '0.3rem',
                                     padding: '0.35rem 0.65rem',
-                                    backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                                    color: '#FFFFFF',
+                                    backgroundColor: '#F4F4F5',
+                                    border: '1px solid #E4E4E7',
+                                    color: '#09090B',
                                     borderRadius: 'var(--radius-xs)',
                                     fontSize: '0.7rem',
                                     cursor: 'pointer',
                                     fontWeight: 600,
+                                    transition: 'background-color 0.15s ease',
                                   }}
                                   title="View Printable Luxury Receipt"
                                 >
@@ -1792,14 +1807,15 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                                     alignItems: 'center',
                                     gap: '0.3rem',
                                     padding: '0.35rem 0.65rem',
-                                    backgroundColor: 'rgba(200, 98, 55, 0.15)',
-                                    border: '1px solid rgba(200, 98, 55, 0.35)',
-                                    color: '#FFA578',
+                                    backgroundColor: '#000000',
+                                    border: '1px solid #000000',
+                                    color: '#FFFFFF',
                                     borderRadius: 'var(--radius-xs)',
                                     fontSize: '0.7rem',
                                     cursor: isResending ? 'not-allowed' : 'pointer',
                                     fontWeight: 600,
                                     opacity: isResending ? 0.6 : 1,
+                                    transition: 'opacity 0.15s ease',
                                   }}
                                   title="Resend Branded Receipt via Email"
                                 >
@@ -1829,9 +1845,9 @@ const navBtnStyle = (isActive: boolean): React.CSSProperties => ({
   gap: '0.65rem',
   padding: '0.75rem 0.9rem',
   borderRadius: 'var(--radius-xs)',
-  backgroundColor: isActive ? 'rgba(200, 98, 55, 0.16)' : 'transparent',
-  border: isActive ? '1px solid rgba(200, 98, 55, 0.4)' : '1px solid transparent',
-  color: isActive ? '#FFA578' : 'var(--color-text-secondary)',
+  backgroundColor: isActive ? '#000000' : 'transparent',
+  border: isActive ? '1px solid #000000' : '1px solid transparent',
+  color: isActive ? '#FFFFFF' : '#52525B',
   fontSize: '0.78rem',
   fontFamily: 'var(--font-display)',
   fontWeight: 700,
@@ -1850,20 +1866,21 @@ const fieldLabelStyle: React.CSSProperties = {
   fontFamily: 'var(--font-display)',
   letterSpacing: '0.08em',
   textTransform: 'uppercase',
-  color: 'var(--color-text-secondary)',
+  color: '#09090B',
   marginBottom: '0.4rem',
 };
 
 const fieldInputStyle: React.CSSProperties = {
   width: '100%',
-  backgroundColor: 'rgba(255, 255, 255, 0.05)',
-  border: '1px solid rgba(255, 255, 255, 0.12)',
+  backgroundColor: '#FFFFFF',
+  border: '1px solid #D4D4D8',
   borderRadius: 'var(--radius-xs)',
   padding: '0.8rem 0.95rem',
-  color: '#FFFFFF',
+  color: '#09090B',
   fontSize: '0.86rem',
   outline: 'none',
   fontFamily: 'var(--font-sans)',
+  transition: 'border-color 0.15s ease',
 };
 
 const tableThStyle: React.CSSProperties = {
@@ -1872,26 +1889,29 @@ const tableThStyle: React.CSSProperties = {
   fontWeight: 700,
   letterSpacing: '0.1em',
   textTransform: 'uppercase',
-  color: 'var(--color-text-muted)',
+  color: '#71717A',
 };
 
 const tableTdStyle: React.CSSProperties = {
   padding: '0.9rem 1.1rem',
   verticalAlign: 'middle',
+  color: '#09090B',
 };
 
 const paymentCardStyle: React.CSSProperties = {
-  backgroundColor: '#14161A',
-  border: '1px solid rgba(255, 255, 255, 0.08)',
+  backgroundColor: '#FFFFFF',
+  border: '1px solid #E4E4E7',
   borderRadius: 'var(--radius-xs)',
   padding: '1.4rem',
+  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.03)',
 };
 
 const metricCardStyle: React.CSSProperties = {
-  backgroundColor: '#121418',
-  border: '1px solid rgba(255, 255, 255, 0.08)',
+  backgroundColor: '#FFFFFF',
+  border: '1px solid #E4E4E7',
   borderRadius: 'var(--radius-xs)',
   padding: '1.2rem',
+  boxShadow: '0 1px 3px rgba(0, 0, 0, 0.03)',
 };
 
 const metricLabelStyle: React.CSSProperties = {
@@ -1899,7 +1919,7 @@ const metricLabelStyle: React.CSSProperties = {
   fontWeight: 800,
   fontFamily: 'var(--font-display)',
   letterSpacing: '0.12em',
-  color: 'var(--color-text-muted)',
+  color: '#71717A',
   display: 'block',
   marginBottom: '0.4rem',
 };
@@ -1908,12 +1928,12 @@ const metricValueStyle: React.CSSProperties = {
   fontSize: '1.8rem',
   fontWeight: 900,
   fontFamily: 'var(--font-display)',
-  color: '#FFFFFF',
+  color: '#09090B',
   lineHeight: 1.1,
   marginBottom: '0.2rem',
 };
 
 const metricSubStyle: React.CSSProperties = {
   fontSize: '0.72rem',
-  color: 'var(--color-sand)',
+  color: '#71717A',
 };
