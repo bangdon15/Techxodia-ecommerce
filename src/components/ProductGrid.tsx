@@ -95,6 +95,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
 
         {/* Category Tabs */}
         <div
+          className="product-category-tabs"
           style={{
             display: 'flex',
             justifyContent: 'center',
@@ -109,6 +110,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
+                className="category-tab-btn"
                 style={{
                   background: isActive ? 'var(--color-terracotta)' : 'rgba(255, 255, 255, 0.04)',
                   color: isActive ? '#FFFFFF' : 'var(--color-text-secondary)',
@@ -124,6 +126,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
                   borderRadius: 'var(--radius-xs)',
                   cursor: 'pointer',
                   transition: 'all 0.2s ease',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {cat}

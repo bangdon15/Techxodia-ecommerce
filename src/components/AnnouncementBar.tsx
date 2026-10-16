@@ -44,9 +44,9 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ customAnnounce
         fontSize: '0.72rem',
         fontFamily: 'var(--font-display)',
         fontWeight: 700,
-        letterSpacing: '0.14em',
+        letterSpacing: '0.1em',
         textTransform: 'uppercase',
-        padding: '0.45rem 1rem',
+        padding: '0.45rem 0.75rem',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -54,6 +54,10 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ customAnnounce
         zIndex: 60,
         overflow: 'hidden',
         borderBottom: '1px solid rgba(0,0,0,0.15)',
+        width: '100%',
+        maxWidth: '100vw',
+        boxSizing: 'border-box',
+        textAlign: 'center',
       }}
     >
       <div
@@ -61,12 +65,23 @@ export const AnnouncementBar: React.FC<AnnouncementBarProps> = ({ customAnnounce
         style={{
           display: 'inline-flex',
           alignItems: 'center',
-          gap: '0.6rem',
+          justifyContent: 'center',
+          gap: '0.45rem',
           animation: 'fadeIn 0.4s ease-out',
+          maxWidth: '100%',
         }}
       >
-        <Icon size={14} style={{ color: '#FFE3D1' }} />
-        <span>{current.text}</span>
+        <Icon size={14} style={{ color: '#FFE3D1', flexShrink: 0 }} />
+        <span
+          style={{
+            fontSize: 'clamp(0.62rem, 2.6vw, 0.72rem)',
+            letterSpacing: '0.08em',
+            lineHeight: 1.25,
+            wordBreak: 'break-word',
+          }}
+        >
+          {current.text}
+        </span>
       </div>
     </div>
   );

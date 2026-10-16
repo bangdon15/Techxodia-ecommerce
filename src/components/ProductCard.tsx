@@ -170,6 +170,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Product Information Body */}
       <div
+        className="product-card-body"
         style={{
           padding: '1.4rem',
           display: 'flex',
@@ -319,6 +320,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
 
         {/* Price and Add to Bag Row */}
         <div
+          className="product-card-action-row"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -327,8 +329,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             paddingTop: '1rem',
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
+          <div className="product-card-price-wrap" style={{ display: 'flex', alignItems: 'baseline', gap: '0.5rem' }}>
             <span
+              className="product-card-price"
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: '1.25rem',
@@ -372,7 +375,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
               transition: 'all 0.2s ease',
               minHeight: '40px',
             }}
-            className="add-to-cart-btn"
+            className="add-to-cart-btn product-card-add-btn"
           >
             <ShoppingBag size={14} />
             <span>ADD</span>

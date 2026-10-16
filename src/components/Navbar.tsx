@@ -56,7 +56,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       }}
     >
       <div
-        className="container-luxury"
+        className="container-luxury navbar-container"
         style={{
           display: 'flex',
           alignItems: 'center',
@@ -65,7 +65,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         }}
       >
         {/* Left: Mobile Toggle & Desktop Nav */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '2rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', flexShrink: 0 }}>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             style={{
@@ -122,6 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Center: Brand Logo */}
         <div
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="nav-brand-logo"
           style={{
             cursor: 'pointer',
             display: 'flex',
@@ -129,16 +130,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             alignItems: 'center',
             textAlign: 'center',
             userSelect: 'none',
+            flexShrink: 1,
+            minWidth: 0,
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             {/* Techxodia Geometric Crest SVG */}
             <svg
-              width="26"
-              height="26"
+              width="22"
+              height="22"
               viewBox="0 0 100 100"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              style={{ flexShrink: 0 }}
             >
               <polygon
                 points="50,10 90,30 90,70 50,90 10,70 10,30"
@@ -153,26 +157,30 @@ export const Navbar: React.FC<NavbarProps> = ({
               <circle cx="50" cy="50" r="8" fill="#0C0D0F" />
             </svg>
             <span
+              className="nav-brand-name"
               style={{
                 fontFamily: 'var(--font-display)',
                 fontWeight: 900,
-                fontSize: '1.35rem',
-                letterSpacing: '0.22em',
+                fontSize: '1.25rem',
+                letterSpacing: '0.18em',
                 color: '#FFFFFF',
                 textTransform: 'uppercase',
+                whiteSpace: 'nowrap',
               }}
             >
               {brandName}
             </span>
           </div>
           <span
+            className="nav-brand-tagline"
             style={{
-              fontSize: '0.58rem',
-              letterSpacing: '0.35em',
+              fontSize: '0.54rem',
+              letterSpacing: '0.28em',
               color: 'var(--color-terracotta)',
               fontWeight: 700,
               textTransform: 'uppercase',
               marginTop: '-2px',
+              whiteSpace: 'nowrap',
             }}
           >
             {brandTagline}
@@ -180,9 +188,9 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
 
         {/* Right: Tools & Cart */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.9rem' }}>
-          {/* Currency Switcher */}
-          <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexShrink: 0 }}>
+          {/* Currency Switcher (Desktop) */}
+          <div className="nav-currency-switcher" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
             <Globe size={14} style={{ color: 'var(--color-text-muted)', marginRight: '4px' }} />
             <select
               value={activeCurrency}
@@ -210,6 +218,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Search Trigger */}
           <button
             onClick={onOpenSearch}
+            className="nav-search-btn"
             style={{
               background: 'none',
               border: 'none',
@@ -228,6 +237,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Cart Drawer Trigger */}
           <button
             onClick={onOpenCart}
+            className="nav-cart-btn"
             style={{
               position: 'relative',
               background: 'var(--color-terracotta)',
@@ -238,7 +248,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               borderRadius: 'var(--radius-xs)',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.5rem',
+              gap: '0.45rem',
               fontFamily: 'var(--font-display)',
               fontWeight: 700,
               fontSize: '0.75rem',
@@ -248,7 +258,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             aria-label="Open Cart"
           >
             <ShoppingBag size={15} />
-            <span style={{ marginTop: '1px' }}>BAG</span>
+            <span className="nav-cart-text" style={{ marginTop: '1px' }}>BAG</span>
             {cartCount > 0 && (
               <span
                 style={{
@@ -309,6 +319,42 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             LOOKBOOK
           </button>
+
+          {/* Currency Switcher in Mobile Drawer */}
+          <div
+            style={{
+              paddingTop: '1rem',
+              borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-sand)' }}>
+              <Globe size={16} />
+              <span style={{ fontSize: '0.82rem', fontFamily: 'var(--font-display)', fontWeight: 600 }}>Active Currency</span>
+            </div>
+            <select
+              value={activeCurrency}
+              onChange={(e) => onCurrencyChange(e.target.value as CurrencyCode)}
+              style={{
+                background: '#1B1E24',
+                border: '1px solid rgba(255, 255, 255, 0.15)',
+                color: '#FFFFFF',
+                borderRadius: 'var(--radius-xs)',
+                padding: '0.4rem 0.7rem',
+                fontSize: '0.8rem',
+                fontFamily: 'var(--font-display)',
+                fontWeight: 700,
+                outline: 'none',
+              }}
+            >
+              <option value="USD">USD ($)</option>
+              <option value="EUR">EUR (€)</option>
+              <option value="GBP">GBP (£)</option>
+              <option value="JPY">JPY (¥)</option>
+            </select>
+          </div>
         </div>
       )}
 
@@ -318,6 +364,31 @@ export const Navbar: React.FC<NavbarProps> = ({
         }
         @media (min-width: 861px) {
           .mobile-only-btn { display: none !important; }
+        }
+        @media (max-width: 768px) {
+          .navbar-container {
+            height: 62px !important;
+            padding-left: 0.85rem !important;
+            padding-right: 0.85rem !important;
+          }
+          .nav-currency-switcher {
+            display: none !important;
+          }
+          .nav-cart-text {
+            display: none !important;
+          }
+          .nav-cart-btn {
+            padding: 0.45rem 0.6rem !important;
+            gap: 0.25rem !important;
+          }
+          .nav-brand-name {
+            font-size: 1.05rem !important;
+            letter-spacing: 0.12em !important;
+          }
+          .nav-brand-tagline {
+            font-size: 0.46rem !important;
+            letter-spacing: 0.18em !important;
+          }
         }
       `}</style>
     </header>

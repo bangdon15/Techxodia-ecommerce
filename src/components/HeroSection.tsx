@@ -20,6 +20,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
   return (
     <section
+      className="hero-section-container"
       style={{
         position: 'relative',
         minHeight: '88vh',
@@ -62,7 +63,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
       {/* Hero Content Container */}
       <div
-        className="container-luxury"
+        className="container-luxury hero-content-wrap"
         style={{
           position: 'relative',
           zIndex: 10,
@@ -74,6 +75,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         <div style={{ maxWidth: '780px' }}>
           {/* Eyebrow / Collaboration Badge */}
           <div
+            className="hero-badge-wrap"
             style={{
               display: 'inline-flex',
               alignItems: 'center',
@@ -81,20 +83,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               marginBottom: '1.4rem',
               backgroundColor: 'rgba(200, 98, 55, 0.18)',
               border: '1px solid rgba(200, 98, 55, 0.4)',
-              padding: '0.45rem 1rem',
+              padding: '0.45rem 0.9rem',
               borderRadius: 'var(--radius-xs)',
               backdropFilter: 'blur(8px)',
+              maxWidth: '100%',
             }}
           >
-            <Flame size={14} style={{ color: '#FFA578' }} />
+            <Flame size={14} style={{ color: '#FFA578', flexShrink: 0 }} />
             <span
               style={{
                 fontFamily: 'var(--font-display)',
-                fontSize: '0.74rem',
+                fontSize: 'clamp(0.64rem, 2.8vw, 0.74rem)',
                 fontWeight: 800,
-                letterSpacing: '0.18em',
+                letterSpacing: '0.14em',
                 color: '#FFA578',
                 textTransform: 'uppercase',
+                wordBreak: 'break-word',
               }}
             >
               {badgeText}
@@ -103,14 +107,17 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* Main Title */}
           <h1
+            className="hero-title-text"
             style={{
-              fontSize: 'clamp(2.2rem, 5.8vw, 4.8rem)',
+              fontSize: 'clamp(2rem, 5.8vw, 4.8rem)',
               fontWeight: 900,
               lineHeight: 1.05,
               letterSpacing: '-0.02em',
               textTransform: 'uppercase',
               color: '#FFFFFF',
               marginBottom: '1.4rem',
+              wordBreak: 'break-word',
+              overflowWrap: 'break-word',
             }}
           >
             {headlineText}
@@ -118,14 +125,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* Subtitle / Storytelling */}
           <p
+            className="hero-subtitle-text"
             style={{
-              fontSize: 'clamp(0.95rem, 1.3vw, 1.2rem)',
+              fontSize: 'clamp(0.9rem, 1.3vw, 1.2rem)',
               color: 'var(--color-sand)',
               lineHeight: 1.6,
               marginBottom: '2.4rem',
               maxWidth: '640px',
               fontWeight: 400,
               textShadow: '0 2px 10px rgba(0,0,0,0.6)',
+              wordBreak: 'break-word',
             }}
           >
             {subtitleText}
@@ -133,26 +142,27 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* Action CTAs */}
           <div
+            className="hero-cta-wrap"
             style={{
               display: 'flex',
               flexWrap: 'wrap',
               gap: '1rem',
               alignItems: 'center',
-              marginBottom: '3.5rem',
+              marginBottom: '3rem',
             }}
           >
             <button
               onClick={onExploreClick}
-              className="btn-primary"
-              style={{ minWidth: '220px' }}
+              className="btn-primary hero-cta-btn"
+              style={{ minWidth: '200px' }}
             >
               <span>SHOP THE DROP</span>
               <ArrowDown size={16} />
             </button>
             <button
               onClick={onCraftClick}
-              className="btn-secondary"
-              style={{ minWidth: '200px' }}
+              className="btn-secondary hero-cta-btn"
+              style={{ minWidth: '180px' }}
             >
               DISCOVER CRAFT
             </button>
@@ -160,9 +170,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
           {/* Key Metric Highlights Grid */}
           <div
+            className="hero-metrics-grid"
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(115px, 1fr))',
               gap: '1.2rem',
               maxWidth: '650px',
               borderTop: '1px solid rgba(255, 255, 255, 0.12)',

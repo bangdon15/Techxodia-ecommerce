@@ -111,6 +111,7 @@ export const SpecsSection: React.FC = () => {
           }}
         >
           <div
+            className="specs-header-bar"
             style={{
               padding: '1.2rem 1.8rem',
               backgroundColor: '#1B1E24',
@@ -118,6 +119,8 @@ export const SpecsSection: React.FC = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
+              flexWrap: 'wrap',
+              gap: '0.6rem',
             }}
           >
             <span
@@ -151,6 +154,7 @@ export const SpecsSection: React.FC = () => {
             {SPEC_ROWS.map((row, index) => (
               <div
                 key={index}
+                className="spec-row-item"
                 style={{
                   display: 'grid',
                   gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',

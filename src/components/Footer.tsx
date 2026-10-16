@@ -19,6 +19,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
       <div className="container-luxury">
         {/* Trust Badges Banner */}
         <div
+          className="footer-trust-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
@@ -29,7 +30,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-            <ShieldCheck size={28} style={{ color: 'var(--color-terracotta)' }} />
+            <ShieldCheck size={28} style={{ color: 'var(--color-terracotta)', flexShrink: 0 }} />
             <div>
               <h5 style={{ color: '#FFFFFF', fontSize: '0.88rem', textTransform: 'uppercase', marginBottom: '0.1rem' }}>
                 BUILT FOR ETERNITY
@@ -41,7 +42,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-            <Truck size={28} style={{ color: 'var(--color-terracotta)' }} />
+            <Truck size={28} style={{ color: 'var(--color-terracotta)', flexShrink: 0 }} />
             <div>
               <h5 style={{ color: '#FFFFFF', fontSize: '0.88rem', textTransform: 'uppercase', marginBottom: '0.1rem' }}>
                 GLOBAL EXPRESS
@@ -53,7 +54,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
-            <RotateCcw size={28} style={{ color: 'var(--color-terracotta)' }} />
+            <RotateCcw size={28} style={{ color: 'var(--color-terracotta)', flexShrink: 0 }} />
             <div>
               <h5 style={{ color: '#FFFFFF', fontSize: '0.88rem', textTransform: 'uppercase', marginBottom: '0.1rem' }}>
                 HASSLE-FREE RETURNS
@@ -67,6 +68,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigateAdmin }) => {
 
         {/* Footer Navigation Columns */}
         <div
+          className="footer-nav-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',

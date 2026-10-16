@@ -142,6 +142,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
   return (
     <div
       onClick={onClose}
+      className="checkout-modal-backdrop"
       style={{
         position: 'fixed',
         top: 0,
@@ -160,6 +161,7 @@ export const CheckoutModal: React.FC<CheckoutModalProps> = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
+        className="checkout-modal-dialog"
         style={{
           backgroundColor: '#121417',
           border: '1px solid rgba(255, 255, 255, 0.12)',

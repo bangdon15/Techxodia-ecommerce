@@ -94,6 +94,7 @@ export const LookbookSection: React.FC = () => {
 
         {/* Gallery Grid */}
         <div
+          className="lookbook-gallery-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
@@ -103,7 +104,7 @@ export const LookbookSection: React.FC = () => {
           {LOOKBOOK_ITEMS.map((item, idx) => (
             <div
               key={idx}
-              className="img-zoom-container"
+              className="img-zoom-container lookbook-card-item"
               style={{
                 position: 'relative',
                 borderRadius: 'var(--radius-xs)',

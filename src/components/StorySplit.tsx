@@ -15,6 +15,7 @@ export const StorySplit: React.FC = () => {
     >
       <div className="container-luxury">
         <div
+          className="story-split-grid"
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
@@ -46,10 +47,12 @@ export const StorySplit: React.FC = () => {
 
               {/* Laser-engraved Emblem Overlay Badge */}
               <div
+                className="story-badge-overlay"
                 style={{
                   position: 'absolute',
                   bottom: '20px',
                   left: '20px',
+                  maxWidth: 'calc(100% - 40px)',
                   backgroundColor: 'rgba(12, 13, 15, 0.92)',
                   border: '1px solid rgba(200, 98, 55, 0.4)',
                   padding: '0.8rem 1.2rem',
@@ -137,6 +140,7 @@ export const StorySplit: React.FC = () => {
 
             {/* 4 Architectural Feature Callouts */}
             <div
+              className="story-features-grid"
               style={{
                 display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',

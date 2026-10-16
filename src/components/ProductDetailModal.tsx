@@ -80,6 +80,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   return (
     <div
       onClick={onClose}
+      className="product-modal-backdrop"
       style={{
         position: 'fixed',
         top: 0,

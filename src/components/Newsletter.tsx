@@ -101,6 +101,7 @@ export const Newsletter: React.FC = () => {
 
           <form
             onSubmit={handleSubmit}
+            className="newsletter-form"
             style={{
               display: 'flex',
               flexWrap: 'wrap',
@@ -109,7 +110,10 @@ export const Newsletter: React.FC = () => {
               marginBottom: '1rem',
             }}
           >
-            <div style={{ position: 'relative', flex: '1 1 300px', maxWidth: '420px' }}>
+            <div
+              className="newsletter-input-wrap"
+              style={{ position: 'relative', flex: '1 1 240px', maxWidth: '420px', width: '100%' }}
+            >
               <Mail
                 size={16}
                 style={{
@@ -145,7 +149,7 @@ export const Newsletter: React.FC = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="btn-primary"
+              className="btn-primary newsletter-btn"
               style={{ padding: '0.9rem 1.6rem' }}
             >
               {isSubmitting ? (
