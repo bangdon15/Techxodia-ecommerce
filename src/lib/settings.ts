@@ -51,7 +51,19 @@ export const getStoreSettings = (): StoreSettings => {
   try {
     const raw = localStorage.getItem('techxodia_store_settings');
     if (!raw) return DEFAULT_STORE_SETTINGS;
-    return { ...DEFAULT_STORE_SETTINGS, ...JSON.parse(raw) };
+    const parsed = JSON.parse(raw);
+    if (parsed.heroSubtitle?.toLowerCase().includes('desert terracotta') || parsed.heroWallpaper === '/assets/hero_collab.jpg') {
+      const upgraded = {
+        ...DEFAULT_STORE_SETTINGS,
+        ...parsed,
+        heroWallpaper: '/assets/hero_white_luxury.jpg',
+        heroSubtitle: DEFAULT_STORE_SETTINGS.heroSubtitle,
+        heroBadge: DEFAULT_STORE_SETTINGS.heroBadge,
+      };
+      localStorage.setItem('techxodia_store_settings', JSON.stringify(upgraded));
+      return upgraded;
+    }
+    return { ...DEFAULT_STORE_SETTINGS, ...parsed };
   } catch {
     return DEFAULT_STORE_SETTINGS;
   }

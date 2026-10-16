@@ -40,8 +40,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           bottom: 0,
           backgroundImage: `url(${wallpaperUrl})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center right',
-          opacity: 0.95,
+          backgroundPosition: 'right center',
+          opacity: 1,
           transition: 'background-image 0.5s ease',
         }}
       />
@@ -55,8 +55,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           right: 0,
           bottom: 0,
           background: `
-            linear-gradient(90deg, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0.88) 45%, rgba(255, 255, 255, 0.35) 75%, rgba(255, 255, 255, 0.05) 100%),
-            linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 40%, rgba(255, 255, 255, 0.85) 100%)
+            linear-gradient(90deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.88) 38%, rgba(255, 255, 255, 0.15) 68%, rgba(255, 255, 255, 0) 100%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 40%, rgba(255, 255, 255, 0.6) 100%)
           `,
         }}
       />

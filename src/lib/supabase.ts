@@ -72,12 +72,63 @@ export interface FetchProductsResult {
   error?: string;
 }
 
+export const sanitizeProduct = (p: Product): Product => {
+  let image = p.image;
+  if (image.includes('product_jug_64oz.jpg')) image = '/assets/product_jug_white.jpg';
+  if (image.includes('product_bottle_28oz.jpg')) image = '/assets/product_bottle_white.jpg';
+  if (image.includes('product_lunch_vault.jpg')) image = '/assets/product_lunch_vault_white.jpg';
+  if (image.includes('product_flask_set.jpg')) image = '/assets/product_flask_white.jpg';
+  if (image.includes('product_pet_bowl.jpg')) image = '/assets/product_pet_bowl_white.jpg';
+
+  // Sanitize gallery
+  const gallery = (p.gallery && p.gallery.length > 0 ? p.gallery : [image]).map((img) => {
+    if (img.includes('hero_collab.jpg')) return '/assets/hero_white_luxury.jpg';
+    if (img.includes('editorial_craft_detail.jpg')) return '/assets/editorial_white_craft.jpg';
+    return img;
+  });
+
+  // Convert any legacy Desert Terracotta or #C86237 to Polar White
+  const colors = (p.colors || []).map((c) => {
+    if (c.name.toLowerCase().includes('terracotta') || c.hex.toLowerCase() === '#c86237') {
+      return {
+        name: 'Polar White',
+        hex: '#FFFFFF',
+        image: image || '/assets/product_jug_white.jpg',
+      };
+    }
+    return c;
+  });
+
+  const hasWhite = colors.some((c) => c.hex.toLowerCase() === '#ffffff');
+  const finalColors = hasWhite ? colors : [{ name: 'Polar White', hex: '#FFFFFF', image }, ...colors];
+
+  return {
+    ...p,
+    image,
+    gallery,
+    colors: finalColors,
+  };
+};
+
 const getLocalCustomProducts = (): Product[] | null => {
   if (typeof window === 'undefined') return null;
   try {
     const raw = localStorage.getItem('techxodia_custom_products');
     if (!raw) return null;
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      // If legacy brown items detected, clear them so current Polar White catalog loads
+      const hasLegacyBrown = parsed.some((p: Product) =>
+        p.subtitle?.toLowerCase().includes('terracotta') ||
+        p.colors?.some((c) => c.name.toLowerCase().includes('terracotta') || c.hex.toLowerCase() === '#c86237')
+      );
+      if (hasLegacyBrown) {
+        localStorage.removeItem('techxodia_custom_products');
+        return null;
+      }
+      return parsed.map(sanitizeProduct);
+    }
+    return null;
   } catch {
     return null;
   }
@@ -88,7 +139,7 @@ const getLocalCustomProducts = (): Product[] | null => {
  */
 export async function fetchProducts(): Promise<FetchProductsResult> {
   const supabase = getSupabaseClient();
-  const localProducts = getLocalCustomProducts() || INITIAL_PRODUCTS;
+  const localProducts = (getLocalCustomProducts() || INITIAL_PRODUCTS).map(sanitizeProduct);
 
   if (!supabase) {
     return {
@@ -114,7 +165,7 @@ export async function fetchProducts(): Promise<FetchProductsResult> {
     }
 
     if (data && data.length > 0) {
-      const mappedProducts: Product[] = data.map((item) => ({
+      const mappedProducts: Product[] = data.map((item) => sanitizeProduct({
         id: item.id || item.slug,
         slug: item.slug,
         name: item.name,
