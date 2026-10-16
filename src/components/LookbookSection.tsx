@@ -3,28 +3,28 @@ import { Camera } from 'lucide-react';
 
 const LOOKBOOK_ITEMS = [
   {
-    image: '/assets/hero_collab.jpg',
+    image: '/assets/hero_white_luxury.jpg',
     tag: 'CAMPAIGN 01',
-    title: 'THE CALM BEFORE THE ARENA',
-    description: 'Devin Booker with the 64oz Horizon Jug in desert terracotta.',
+    title: 'THE ARCHITECTURAL STILLNESS',
+    description: 'Polar white ceramic meets natural morning daylight and travertine.',
   },
   {
-    image: '/assets/editorial_craft_detail.jpg',
+    image: '/assets/editorial_white_craft.jpg',
     tag: 'CRAFTSMANSHIP',
     title: 'TEXTURE IN HARMONY',
-    description: 'Laser-etched emblem on baked ceramic powder-coat.',
+    description: 'Laser-etched Techxodia typography on pristine white ceramic coat.',
   },
   {
-    image: '/assets/product_lunch_vault.jpg',
+    image: '/assets/product_lunch_vault_white.jpg',
     tag: 'FIELD ARTIFACT',
-    title: 'COLD-ROLLED STEEL RIBS',
-    description: '10 QT Heritage Vault engineered for lifetime ruggedness.',
+    title: 'COLD-ROLLED STEEL VAULT',
+    description: '10 QT Heritage Vault in polar white powder coat and chrome latches.',
   },
   {
-    image: '/assets/product_bottle_28oz.jpg',
+    image: '/assets/product_bottle_white.jpg',
     tag: 'EVERYDAY COMMUTE',
-    title: 'SILENCE IN TRANSIT',
-    description: 'Slimline Wellspring Flask fits seamlessly into vehicle consoles.',
+    title: 'PURITY IN TRANSIT',
+    description: 'Matte chalk white commuter flask with stainless loop cap.',
   },
 ];
 
@@ -88,7 +88,7 @@ export const LookbookSection: React.FC = () => {
               lineHeight: 1.6,
             }}
           >
-            A visual study in desert architecture, high-stress athletic focus, and tactile metallurgy.
+            A visual study in minimalist architecture, pristine polar white metallurgy, and tactile purity.
           </p>
         </div>
 

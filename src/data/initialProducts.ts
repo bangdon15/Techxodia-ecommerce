@@ -5,22 +5,22 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'prod-001',
     slug: 'techxodia-horizon-flip-straw-jug-64oz',
     name: 'Techxodia | Horizon Flip-Straw Jug 2.0',
-    subtitle: 'Series 01 // Hidden In Plain Sight Edition',
+    subtitle: 'Series 01 // Polar White Edition',
     category: 'Hydration Vessels',
     price: 75.00,
     original_price: 85.00,
     rating: 4.9,
     reviews_count: 184,
-    image: '/assets/product_jug_64oz.jpg',
+    image: '/assets/product_jug_white.jpg',
     gallery: [
-      '/assets/product_jug_64oz.jpg',
+      '/assets/product_jug_white.jpg',
       '/assets/product_jug_obsidian.jpg',
       '/assets/product_jug_sandstone.jpg',
-      '/assets/hero_collab.jpg',
+      '/assets/hero_white_luxury.jpg',
       '/assets/editorial_craft_detail.jpg'
     ],
     colors: [
-      { name: 'Desert Terracotta', hex: '#C86237', image: '/assets/product_jug_64oz.jpg' },
+      { name: 'Polar White', hex: '#FFFFFF', image: '/assets/product_jug_white.jpg' },
       { name: 'Volcanic Obsidian', hex: '#1F2124', image: '/assets/product_jug_obsidian.jpg' },
       { name: 'Dune Sandstone', hex: '#D8CEBC', image: '/assets/product_jug_sandstone.jpg' }
     ],
@@ -33,7 +33,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { label: 'Safety', value: 'BPA-Free & Commercial Dishwasher Safe' }
     ],
     badge: 'LIMITED ARCHIVE DROP',
-    description: 'Engineered for long sessions in desert heat or demanding arena sidelines. The 64oz Horizon Jug balances heavyweight thermal barrier technology with fluid, single-handed ergonomics and custom baked terracotta matte finish.',
+    description: 'Engineered for long sessions in desert heat or demanding arena sidelines. The 64oz Horizon Jug balances heavyweight thermal barrier technology with fluid, single-handed ergonomics and custom baked polar white matte finish.',
     stock: 28,
     is_featured: true
   },
@@ -41,22 +41,22 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'prod-002',
     slug: 'techxodia-wellspring-thermal-flask-28oz',
     name: 'Techxodia x Series 01 Wellspring Flask',
-    subtitle: 'Sculpted Commuter Silhouette // Desert Clay',
+    subtitle: 'Sculpted Commuter Silhouette // Matte Chalk White',
     category: 'Hydration Vessels',
     price: 52.00,
     original_price: null,
     rating: 4.9,
     reviews_count: 112,
-    image: '/assets/product_bottle_28oz.jpg',
+    image: '/assets/product_bottle_white.jpg',
     gallery: [
-      '/assets/product_bottle_28oz.jpg',
+      '/assets/product_bottle_white.jpg',
       '/assets/product_bottle_obsidian.jpg',
       '/assets/editorial_craft_detail.jpg'
     ],
     colors: [
-      { name: 'Desert Terracotta', hex: '#C86237', image: '/assets/product_bottle_28oz.jpg' },
+      { name: 'Matte Chalk White', hex: '#FFFFFF', image: '/assets/product_bottle_white.jpg' },
       { name: 'Volcanic Obsidian', hex: '#1F2124', image: '/assets/product_bottle_obsidian.jpg' },
-      { name: 'Warm Travertine', hex: '#EFECE4', image: '/assets/product_bottle_28oz.jpg' }
+      { name: 'Warm Travertine', hex: '#EFECE4', image: '/assets/product_bottle_white.jpg' }
     ],
     capacity: '28 OZ / 0.82 L',
     specs: [
@@ -66,7 +66,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { label: 'Compatibility', value: 'Fits Standard Vehicle & Gym Consoles' }
     ],
     badge: 'MOST POPULAR',
-    description: 'Refined, tactile, and effortlessly portable. The 28oz Wellspring Flask features a minimalist cylindrical form with high-strength loop cap and silence-glide silicone foot.',
+    description: 'Refined, tactile, and effortlessly portable. The 28oz Wellspring Flask features a minimalist cylindrical form with high-strength loop cap and silence-glide silicone foot in satin chalk white.',
     stock: 42,
     is_featured: true
   },
@@ -74,20 +74,20 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'prod-003',
     slug: 'techxodia-heritage-field-lunch-vault-10qt',
     name: 'Techxodia Field Lunch Vault 10 QT',
-    subtitle: 'Heavy-Duty Modular Cooler Vault // Dual Tone',
+    subtitle: 'Heavy-Duty Modular Cooler Vault // Polar White & Steel',
     category: 'Field Gear',
     price: 155.00,
     original_price: 175.00,
     rating: 5.0,
     reviews_count: 67,
-    image: '/assets/product_lunch_vault.jpg',
+    image: '/assets/product_lunch_vault_white.jpg',
     gallery: [
-      '/assets/product_lunch_vault.jpg',
+      '/assets/product_lunch_vault_white.jpg',
       '/assets/product_lunch_vault_obsidian.jpg',
-      '/assets/hero_collab.jpg'
+      '/assets/hero_white_luxury.jpg'
     ],
     colors: [
-      { name: 'Terracotta & Matte Onyx', hex: '#C86237', image: '/assets/product_lunch_vault.jpg' },
+      { name: 'Polar White & Chrome', hex: '#FFFFFF', image: '/assets/product_lunch_vault_white.jpg' },
       { name: 'Stealth Charcoal', hex: '#272A30', image: '/assets/product_lunch_vault_obsidian.jpg' }
     ],
     capacity: '10 QT / 9.5 L',
@@ -98,7 +98,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { label: 'Insulation', value: 'Commercial Closed-Cell Foam Retention Core' }
     ],
     badge: 'COLLECTOR EDITION',
-    description: 'A brutalist tribute to classic American craftsmanship reimagined for modern utility. Features heavy-duty spring latches, custom lid brackets for securing Techxodia bottles, and high-impact structural corners.',
+    description: 'A brutalist tribute to classic American craftsmanship reimagined for modern utility. Features heavy-duty spring latches, custom lid brackets for securing Techxodia bottles, and high-impact structural corners in arctic white.',
     stock: 14,
     is_featured: true
   },
@@ -106,20 +106,20 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'prod-004',
     slug: 'techxodia-artisanal-pre-party-flask-set',
     name: 'Techxodia Pre-Party Flask + 4 Shot Glass Set',
-    subtitle: 'Numbered Pocket Spirit Kit // Gunmetal Accents',
+    subtitle: 'Numbered Pocket Spirit Kit // Satin Glacier White',
     category: 'Bar & Social',
     price: 58.00,
     original_price: null,
     rating: 4.8,
     reviews_count: 93,
-    image: '/assets/product_flask_set.jpg',
+    image: '/assets/product_flask_white.jpg',
     gallery: [
-      '/assets/product_flask_set.jpg',
+      '/assets/product_flask_white.jpg',
       '/assets/editorial_craft_detail.jpg'
     ],
     colors: [
-      { name: 'Desert Terracotta', hex: '#C86237', image: '/assets/product_flask_set.jpg' },
-      { name: 'Gunmetal Brushed', hex: '#4A4D52', image: '/assets/product_flask_set.jpg' }
+      { name: 'Satin Glacier White', hex: '#FFFFFF', image: '/assets/product_flask_white.jpg' },
+      { name: 'Gunmetal Brushed', hex: '#4A4D52', image: '/assets/product_flask_white.jpg' }
     ],
     capacity: '8 OZ Flask + 4x 2 OZ Shots',
     specs: [
@@ -128,7 +128,7 @@ export const INITIAL_PRODUCTS: Product[] = [
       { label: 'Cap Retention', value: 'Never-Lose Knurled Hinge Lanyard Cap' }
     ],
     badge: 'EXCLUSIVE',
-    description: 'The quintessential social companion. Features a textured pocket flask with knurled cap tether and 4 nesting stainless shot tumblers encased in a sleek matching transit tube.',
+    description: 'The quintessential social companion. Features a textured pocket flask with knurled cap tether and 4 nesting stainless shot tumblers encased in a sleek matching transit tube in glacier white.',
     stock: 35,
     is_featured: true
   },
@@ -136,19 +136,19 @@ export const INITIAL_PRODUCTS: Product[] = [
     id: 'prod-005',
     slug: 'techxodia-oasis-weighted-pet-bowl-24oz',
     name: 'Techxodia Oasis Weighted Pet Bowl',
-    subtitle: 'Weighted Non-Tip Stainless Ceramic Dish // 24 OZ',
+    subtitle: 'Weighted Non-Tip Stainless Ceramic Dish // Polar White',
     category: 'Field Gear',
     price: 42.00,
     original_price: null,
     rating: 4.9,
     reviews_count: 81,
-    image: '/assets/product_pet_bowl.jpg',
+    image: '/assets/product_pet_bowl_white.jpg',
     gallery: [
-      '/assets/product_pet_bowl.jpg'
+      '/assets/product_pet_bowl_white.jpg'
     ],
     colors: [
-      { name: 'Desert Terracotta', hex: '#C86237', image: '/assets/product_pet_bowl.jpg' },
-      { name: 'Sand Dune', hex: '#D8CEBC', image: '/assets/product_pet_bowl.jpg' }
+      { name: 'Polar White', hex: '#FFFFFF', image: '/assets/product_pet_bowl_white.jpg' },
+      { name: 'Sand Dune', hex: '#D8CEBC', image: '/assets/product_pet_bowl_white.jpg' }
     ],
     capacity: '24 OZ / 0.7 L',
     specs: [

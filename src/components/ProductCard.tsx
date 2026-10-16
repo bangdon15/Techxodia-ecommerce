@@ -17,7 +17,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({
   onQuickView,
 }) => {
   const [selectedColor, setSelectedColor] = useState<ProductColor>(
-    product.colors[0] || { name: 'Standard', hex: '#C86237' }
+    product.colors[0] || { name: 'Polar White', hex: '#FFFFFF' }
   );
   const [isHovered, setIsHovered] = useState(false);
   const [imageKey, setImageKey] = useState(0);

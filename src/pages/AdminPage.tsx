@@ -238,10 +238,10 @@ export const AdminPage: React.FC<AdminPageProps> = ({
       original_price: 75,
       rating: 5.0,
       reviews_count: 1,
-      image: '/assets/product_jug_64oz.jpg',
-      gallery: ['/assets/product_jug_64oz.jpg'],
+      image: '/assets/product_jug_white.jpg',
+      gallery: ['/assets/product_jug_white.jpg'],
       colors: [
-        { name: 'Desert Terracotta', hex: '#C86237', image: '/assets/product_jug_64oz.jpg' },
+        { name: 'Polar White', hex: '#FFFFFF', image: '/assets/product_jug_white.jpg' },
         { name: 'Volcanic Obsidian', hex: '#1F2124', image: '/assets/product_jug_obsidian.jpg' },
         { name: 'Dune Sandstone', hex: '#D8CEBC', image: '/assets/product_jug_sandstone.jpg' },
       ],
@@ -1005,7 +1005,7 @@ CREATE POLICY "Allow All" ON public.products FOR ALL USING (true);`}</pre>
                         onClick={() => {
                           const next = [
                             ...editingProduct.colors,
-                            { name: 'New Color', hex: '#C86237', image: editingProduct.image },
+                            { name: 'Polar White Finish', hex: '#FFFFFF', image: editingProduct.image },
                           ];
                           setEditingProduct({ ...editingProduct, colors: next });
                         }}

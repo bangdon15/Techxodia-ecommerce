@@ -3,39 +3,33 @@ import { getSupabaseClient } from './supabase';
 
 export const WALLPAPER_PRESETS = [
   {
-    id: 'desert_dusk',
-    name: 'Desert Modernist Dusk (Default)',
-    url: '/assets/hero_collab.jpg',
-    accent: '#C86237',
-  },
-  {
-    id: 'volcanic_stealth',
-    name: 'Volcanic Obsidian Dark',
-    url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=2000&q=85',
-    accent: '#E07A5F',
+    id: 'white_luxury',
+    name: 'Architectural Polar White (Default)',
+    url: '/assets/hero_white_luxury.jpg',
+    accent: '#000000',
   },
   {
     id: 'nordic_concrete',
     name: 'Brutalist Architectural Concrete',
     url: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85',
-    accent: '#D8CEBC',
+    accent: '#000000',
   },
   {
     id: 'warm_travertine',
     name: 'Warm Travertine Minimal',
     url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=2000&q=85',
-    accent: '#B34E26',
+    accent: '#000000',
   },
 ];
 
 export const DEFAULT_STORE_SETTINGS: StoreSettings = {
   storeName: 'TECHXODIA',
   storeTagline: 'SERIES 01 // ARCHIVE',
-  heroWallpaper: '/assets/hero_collab.jpg',
-  heroWallpaperPreset: 'desert_dusk',
+  heroWallpaper: '/assets/hero_white_luxury.jpg',
+  heroWallpaperPreset: 'white_luxury',
   heroHeadline: 'DESIGNED FOR CALM IN THE CLAMOR.',
-  heroSubtitle: 'Crafted at the intersection of quiet luxury and relentless thermal utility. Wrapped in baked desert terracotta ceramic and dual-barrier recycled stainless steel.',
-  heroBadge: 'TECHXODIA × SIGNATURE ARCHIVE // LIMITED RUN 001',
+  heroSubtitle: 'Crafted at the intersection of quiet luxury and relentless thermal utility. Wrapped in baked polar white ceramic and dual-barrier recycled stainless steel.',
+  heroBadge: 'TECHXODIA × SIGNATURE ARCHIVE // POLAR WHITE DROP 001',
   accentColor: '#000000',
   announcementText: 'COMPLIMENTARY EXPRESS GLOBAL SHIPPING OVER $75 • LIMITED DROP 001',
   freeShippingThreshold: 75,

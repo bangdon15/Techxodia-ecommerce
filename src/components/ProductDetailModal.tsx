@@ -22,7 +22,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   if (!product) return null;
 
   const [selectedColor, setSelectedColor] = useState<ProductColor>(
-    initialColor || product.colors[0] || { name: 'Standard', hex: '#C86237' }
+    initialColor || product.colors[0] || { name: 'Polar White', hex: '#FFFFFF' }
   );
   const [activeImage, setActiveImage] = useState<string>(
     initialColor?.image || product.colors[0]?.image || product.image
@@ -33,7 +33,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
 
   useEffect(() => {
     if (product) {
-      const color = initialColor || product.colors[0] || { name: 'Standard', hex: '#C86237' };
+      const color = initialColor || product.colors[0] || { name: 'Polar White', hex: '#FFFFFF' };
       setSelectedColor(color);
       setActiveImage(color.image || product.image);
       setQuantity(1);

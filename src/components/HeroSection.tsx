@@ -12,11 +12,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   onCraftClick,
   storeSettings,
 }) => {
-  const wallpaperUrl = storeSettings?.heroWallpaper || '/assets/hero_collab.jpg';
+  const wallpaperUrl = storeSettings?.heroWallpaper || '/assets/hero_white_luxury.jpg';
   const badgeText = storeSettings?.heroBadge || 'TECHXODIA × SIGNATURE ARCHIVE // LIMITED RUN 001';
   const headlineText = storeSettings?.heroHeadline || 'DESIGNED FOR CALM IN THE CLAMOR.';
   const subtitleText = storeSettings?.heroSubtitle ||
-    'Crafted at the intersection of quiet luxury and relentless thermal utility. Wrapped in baked desert terracotta ceramic and dual-barrier recycled stainless steel—engineered for everyday rituals and high-stakes performance.';
+    'Crafted at the intersection of quiet luxury and relentless thermal utility. Wrapped in baked polar white ceramic and dual-barrier recycled stainless steel—engineered for everyday rituals and high-stakes performance.';
 
   return (
     <section
@@ -27,10 +27,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
         display: 'flex',
         alignItems: 'center',
         overflow: 'hidden',
-        backgroundColor: '#0C0D0F',
+        backgroundColor: '#FFFFFF',
       }}
     >
-      {/* Background Hero Image with Film Grain Gradient Overlay */}
+      {/* Background Hero Image with Natural Daylight */}
       <div
         style={{
           position: 'absolute',
@@ -40,13 +40,13 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           bottom: 0,
           backgroundImage: `url(${wallpaperUrl})`,
           backgroundSize: 'cover',
-          backgroundPosition: 'center 35%',
-          opacity: 0.85,
+          backgroundPosition: 'center right',
+          opacity: 0.95,
           transition: 'background-image 0.5s ease',
         }}
       />
 
-      {/* Luxury Cinematic Vignette & Gradients */}
+      {/* Luxury Minimalist Architectural Vignette & Light Diffusion */}
       <div
         style={{
           position: 'absolute',
@@ -55,8 +55,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           right: 0,
           bottom: 0,
           background: `
-            linear-gradient(180deg, rgba(12, 13, 15, 0.75) 0%, rgba(12, 13, 15, 0.4) 40%, rgba(12, 13, 15, 0.95) 100%),
-            linear-gradient(90deg, rgba(12, 13, 15, 0.92) 0%, rgba(12, 13, 15, 0.6) 50%, rgba(12, 13, 15, 0.2) 100%)
+            linear-gradient(90deg, rgba(255, 255, 255, 0.97) 0%, rgba(255, 255, 255, 0.88) 45%, rgba(255, 255, 255, 0.35) 75%, rgba(255, 255, 255, 0.05) 100%),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, transparent 40%, rgba(255, 255, 255, 0.85) 100%)
           `,
         }}
       />
@@ -81,22 +81,22 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               alignItems: 'center',
               gap: '0.6rem',
               marginBottom: '1.4rem',
-              backgroundColor: '#FFFFFF',
-              border: '1px solid #FFFFFF',
+              backgroundColor: '#000000',
+              border: '1px solid #000000',
               padding: '0.45rem 0.95rem',
               borderRadius: 'var(--radius-xs)',
-              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.2)',
+              boxShadow: '0 4px 15px rgba(0, 0, 0, 0.08)',
               maxWidth: '100%',
             }}
           >
-            <Flame size={14} style={{ color: '#000000', flexShrink: 0 }} />
+            <Flame size={14} style={{ color: '#FFFFFF', flexShrink: 0 }} />
             <span
               style={{
                 fontFamily: 'var(--font-display)',
                 fontSize: 'clamp(0.64rem, 2.8vw, 0.74rem)',
                 fontWeight: 900,
                 letterSpacing: '0.14em',
-                color: '#000000',
+                color: '#FFFFFF',
                 textTransform: 'uppercase',
                 wordBreak: 'break-word',
               }}
@@ -109,12 +109,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <h1
             className="hero-title-text"
             style={{
-              fontSize: 'clamp(2rem, 5.8vw, 4.8rem)',
+              fontSize: 'clamp(2.2rem, 5.8vw, 4.8rem)',
               fontWeight: 900,
               lineHeight: 1.05,
               letterSpacing: '-0.02em',
               textTransform: 'uppercase',
-              color: '#FFFFFF',
+              color: '#000000',
               marginBottom: '1.4rem',
               wordBreak: 'break-word',
               overflowWrap: 'break-word',
@@ -127,13 +127,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <p
             className="hero-subtitle-text"
             style={{
-              fontSize: 'clamp(0.9rem, 1.3vw, 1.2rem)',
-              color: '#E4E4E7',
+              fontSize: 'clamp(0.95rem, 1.3vw, 1.2rem)',
+              color: '#3F3F46',
               lineHeight: 1.6,
               marginBottom: '2.4rem',
               maxWidth: '640px',
               fontWeight: 400,
-              textShadow: '0 2px 10px rgba(0,0,0,0.6)',
               wordBreak: 'break-word',
             }}
           >
@@ -156,9 +155,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               className="btn-primary hero-cta-btn"
               style={{
                 minWidth: '200px',
-                backgroundColor: '#FFFFFF',
-                color: '#000000',
-                borderColor: '#FFFFFF',
+                backgroundColor: '#000000',
+                color: '#FFFFFF',
+                borderColor: '#000000',
               }}
             >
               <span>SHOP THE DROP</span>
@@ -169,9 +168,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               className="btn-secondary hero-cta-btn"
               style={{
                 minWidth: '180px',
-                backgroundColor: 'transparent',
-                color: '#FFFFFF',
-                borderColor: 'rgba(255, 255, 255, 0.7)',
+                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                color: '#000000',
+                borderColor: '#000000',
+                backdropFilter: 'blur(8px)',
               }}
             >
               DISCOVER CRAFT
@@ -186,7 +186,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               gridTemplateColumns: 'repeat(auto-fit, minmax(115px, 1fr))',
               gap: '1.2rem',
               maxWidth: '650px',
-              borderTop: '1px solid rgba(255, 255, 255, 0.2)',
+              borderTop: '1px solid #E4E4E7',
               paddingTop: '1.5rem',
             }}
           >
@@ -195,8 +195,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.35rem',
-                  fontWeight: 800,
-                  color: '#FFFFFF',
+                  fontWeight: 900,
+                  color: '#000000',
                   letterSpacing: '0.04em',
                 }}
               >
@@ -205,9 +205,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <span
                 style={{
                   fontSize: '0.72rem',
-                  color: 'var(--color-text-secondary)',
+                  color: '#71717A',
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
+                  fontWeight: 600,
                 }}
               >
                 Sub-Zero TempLock™
@@ -219,8 +220,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.35rem',
-                  fontWeight: 800,
-                  color: '#FFFFFF',
+                  fontWeight: 900,
+                  color: '#000000',
                   letterSpacing: '0.04em',
                 }}
               >
@@ -229,9 +230,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <span
                 style={{
                   fontSize: '0.72rem',
-                  color: 'var(--color-text-secondary)',
+                  color: '#71717A',
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
+                  fontWeight: 600,
                 }}
               >
                 90% Recycled Metal
@@ -243,8 +245,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.35rem',
-                  fontWeight: 800,
-                  color: '#FFFFFF',
+                  fontWeight: 900,
+                  color: '#000000',
                   letterSpacing: '0.04em',
                 }}
               >
@@ -253,9 +255,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <span
                 style={{
                   fontSize: '0.72rem',
-                  color: 'var(--color-text-secondary)',
+                  color: '#71717A',
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
+                  fontWeight: 600,
                 }}
               >
                 Leakproof Flip Cap
@@ -267,8 +270,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 style={{
                   fontFamily: 'var(--font-display)',
                   fontSize: '1.35rem',
-                  fontWeight: 800,
-                  color: '#FFFFFF',
+                  fontWeight: 900,
+                  color: '#000000',
                   letterSpacing: '0.04em',
                 }}
               >
@@ -277,9 +280,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               <span
                 style={{
                   fontSize: '0.72rem',
-                  color: 'var(--color-text-secondary)',
+                  color: '#71717A',
                   letterSpacing: '0.08em',
                   textTransform: 'uppercase',
+                  fontWeight: 600,
                 }}
               >
                 Product Guarantee

@@ -89,7 +89,7 @@ export const ProductGrid: React.FC<ProductGridProps> = ({
             }}
           >
             Inspired by quiet confidence and architectural discipline. Every item is
-            vacuum-sealed, laser-inscribed, and finished in bespoke monochrome & desert earth tones.
+            vacuum-sealed, laser-inscribed, and finished in bespoke polar white ceramic & aerospace-grade stainless steel.
           </p>
         </div>
 
